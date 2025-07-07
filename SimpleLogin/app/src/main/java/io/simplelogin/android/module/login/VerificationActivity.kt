@@ -65,7 +65,7 @@ class VerificationActivity : BaseAppCompatActivity(), Window.Callback {
     override fun onPause() {
         super.onPause()
         if (isFinishing) {
-            overridePendingTransition(R.anim.stay_still, R.anim.slide_out_down)
+            overridePendingTransition(R.anim.screen_pop_enter_anim, R.anim.screen_pop_exit_anim)
         }
     }
 

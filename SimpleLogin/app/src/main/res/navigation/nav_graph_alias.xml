@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/home_nav_graph"
     app:startDestination="@id/aliasListFragment">
 
@@ -12,24 +11,24 @@
         <action
             android:id="@+id/action_aliasFragment_to_contactListFragment"
             app:destination="@id/contactListFragment"
-            app:enterAnim="@anim/enter_anim_slide_in_from_right"
-            app:exitAnim="@anim/exit_anim_slide_out_to_left"
-            app:popEnterAnim="@anim/pop_enter_anim_slide_in_from_left"
-            app:popExitAnim="@anim/pop_exit_anim_slide_out_to_right" />
+            app:enterAnim="@anim/screen_enter_anim"
+            app:exitAnim="@anim/screen_exit_anim"
+            app:popEnterAnim="@anim/screen_pop_enter_anim"
+            app:popExitAnim="@anim/screen_pop_exit_anim" />
         <action
             android:id="@+id/action_aliasListFragment_to_aliasActivityListFragment"
             app:destination="@id/aliasActivityListFragment"
-            app:enterAnim="@anim/enter_anim_slide_in_from_right"
-            app:exitAnim="@anim/exit_anim_slide_out_to_left"
-            app:popEnterAnim="@anim/pop_enter_anim_slide_in_from_left"
-            app:popExitAnim="@anim/pop_exit_anim_slide_out_to_right" />
+            app:enterAnim="@anim/screen_enter_anim"
+            app:exitAnim="@anim/screen_exit_anim"
+            app:popEnterAnim="@anim/screen_pop_enter_anim"
+            app:popExitAnim="@anim/screen_pop_exit_anim" />
         <action
             android:id="@+id/action_aliasListFragment_to_aliasSearchFragment"
             app:destination="@id/aliasSearchFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" >
+            app:popExitAnim="@anim/nav_default_pop_exit_anim">
             <argument
                 android:name="searchMode"
                 app:argType="io.simplelogin.android.module.alias.search.AliasSearchMode" />
@@ -37,17 +36,17 @@
         <action
             android:id="@+id/action_aliasListFragment_to_aliasCreateFragment"
             app:destination="@id/aliasCreateFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:enterAnim="@anim/screen_enter_anim"
+            app:exitAnim="@anim/screen_exit_anim"
+            app:popEnterAnim="@anim/screen_pop_enter_anim"
+            app:popExitAnim="@anim/screen_pop_exit_anim" />
         <action
             android:id="@+id/action_aliasListFragment_to_webViewFragment"
             app:destination="@id/webViewFragment"
-            app:enterAnim="@anim/enter_anim_slide_in_from_right"
-            app:exitAnim="@anim/exit_anim_slide_out_to_left"
-            app:popEnterAnim="@anim/pop_enter_anim_slide_in_from_left"
-            app:popExitAnim="@anim/pop_exit_anim_slide_out_to_right" />
+            app:enterAnim="@anim/screen_enter_anim"
+            app:exitAnim="@anim/screen_exit_anim"
+            app:popEnterAnim="@anim/screen_pop_enter_anim"
+            app:popExitAnim="@anim/screen_pop_exit_anim" />
         <action
             android:id="@+id/action_aliasListFragment_to_aliasPickerFragment"
             app:destination="@id/aliasPickerFragment"
@@ -59,7 +58,7 @@
     <fragment
         android:id="@+id/contactListFragment"
         android:name="io.simplelogin.android.module.alias.contact.ContactListFragment"
-        android:label="ContactListFragment" >
+        android:label="ContactListFragment">
         <argument
             android:name="alias"
             app:argType="io.simplelogin.android.utils.model.Alias" />
@@ -67,7 +66,7 @@
     <fragment
         android:id="@+id/aliasActivityListFragment"
         android:name="io.simplelogin.android.module.alias.activity.AliasActivityListFragment"
-        android:label="AliasActivityListFragment" >
+        android:label="AliasActivityListFragment">
         <argument
             android:name="alias"
             app:argType="io.simplelogin.android.utils.model.Alias" />
@@ -79,17 +78,17 @@
         <action
             android:id="@+id/action_aliasSearchFragment_to_contactListFragment"
             app:destination="@id/contactListFragment"
-            app:enterAnim="@anim/enter_anim_slide_in_from_right"
-            app:exitAnim="@anim/exit_anim_slide_out_to_left"
-            app:popEnterAnim="@anim/pop_enter_anim_slide_in_from_left"
-            app:popExitAnim="@anim/pop_exit_anim_slide_out_to_right" />
+            app:enterAnim="@anim/screen_enter_anim"
+            app:exitAnim="@anim/screen_exit_anim"
+            app:popEnterAnim="@anim/screen_pop_enter_anim"
+            app:popExitAnim="@anim/screen_pop_exit_anim" />
         <action
             android:id="@+id/action_aliasSearchFragment_to_aliasActivityListFragment"
             app:destination="@id/aliasActivityListFragment"
-            app:enterAnim="@anim/enter_anim_slide_in_from_right"
-            app:exitAnim="@anim/exit_anim_slide_out_to_left"
-            app:popEnterAnim="@anim/pop_enter_anim_slide_in_from_left"
-            app:popExitAnim="@anim/pop_exit_anim_slide_out_to_right" />
+            app:enterAnim="@anim/screen_enter_anim"
+            app:exitAnim="@anim/screen_exit_anim"
+            app:popEnterAnim="@anim/screen_pop_enter_anim"
+            app:popExitAnim="@anim/screen_pop_exit_anim" />
         <argument
             android:name="searchMode"
             app:argType="io.simplelogin.android.module.alias.search.AliasSearchMode" />
@@ -97,7 +96,7 @@
     <fragment
         android:id="@+id/aliasCreateFragment"
         android:name="io.simplelogin.android.module.alias.create.AliasCreateFragment"
-        android:label="AliasCreateFragment" >
+        android:label="AliasCreateFragment">
         <argument
             android:name="isMailFromAlias"
             app:argType="boolean" />
@@ -105,7 +104,7 @@
     <fragment
         android:id="@+id/webViewFragment"
         android:name="io.simplelogin.android.module.about.WebViewFragment"
-        android:label="WebViewFragment" >
+        android:label="WebViewFragment">
         <argument
             android:name="url"
             app:argType="string" />
@@ -113,14 +112,14 @@
     <fragment
         android:id="@+id/aliasPickerFragment"
         android:name="io.simplelogin.android.module.alias.picker.AliasPickerFragment"
-        android:label="AliasPickerFragment" >
+        android:label="AliasPickerFragment">
         <action
             android:id="@+id/action_aliasPickerFragment_to_aliasSearchFragment"
             app:destination="@id/aliasSearchFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" >
+            app:popExitAnim="@anim/nav_default_pop_exit_anim">
             <argument
                 android:name="searchMode"
                 app:argType="io.simplelogin.android.module.alias.search.AliasSearchMode" />

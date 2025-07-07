@@ -3,7 +3,6 @@ package io.simplelogin.android.module.login
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
@@ -120,7 +119,7 @@ class LoginActivity : BaseAppCompatActivity() {
         binding.signUpButton.setOnClickListener {
             val signUpIntent = Intent(this, SignUpActivity::class.java)
             startActivityForResult(signUpIntent, RC_SIGN_UP)
-            overridePendingTransition(R.anim.slide_in_up, R.anim.stay_still)
+            overridePendingTransition(R.anim.screen_enter_anim, R.anim.screen_exit_anim)
         }
 
         // Forgot password
@@ -140,7 +139,7 @@ class LoginActivity : BaseAppCompatActivity() {
         binding.aboutUsTextView.setOnClickListener {
             val aboutActivityIntent = Intent(this, AboutActivity::class.java)
             startActivity(aboutActivityIntent)
-            overridePendingTransition(R.anim.slide_in_up, R.anim.stay_still)
+            overridePendingTransition(R.anim.screen_enter_anim, R.anim.screen_exit_anim)
         }
 
         binding.root.setOnClickListener { dismissKeyboard() }
@@ -478,7 +477,7 @@ class LoginActivity : BaseAppCompatActivity() {
         intent.putExtra(HomeActivity.USER_INFO, userInfo)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
-        overridePendingTransition(R.anim.slide_in_up, R.anim.stay_still)
+        overridePendingTransition(R.anim.screen_enter_anim, R.anim.screen_exit_anim)
         finish()
     }
 
@@ -523,6 +522,6 @@ class LoginActivity : BaseAppCompatActivity() {
             }
         }
 
-        overridePendingTransition(R.anim.slide_in_up, R.anim.stay_still)
+        overridePendingTransition(R.anim.screen_enter_anim, R.anim.screen_exit_anim)
     }
 }

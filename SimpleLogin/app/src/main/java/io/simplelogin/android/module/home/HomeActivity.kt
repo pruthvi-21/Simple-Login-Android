@@ -25,7 +25,6 @@ import io.simplelogin.android.module.about.AboutFragment
 import io.simplelogin.android.module.settings.SettingsFragment
 import io.simplelogin.android.module.settings.view.AvatarView
 import io.simplelogin.android.module.startup.StartupActivity
-import io.simplelogin.android.utils.SLApiService
 import io.simplelogin.android.utils.SLSharedPreferences
 import io.simplelogin.android.utils.baseclass.BaseAppCompatActivity
 import io.simplelogin.android.utils.extension.getVersionName
@@ -107,7 +106,7 @@ class HomeActivity : BaseAppCompatActivity(), NavigationView.OnNavigationItemSel
     override fun onPause() {
         super.onPause()
         if (isFinishing) {
-            overridePendingTransition(R.anim.stay_still, R.anim.slide_out_down)
+            overridePendingTransition(R.anim.screen_pop_enter_anim, R.anim.screen_pop_exit_anim)
         }
     }
 

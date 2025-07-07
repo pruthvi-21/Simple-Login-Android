@@ -50,13 +50,13 @@ class StartupActivity : BaseAppCompatActivity() {
     private fun startLoginActivity() {
         val intent = Intent(this, LoginActivity::class.java)
         startActivityForResult(intent, RC_LOGIN_ACTIVITY)
-        overridePendingTransition(R.anim.slide_in_up, R.anim.stay_still)
+        overridePendingTransition(R.anim.screen_enter_anim, R.anim.screen_exit_anim)
     }
 
     private fun startLocalAuthActivity() {
         val intent = Intent(this, LocalAuthActivity::class.java)
         startActivityForResult(intent, RC_LOCAL_AUTH_ACTIVITY)
-        overridePendingTransition(R.anim.slide_in_up, R.anim.stay_still)
+        overridePendingTransition(R.anim.screen_enter_anim, R.anim.screen_exit_anim)
     }
 
     private fun startHomeActivity(userInfo: UserInfo) {
@@ -64,7 +64,7 @@ class StartupActivity : BaseAppCompatActivity() {
         intent.putExtra(HomeActivity.USER_INFO, userInfo)
         getMailToFromIntent()?.to.let { intent.putExtra(HomeActivity.EMAIL, it) }
         startActivityForResult(intent, RC_HOME_ACTIVITY)
-        overridePendingTransition(R.anim.slide_in_up, R.anim.stay_still)
+        overridePendingTransition(R.anim.screen_enter_anim, R.anim.screen_exit_anim)
     }
 
     private fun fetchUserInfoAndProceed() {
