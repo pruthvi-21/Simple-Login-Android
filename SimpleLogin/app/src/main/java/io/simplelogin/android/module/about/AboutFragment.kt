@@ -123,5 +123,5 @@ class AboutFragment : BaseFragment(), HomeActivity.OnBackPressed {
     }
 
     // HomeActivity.OnBackPressed
-    override fun onBackPressed() = finishOrNavigateUp()
+    override fun onBackPressed() {}
 }
