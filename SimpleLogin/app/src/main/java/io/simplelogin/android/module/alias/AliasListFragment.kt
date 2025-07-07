@@ -382,5 +382,7 @@ class AliasListFragment :
     }
 
     // HomeActivity.OnBackPressed
-    override fun onBackPressed() = showLeftMenu()
+    override fun onBackPressed() {
+//        showLeftMenu()
+    }
 }
