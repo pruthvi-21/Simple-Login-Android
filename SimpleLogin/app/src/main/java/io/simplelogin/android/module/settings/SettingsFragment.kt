@@ -313,7 +313,6 @@ class SettingsFragment : BaseFragment(), HomeActivity.OnBackPressed {
 
     // HomeActivity.OnBackPressed
     override fun onBackPressed() {
-        showLeftMenu()
     }
 
     // Registers a photo picker activity launcher in single-select mode.
