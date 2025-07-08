@@ -6,7 +6,6 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -17,7 +16,12 @@ import io.simplelogin.android.module.home.HomeActivity
 import io.simplelogin.android.utils.SLApiService
 import io.simplelogin.android.utils.SLSharedPreferences
 import io.simplelogin.android.utils.baseclass.BaseFragment
-import io.simplelogin.android.utils.extension.*
+import io.simplelogin.android.utils.extension.dismissKeyboard
+import io.simplelogin.android.utils.extension.isValidEmailPrefix
+import io.simplelogin.android.utils.extension.showSelectMailboxesAlert
+import io.simplelogin.android.utils.extension.toastError
+import io.simplelogin.android.utils.extension.toastShortly
+import io.simplelogin.android.utils.extension.toastThrowable
 import io.simplelogin.android.utils.model.Alias
 import io.simplelogin.android.utils.model.toSpannableString
 
@@ -130,19 +134,10 @@ class AliasCreateFragment : BaseFragment(), HomeActivity.OnBackPressed {
     }
 
     private fun setUpSuffixesSpinner(suffixes: List<String>) {
-        binding.suffixesSpinner.adapter = AliasCreateSpinnerAdapter(requireContext(), suffixes)
-        binding.suffixesSpinner.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onNothingSelected(parent: AdapterView<*>?) = Unit
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long
-                ) {
-                    selectedSuffix = suffixes[position]
-                }
-            }
+        binding.suffixesDropdown.setAdapter(AliasCreateSpinnerAdapter(requireContext(), suffixes))
+        binding.suffixesDropdown.setOnItemClickListener { _, _, position, _ ->
+            selectedSuffix = suffixes[position]
+        }
     }
 
     private fun setLoading(loading: Boolean) {

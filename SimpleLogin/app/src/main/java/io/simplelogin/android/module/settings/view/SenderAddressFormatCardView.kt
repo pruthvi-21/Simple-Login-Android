@@ -5,14 +5,14 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.BaseAdapter
+import android.widget.ArrayAdapter
 import android.widget.RelativeLayout
-import androidx.core.content.ContextCompat
+import android.widget.TextView
 import io.simplelogin.android.databinding.LayoutSenderAddressFormatCardViewBinding
-import io.simplelogin.android.databinding.SpinnerRowTextOnlyBinding
 import io.simplelogin.android.utils.enums.SenderFormat
-import io.simplelogin.android.utils.enums.SenderFormat.*
+import io.simplelogin.android.utils.enums.SenderFormat.A
+import io.simplelogin.android.utils.enums.SenderFormat.AT
+
 
 class SenderAddressFormatCardView : RelativeLayout {
     // Initializer
@@ -22,61 +22,42 @@ class SenderAddressFormatCardView : RelativeLayout {
 
     private val binding = LayoutSenderAddressFormatCardViewBinding.inflate(LayoutInflater.from(context), this, true)
 
-    init {
-        background = ContextCompat.getDrawable(context, android.R.color.transparent)
-    }
-
     private val senderFormats = listOf(A, AT)
 
     // Functions
     fun bind(senderFormat: SenderFormat) {
-        binding.senderAddressFormatSpinner.adapter = SenderAddressFormatSpinnerAdapter(context, senderFormats)
-        binding.senderAddressFormatSpinner.setSelection(senderFormats.indexOfFirst { it == senderFormat })
+        binding.senderAddressFormatDropdown.setAdapter(
+            SenderAddressFormatSpinnerAdapter(context, senderFormats)
+        )
+        binding.senderAddressFormatDropdown.setText(senderFormat.description, false)
     }
 
     fun setSenderAddressFormatSpinnerSelectionListener(listener: (SenderFormat) -> Unit) {
-        val senderAddressFormatSpinnerAdapter = binding.senderAddressFormatSpinner.adapter ?: return
-        binding.senderAddressFormatSpinner.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onNothingSelected(p0: AdapterView<*>?) = Unit
-
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long
-                ) {
-                    val selectedSenderFormat = senderAddressFormatSpinnerAdapter.getItem(position) as SenderFormat
-                    listener(selectedSenderFormat)
-                }
-            }
+        binding.senderAddressFormatDropdown.setOnItemClickListener { _, _, position, _ ->
+            val selectedSenderFormat = senderFormats[position]
+            binding.senderAddressFormatDropdown.setText(selectedSenderFormat.description, false)
+            listener(selectedSenderFormat)
+        }
     }
 }
 
 class SenderAddressFormatSpinnerAdapter(
-    private val context: Context,
-    private val senderFormats: List<SenderFormat>
-) : BaseAdapter() {
+    context: Context,
+    private val senderFormats: List<SenderFormat>,
+) : ArrayAdapter<SenderFormat>(context, android.R.layout.simple_spinner_dropdown_item) {
     override fun getCount() = senderFormats.size
     override fun getItem(position: Int) = senderFormats[position]
     override fun getItemId(position: Int) = position.toLong()
 
-    override fun getView(
-        position: Int,
-        convertView: View?,
-        parent: ViewGroup?
-    ): View {
-        val view: View
-        val binding: SpinnerRowTextOnlyBinding
-        if (convertView == null) {
-            binding = SpinnerRowTextOnlyBinding.inflate(LayoutInflater.from(context), parent, false)
-            view = binding.root
-            view.tag = binding
-        } else {
-            view = convertView
-            binding = convertView.tag as SpinnerRowTextOnlyBinding
-        }
-        binding.textView.text = getItem(position).description
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+        val view = super.getView(position, convertView, parent) as TextView
+        view.text = getItem(position).description
+        return view
+    }
+
+    override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
+        val view = super.getDropDownView(position, convertView, parent) as TextView
+        view.text = getItem(position).description
         return view
     }
 }

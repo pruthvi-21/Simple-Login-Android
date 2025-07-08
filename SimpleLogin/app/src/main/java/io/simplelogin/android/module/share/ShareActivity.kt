@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.widget.AdapterView
 import android.widget.TextView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import io.simplelogin.android.databinding.FragmentAliasCreateBinding
@@ -135,19 +134,10 @@ class ShareActivity : BaseAppCompatActivity() {
     }
 
     private fun setUpSuffixesSpinner(suffixes: List<String>) {
-        binding.suffixesSpinner.adapter = AliasCreateSpinnerAdapter(this, suffixes)
-        binding.suffixesSpinner.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onNothingSelected(parent: AdapterView<*>?) = Unit
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long
-                ) {
-                    selectedSuffix = suffixes[position]
-                }
-            }
+        binding.suffixesDropdown.setAdapter(AliasCreateSpinnerAdapter(this, suffixes))
+        binding.suffixesDropdown.setOnItemClickListener { _, _, position, _ ->
+            selectedSuffix = suffixes[position]
+        }
     }
 
     private fun fillPrefix() {

@@ -31,6 +31,12 @@
         <item name="boxBackgroundColor">?colorSurfaceContainer</item>
     </style>
 
+    <style name="SlTextInputDropdownStyle" parent="Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="boxStrokeColor">#0000</item>
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxBackgroundColor">?colorSurfaceContainer</item>
+    </style>
+
     <style name="SlSettingsItemTitle">
         <item name="android:textAppearance">?attr/textAppearanceListItem</item>
         <item name="singleLine">true</item>

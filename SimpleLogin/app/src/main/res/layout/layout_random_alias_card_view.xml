@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,14 +24,19 @@
             android:layout_marginBottom="5dp"
             android:text="@string/random_alias_explication" />
 
-        <Spinner
-            android:id="@+id/random_mode_spinner"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/SlTextInputDropdownStyle"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginBottom="18dp"
-            android:backgroundTint="?colorPrimary"
-            android:spinnerMode="dropdown" />
+            android:layout_height="wrap_content">
+
+            <AutoCompleteTextView
+                android:id="@+id/random_mode_dropdown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:cursorVisible="false"
+                android:inputType="none"
+                tools:ignore="LabelFor" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             style="@style/SlSettingsItemSummary"
@@ -40,14 +46,22 @@
             android:layout_marginBottom="5dp"
             android:text="@string/domain_for_random_alias" />
 
-        <Spinner
-            android:id="@+id/default_domain_spinner"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/SlTextInputDropdownStyle"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginBottom="18dp"
-            android:backgroundTint="?colorPrimary"
-            android:spinnerMode="dropdown" />
+            android:layout_height="wrap_content">
+
+            <AutoCompleteTextView
+                android:id="@+id/default_domain_dropdown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:cursorVisible="false"
+                android:ellipsize="end"
+                android:inputType="none"
+                android:maxLines="2"
+                android:minLines="2"
+                tools:ignore="LabelFor" />
+        </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
 </layout>

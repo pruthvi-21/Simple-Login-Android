@@ -1,13 +1,15 @@
 package io.simplelogin.android.module.alias.create
 
 import android.content.Context
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
-import io.simplelogin.android.databinding.SpinnerRowTextOnlyBinding
+import android.widget.ArrayAdapter
+import android.widget.TextView
 
-class AliasCreateSpinnerAdapter(private val context: Context, private val suffixes: List<String>) : BaseAdapter() {
+class AliasCreateSpinnerAdapter(
+    context: Context,
+    private val suffixes: List<String>,
+) : ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, suffixes) {
     override fun getCount() = suffixes.size
     override fun getItem(position: Int) = suffixes[position]
     override fun getItemId(position: Int) = position.toLong()
@@ -15,19 +17,10 @@ class AliasCreateSpinnerAdapter(private val context: Context, private val suffix
     override fun getView(
         position: Int,
         convertView: View?,
-        parent: ViewGroup?
+        parent: ViewGroup,
     ): View {
-        val view: View
-        val binding: SpinnerRowTextOnlyBinding
-        if (convertView == null) {
-            binding = SpinnerRowTextOnlyBinding.inflate(LayoutInflater.from(context), parent, false)
-            view = binding.root
-            view.tag = binding
-        } else {
-            view = convertView
-            binding = convertView.tag as SpinnerRowTextOnlyBinding
-        }
-        binding.textView.text = getItem(position)
+        val view = super.getView(position, convertView, parent) as TextView
+        view.text = getItem(position)
         return view
     }
 }
