@@ -50,13 +50,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:orientation="vertical"
                     android:weightSum="2">
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="0dp"
+                        android:id="@+id/prefixTextInputLayout"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginEnd="3dp"
                         app:hintEnabled="false">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -72,10 +72,11 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/SlTextInputDropdownStyle"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_marginStart="3dp"
-                        android:layout_height="wrap_content">
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        app:hintEnabled="false"
+                        tools:ignore="HardcodedText">
 
                         <AutoCompleteTextView
                             android:id="@+id/suffixesDropdown"
@@ -83,15 +84,10 @@
                             android:layout_height="wrap_content"
                             android:cursorVisible="false"
                             android:inputType="none"
+                            android:hint="Domain"
                             tools:ignore="LabelFor" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/create_alias_warning"
-                    android:textColor="?colorError" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -139,6 +135,7 @@
                     android:background="?colorSurfaceContainer"
                     android:gravity="center_vertical"
                     android:maxLines="3"
+                    android:textAppearance="?textAppearanceBodyLarge"
                     android:paddingHorizontal="15dp"
                     android:paddingVertical="17dp"
                     android:paddingBottom="5dp"
@@ -187,7 +184,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Ex: Jane Doe"
-                        android:textAppearance="?textAppearanceBody2"
                         tools:ignore="HardcodedText" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -235,7 +231,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Ex: For tech newsletters, online shopping..."
-                        android:textAppearance="?textAppearanceBody2"
                         tools:ignore="HardcodedText" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>

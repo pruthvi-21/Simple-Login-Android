@@ -1,15 +1,15 @@
 package io.simplelogin.android.module.alias.create
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import io.simplelogin.android.R
 import io.simplelogin.android.databinding.FragmentAliasCreateBinding
 import io.simplelogin.android.module.alias.AliasListViewModel
 import io.simplelogin.android.module.home.HomeActivity
@@ -40,24 +40,17 @@ class AliasCreateFragment : BaseFragment(), HomeActivity.OnBackPressed {
         binding.toolbar.setNavigationOnClickListener { dismissKeyboardAndNavigateUp() }
 
         // Enable/disable createButton
-        binding.prefixEditText.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) = Unit
-            override fun beforeTextChanged(
-                s: CharSequence?,
-                start: Int,
-                count: Int,
-                after: Int
-            ) = Unit
-
-            override fun onTextChanged(
-                s: CharSequence?,
-                start: Int,
-                before: Int,
-                count: Int
-            ) {
-                binding.createButton.isEnabled = s?.toString()?.isValidEmailPrefix() ?: false
+        binding.prefixEditText.doOnTextChanged { text, _, _, _ ->
+            val isValid = text?.toString()?.isValidEmailPrefix() ?: false
+            binding.createButton.isEnabled = isValid
+            if (isValid || text?.toString()?.isEmpty() == true) {
+                binding.prefixTextInputLayout.isErrorEnabled = false
+                binding.prefixTextInputLayout.error = null
+            } else {
+                binding.prefixTextInputLayout.isErrorEnabled = true
+                binding.prefixTextInputLayout.error = getString(R.string.create_alias_warning)
             }
-        })
+        }
 
         binding.createButton.setOnClickListener {
             if (selectedSuffix == null) {
@@ -143,9 +136,11 @@ class AliasCreateFragment : BaseFragment(), HomeActivity.OnBackPressed {
     private fun setLoading(loading: Boolean) {
         if (loading) {
             binding.rootLinearLayout.visibility = View.GONE
+            binding.createButton.visibility = View.GONE
             binding.progressBar.visibility = View.VISIBLE
         } else {
             binding.rootLinearLayout.visibility = View.VISIBLE
+            binding.createButton.visibility = View.VISIBLE
             binding.progressBar.visibility = View.GONE
         }
     }
