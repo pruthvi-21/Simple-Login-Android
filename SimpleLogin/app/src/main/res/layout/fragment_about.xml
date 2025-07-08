@@ -13,21 +13,9 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:contentInsetStartWithNavigation="0dp"
             app:layout_constraintTop_toTopOf="parent"
-            app:navigationIcon="@drawable/ic_hamburger">
-
-            <TextView
-                android:id="@+id/toolbarTitleText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:text="About SimpleLogin"
-                android:textAppearance="@style/TextAppearance.Material3.ActionBar.Title"
-                tools:ignore="HardcodedText" />
-
-
-        </com.google.android.material.appbar.MaterialToolbar>
+            app:navigationIcon="@drawable/ic_hamburger"
+            app:title="About SimpleLogin" />
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/rootNestedScrollView"

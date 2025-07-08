@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -22,18 +21,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:menu="@menu/menu_alias_list"
                 app:navigationIcon="@drawable/ic_hamburger"
-                app:contentInsetStartWithNavigation="0dp">
-
-                <TextView
-                    android:id="@+id/toolbarTitleText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:text="Your Aliases"
-                    android:textAppearance="@style/TextAppearance.Material3.ActionBar.Title"
-                    tools:ignore="HardcodedText" />
-
-            </com.google.android.material.appbar.MaterialToolbar>
+                app:title="Your Aliases" />
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabLayout"
@@ -86,7 +74,7 @@
                         android:layout_height="wrap_content"
                         android:clipToPadding="false"
                         android:paddingBottom="50dp"
-                        tools:listitem="@layout/recycler_item_alias"/>
+                        tools:listitem="@layout/recycler_item_alias" />
 
                 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

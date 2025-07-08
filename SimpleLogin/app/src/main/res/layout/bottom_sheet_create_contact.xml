@@ -17,18 +17,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/shape_bottom_sheet_toolbar"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/toolbarTitleText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Create Contact"
-                android:textAppearance="@style/TextAppearance.Material3.ActionBar.Title"
-                tools:ignore="HardcodedText" />
-
-        </com.google.android.material.appbar.MaterialToolbar>
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="Create Contact"
+            app:titleCentered="true" />
 
         <LinearLayout
             android:layout_width="match_parent"

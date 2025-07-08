@@ -14,17 +14,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:menu="@menu/alias_picker_menu"
             app:navigationIcon="@drawable/ic_close_24dp"
-            app:contentInsetStartWithNavigation="0dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_marginStart="@dimen/margin_8"
-                android:text="Pick An Alias"
-                android:textAppearance="@style/TextAppearance.Material3.ActionBar.Title"
-                tools:ignore="HardcodedText" />
-        </com.google.android.material.appbar.MaterialToolbar>
+            app:title="Pick An Alias" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout"

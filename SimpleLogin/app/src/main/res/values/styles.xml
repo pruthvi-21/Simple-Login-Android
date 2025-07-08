@@ -10,10 +10,15 @@
         <item name="buttonStyle">@style/SlButtonStyle</item>
         <item name="materialButtonStyle">@style/SlButtonStyle</item>
         <item name="textInputStyle">@style/SlTextInputOutlinedStyle</item>
+        <item name="toolbarStyle">@style/SlToolbar</item>
     </style>
 
     <style name="HomeActivityTheme" parent="AppTheme">
         <item name="android:windowTranslucentStatus">false</item>
+    </style>
+
+    <style name="SlToolbar" parent="Widget.Material3.Toolbar">
+        <item name="titleTextColor">?colorPrimary</item>
     </style>
 
     <style name="SlButtonStyle" parent="Widget.Material3.Button">

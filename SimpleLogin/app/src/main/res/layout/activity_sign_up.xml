@@ -12,16 +12,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
-            app:navigationIcon="@drawable/ic_chevron_left_24dp">
-
-            <TextView
-                android:id="@+id/toolbarTitleText"
-                style="@style/TextAppearance.Material3.ActionBar.Title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sign Up"
-                tools:ignore="HardcodedText" />
-        </com.google.android.material.appbar.MaterialToolbar>
+            app:navigationIcon="@drawable/ic_chevron_left_24dp"
+            app:title="Sign up" />
 
         <View
             android:layout_width="match_parent"

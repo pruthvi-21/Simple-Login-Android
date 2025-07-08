@@ -16,8 +16,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:navigationIcon="@drawable/ic_chevron_left_24dp"
-            app:menu="@menu/menu_alias_activity"
-            app:contentInsetStartWithNavigation="0dp">
+            app:menu="@menu/menu_alias_activity">
 
             <TextView
                 android:id="@+id/toolbarTitleText"
@@ -31,8 +30,8 @@
                 android:marqueeRepeatLimit="marquee_forever"
                 android:singleLine="true"
                 android:textAppearance="@style/TextAppearance.Material3.ActionBar.Title"
+                android:textColor="?colorPrimary"
                 tools:text="email@example.com" />
-
         </com.google.android.material.appbar.MaterialToolbar>
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout

@@ -26,18 +26,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:menu="@menu/menu_contact_mailbox_list"
                     app:navigationIcon="@drawable/ic_hamburger"
-                    app:contentInsetStartWithNavigation="0dp">
-
-                    <TextView
-                        android:id="@+id/toolbarTitleText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="start"
-                        android:text="Mailboxes"
-                        android:textAppearance="@style/TextAppearance.Material3.ActionBar.Title"
-                        tools:ignore="HardcodedText" />
-
-                </com.google.android.material.appbar.MaterialToolbar>
+                    app:title="Mailboxes" />
 
                 <View
                     android:id="@+id/separatorView"

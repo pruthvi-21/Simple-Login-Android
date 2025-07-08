@@ -26,7 +26,7 @@ class WebViewFragment : BaseFragment(), HomeActivity.OnBackPressed {
         binding.webView.loadUrl(url)
         binding.webView.webViewClient = object : WebViewClient() {
             override fun onPageFinished(view: WebView?, url: String?) {
-                binding.toolbarTitleText.text = view?.title
+                binding.toolbar.title = view?.title
             }
         }
 

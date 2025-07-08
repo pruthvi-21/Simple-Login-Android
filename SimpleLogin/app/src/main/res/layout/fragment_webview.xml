@@ -14,18 +14,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:navigationIcon="@drawable/ic_chevron_left_24dp"
-            app:contentInsetStartWithNavigation="0dp">
-
-            <TextView
-                android:id="@+id/toolbarTitleText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:textAppearance="@style/TextAppearance.Material3.ActionBar.Title"
-                tools:text="Title" />
-
-
-        </com.google.android.material.appbar.MaterialToolbar>
+            tools:title="Title" />
 
         <WebView
             android:id="@+id/webView"
