@@ -12,11 +12,12 @@ import android.view.View
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.navigation.NavArgument
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.navOptions
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.navigation.NavigationView
 import io.simplelogin.android.R
@@ -54,7 +55,10 @@ class HomeActivity : BaseAppCompatActivity(), NavigationView.OnNavigationItemSel
         binding.navigationView.setNavigationItemSelectedListener(this)
         setUpDrawer()
         setContentView(binding.root)
-        setNavigationGraph(viewModel.navigationGraph)
+
+        if (savedInstanceState == null) {
+            setNavigationGraph(viewModel.navigationGraph)
+        }
     }
 
     private fun setUpViewModel() {
@@ -112,27 +116,34 @@ class HomeActivity : BaseAppCompatActivity(), NavigationView.OnNavigationItemSel
 
     private fun setNavigationGraph(navigationGraph: NavigationGraph) {
         val navController = findNavController(R.id.homeNavHostFragment)
-        val navInflater = navController.navInflater
+
+        val navOptions = navOptions {
+            anim {
+                enter = R.anim.screen_enter_anim
+                exit = R.anim.screen_exit_anim
+                popEnter = R.anim.screen_pop_enter_anim
+                popExit = R.anim.screen_pop_exit_anim
+            }
+        }
+
         when (navigationGraph) {
-            NavigationGraph.ALIAS -> navController.graph = navInflater.inflate(R.navigation.nav_graph_alias)
-            NavigationGraph.MAILBOX -> navController.graph = navInflater.inflate(R.navigation.nav_graph_mailbox)
+            NavigationGraph.ALIAS -> navController.navigate(R.id.aliasListFragment)
+            NavigationGraph.MAILBOX -> navController.navigate(R.id.mailboxListFragment)
 
             NavigationGraph.SETTINGS -> {
-                val settingsNavGraph = navInflater.inflate(R.navigation.nav_graph_settings)
-                settingsNavGraph.addArgument(
-                    USER_INFO,
-                    NavArgument.Builder().setDefaultValue(viewModel.userInfo).build()
+                navController.navigate(
+                    R.id.settingsFragment,
+                    bundleOf(USER_INFO to viewModel.userInfo),
+                    navOptions
                 )
-                navController.graph = settingsNavGraph
             }
 
             NavigationGraph.ABOUT -> {
-                val aboutNavGraph = navInflater.inflate(R.navigation.nav_graph_about)
-                aboutNavGraph.addArgument(
-                    AboutFragment.OPEN_FROM_LOGIN_ACTIVITY,
-                    NavArgument.Builder().setDefaultValue(false).build()
+                navController.navigate(
+                    R.id.aboutFragment,
+                    bundleOf(AboutFragment.OPEN_FROM_LOGIN_ACTIVITY to false),
+                    navOptions
                 )
-                navController.graph = aboutNavGraph
             }
         }
         viewModel.navigationGraph = navigationGraph
@@ -223,6 +234,7 @@ class HomeActivity : BaseAppCompatActivity(), NavigationView.OnNavigationItemSel
         binding.mainDrawer.openDrawer(GravityCompat.START)
     }
 
+    @SuppressLint("SetTextI18n")
     private fun updateHeaderView() {
         val headerView = binding.navigationView.getHeaderView(0)
         val avatarView = headerView.findViewById<AvatarView>(R.id.avatar_view)

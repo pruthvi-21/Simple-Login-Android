@@ -22,6 +22,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import io.simplelogin.android.R
 import io.simplelogin.android.databinding.DialogViewEditTextBinding
@@ -43,6 +44,8 @@ class SettingsFragment : BaseFragment(), HomeActivity.OnBackPressed {
     private lateinit var viewModel: SettingsViewModel
     private val homeViewModel: HomeViewModel by activityViewModels()
 
+    private val args: SettingsFragmentArgs by navArgs()
+
     @RequiresApi(Build.VERSION_CODES.M)
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
@@ -51,7 +54,7 @@ class SettingsFragment : BaseFragment(), HomeActivity.OnBackPressed {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentSettingsBinding.inflate(layoutInflater)
-        binding.toolbar.setNavigationOnClickListener { showLeftMenu() }
+        binding.toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
 
         // Profile info
         binding.profileInfoCardView.setOnModifyClickListener { alertModificationOptions() }
@@ -213,8 +216,7 @@ class SettingsFragment : BaseFragment(), HomeActivity.OnBackPressed {
                 viewModel.onHandleUserInfoUpdatedComplete()
             }
         }
-        val userInfo =
-            findNavController().graph.arguments.getValue(HomeActivity.USER_INFO).defaultValue as UserInfo
+        val userInfo = args.userInfo
         viewModel.setUserInfo(userInfo)
 
         viewModel.evenUserSettingsUpdated.observe(viewLifecycleOwner) { updated ->

@@ -125,4 +125,94 @@
                 app:argType="io.simplelogin.android.module.alias.search.AliasSearchMode" />
         </action>
     </fragment>
+
+    <fragment
+        android:id="@+id/mailboxListFragment"
+        android:name="io.simplelogin.android.module.mailbox.MailboxListFragment"
+        android:label="MailboxListFragment" />
+
+    <!--start:Settings fragments-->
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="io.simplelogin.android.module.settings.SettingsFragment"
+        android:label="SettingsFragment">
+        <argument
+            android:name="userInfo"
+            app:argType="io.simplelogin.android.utils.model.UserInfo"
+            app:nullable="false" />
+        <action
+            android:id="@+id/action_settingsFragment_to_premiumFragment"
+            app:destination="@id/premiumFragment"
+            app:enterAnim="@anim/screen_enter_anim"
+            app:exitAnim="@anim/screen_exit_anim"
+            app:popEnterAnim="@anim/screen_pop_enter_anim"
+            app:popExitAnim="@anim/screen_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/premiumFragment"
+        android:name="io.simplelogin.android.module.settings.PremiumFragment"
+        android:label="PremiumFragment">
+        <action
+            android:id="@+id/action_premiumFragment_to_webViewFragment2"
+            app:destination="@id/webViewFragment2"
+            app:enterAnim="@anim/screen_enter_anim"
+            app:exitAnim="@anim/screen_exit_anim"
+            app:popEnterAnim="@anim/screen_pop_enter_anim"
+            app:popExitAnim="@anim/screen_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/webViewFragment2"
+        android:name="io.simplelogin.android.module.about.WebViewFragment"
+        android:label="WebViewFragment">
+        <argument
+            android:name="url"
+            app:argType="string" />
+    </fragment>
+    <!--end:Settings fragments-->
+
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="io.simplelogin.android.module.about.AboutFragment"
+        android:label="AboutFragment">
+        <action
+            android:id="@+id/action_aboutFragment_to_howItWorksFragment"
+            app:destination="@id/howItWorksFragment"
+            app:enterAnim="@anim/screen_enter_anim"
+            app:exitAnim="@anim/screen_exit_anim"
+            app:popEnterAnim="@anim/screen_pop_enter_anim"
+            app:popExitAnim="@anim/screen_pop_exit_anim" />
+        <action
+            android:id="@+id/action_aboutFragment_to_faqFragment"
+            app:destination="@id/faqFragment"
+            app:enterAnim="@anim/screen_enter_anim"
+            app:exitAnim="@anim/screen_exit_anim"
+            app:popEnterAnim="@anim/screen_pop_enter_anim"
+            app:popExitAnim="@anim/screen_pop_exit_anim" />
+        <action
+            android:id="@+id/action_aboutFragment_to_webViewFragment"
+            app:destination="@id/webViewFragment"
+            app:enterAnim="@anim/screen_enter_anim"
+            app:exitAnim="@anim/screen_exit_anim"
+            app:popEnterAnim="@anim/screen_pop_enter_anim"
+            app:popExitAnim="@anim/screen_pop_exit_anim" />
+        <action
+            android:id="@+id/action_aboutFragment_to_whatYouCanDoFragment"
+            app:destination="@id/whatYouCanDoFragment"
+            app:enterAnim="@anim/screen_enter_anim"
+            app:exitAnim="@anim/screen_exit_anim"
+            app:popEnterAnim="@anim/screen_pop_enter_anim"
+            app:popExitAnim="@anim/screen_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/howItWorksFragment"
+        android:name="io.simplelogin.android.module.about.HowItWorksFragment"
+        android:label="HowItWorksFragment" />
+    <fragment
+        android:id="@+id/faqFragment"
+        android:name="io.simplelogin.android.module.about.FaqFragment"
+        android:label="FaqFragment" />
+    <fragment
+        android:id="@+id/whatYouCanDoFragment"
+        android:name="io.simplelogin.android.module.about.WhatYouCanDoFragment"
+        android:label="WhatYouCanDoFragment" />
 </navigation>

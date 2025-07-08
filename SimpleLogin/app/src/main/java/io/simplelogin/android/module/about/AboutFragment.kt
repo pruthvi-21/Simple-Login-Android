@@ -22,6 +22,8 @@ class AboutFragment : BaseFragment(), HomeActivity.OnBackPressed {
     private lateinit var binding: FragmentAboutBinding
     private var openFromLoginActivity = true
 
+    private val navController by lazy { findNavController() }
+
     @SuppressLint("SetTextI18n", "LongMethod")
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,16 +31,9 @@ class AboutFragment : BaseFragment(), HomeActivity.OnBackPressed {
         savedInstanceState: Bundle?
     ): View {
         // Determine if this is opened from LoginActivity or HomeActivity
-        val arguments = findNavController().graph.arguments
-        if (arguments.isNotEmpty()) {
-            openFromLoginActivity = arguments.getValue(OPEN_FROM_LOGIN_ACTIVITY).defaultValue as Boolean
-        }
+        openFromLoginActivity = arguments?.getBoolean(OPEN_FROM_LOGIN_ACTIVITY) ?: true
 
         binding = FragmentAboutBinding.inflate(inflater)
-
-        if (openFromLoginActivity) {
-            binding.toolbar.setNavigationIcon(R.drawable.ic_close_24dp)
-        }
 
         binding.toolbar.setNavigationOnClickListener { finishOrNavigateUp() }
 
@@ -46,13 +41,13 @@ class AboutFragment : BaseFragment(), HomeActivity.OnBackPressed {
         val baseUrl = "https://simplelogin.io"
 
         binding.root.findViewById<View>(R.id.howTextView).setOnClickListener {
-            findNavController().navigate(
+            navController.navigate(
                 AboutFragmentDirections.actionAboutFragmentToHowItWorksFragment()
             )
         }
 
         binding.root.findViewById<View>(R.id.securityTextView).setOnClickListener {
-            findNavController().navigate(
+            navController.navigate(
                 AboutFragmentDirections.actionAboutFragmentToWebViewFragment("$baseUrl/security")
             )
         }
@@ -62,35 +57,35 @@ class AboutFragment : BaseFragment(), HomeActivity.OnBackPressed {
         }
 
         binding.root.findViewById<View>(R.id.whatTextView).setOnClickListener {
-            findNavController().navigate(AboutFragmentDirections.actionAboutFragmentToWhatYouCanDoFragment())
+            navController.navigate(AboutFragmentDirections.actionAboutFragmentToWhatYouCanDoFragment())
         }
 
         binding.root.findViewById<View>(R.id.faqTextView).setOnClickListener {
-            findNavController().navigate(
+            navController.navigate(
                 AboutFragmentDirections.actionAboutFragmentToFaqFragment()
             )
         }
 
         binding.root.findViewById<View>(R.id.teamTextView).setOnClickListener {
-            findNavController().navigate(
+            navController.navigate(
                 AboutFragmentDirections.actionAboutFragmentToWebViewFragment("$baseUrl/about")
             )
         }
 
         binding.root.findViewById<View>(R.id.pricingTextView).setOnClickListener {
-            findNavController().navigate(
+            navController.navigate(
                 AboutFragmentDirections.actionAboutFragmentToWebViewFragment("$baseUrl/pricing")
             )
         }
 
         binding.root.findViewById<View>(R.id.blogTextView).setOnClickListener {
-            findNavController().navigate(
+            navController.navigate(
                 AboutFragmentDirections.actionAboutFragmentToWebViewFragment("$baseUrl/blog")
             )
         }
 
         binding.root.findViewById<View>(R.id.helpTextView).setOnClickListener {
-            findNavController().navigate(
+            navController.navigate(
                 AboutFragmentDirections.actionAboutFragmentToWebViewFragment("$baseUrl/help")
             )
         }
@@ -100,13 +95,13 @@ class AboutFragment : BaseFragment(), HomeActivity.OnBackPressed {
         }
 
         binding.root.findViewById<View>(R.id.termsTextView).setOnClickListener {
-            findNavController().navigate(
+            navController.navigate(
                 AboutFragmentDirections.actionAboutFragmentToWebViewFragment("$baseUrl/terms")
             )
         }
 
         binding.root.findViewById<View>(R.id.privacyTextView).setOnClickListener {
-            findNavController().navigate(
+            navController.navigate(
                 AboutFragmentDirections.actionAboutFragmentToWebViewFragment("$baseUrl/privacy")
             )
         }
@@ -118,7 +113,7 @@ class AboutFragment : BaseFragment(), HomeActivity.OnBackPressed {
         if (openFromLoginActivity) {
             activity?.finish()
         } else {
-            showLeftMenu()
+            navController.navigateUp()
         }
     }
 
