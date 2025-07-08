@@ -4,11 +4,11 @@ import android.content.Context
 import android.os.Parcelable
 import android.text.Spannable
 import android.text.SpannableStringBuilder
-import androidx.core.content.ContextCompat
 import androidx.core.text.color
 import com.google.gson.annotations.SerializedName
 import io.simplelogin.android.R
 import io.simplelogin.android.utils.SLDateTimeFormatter
+import io.simplelogin.android.utils.extension.resolveColor
 import kotlinx.android.parcel.IgnoredOnParcel
 import kotlinx.android.parcel.Parcelize
 
@@ -70,17 +70,15 @@ data class Alias(
 
     @IgnoredOnParcel
     private var _countSpannableString: Spannable? = null
-    fun getCountSpannableString(context: Context): Spannable {
+    fun getCountSpannableString(): Spannable {
         if (_countSpannableString == null) {
-            val darkGrayColor = ContextCompat.getColor(context, R.color.colorDarkGray)
-            val blackColor = ContextCompat.getColor(context, R.color.colorText)
             val spannableString = SpannableStringBuilder()
-                .color(blackColor) { append("$forwardCount ") }
-                .color(darkGrayColor) { append(if (forwardCount > 1) "forwards," else "forwards,") }
-                .color(blackColor) { append(" $blockCount ") }
-                .color(darkGrayColor) { append(if (blockCount > 1) "blocks," else "blocks,") }
-                .color(blackColor) { append(" $replyCount ") }
-                .color(darkGrayColor) { append(if (replyCount > 1) "replies," else "reply") }
+                .append("$forwardCount ")
+                .append(if (forwardCount > 1) "forwards," else "forwards,")
+                .append(" $blockCount ")
+                .append(if (blockCount > 1) "blocks," else "blocks,")
+                .append(" $replyCount ")
+                .append(if (replyCount > 1) "replies," else "reply")
 
             _countSpannableString = spannableString
         }
@@ -145,12 +143,11 @@ data class AliasArray(
 )
 
 fun List<AliasMailbox>.toSpannableString(context: Context): Spannable {
-    val primaryColor = ContextCompat.getColor(context, R.color.colorPrimary)
-    val blackColor = ContextCompat.getColor(context, R.color.colorText)
+    val primaryColor = context.resolveColor(R.attr.colorPrimary)
     val spannableString = SpannableStringBuilder()
 
     forEachIndexed { index, aliasMailbox ->
-        spannableString.color(blackColor) { append(" ${aliasMailbox.email} ") }
+        spannableString.append(" ${aliasMailbox.email} ")
         if (index != size - 1) {
             spannableString.color(primaryColor) { append("&") }
         }

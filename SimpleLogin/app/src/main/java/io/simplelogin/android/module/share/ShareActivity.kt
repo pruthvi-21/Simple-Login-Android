@@ -15,7 +15,16 @@ import io.simplelogin.android.module.alias.create.AliasCreateViewModel
 import io.simplelogin.android.utils.SLApiService
 import io.simplelogin.android.utils.SLSharedPreferences
 import io.simplelogin.android.utils.baseclass.BaseAppCompatActivity
-import io.simplelogin.android.utils.extension.*
+import io.simplelogin.android.utils.extension.copyToClipboard
+import io.simplelogin.android.utils.extension.dismissKeyboard
+import io.simplelogin.android.utils.extension.extractFirstWord
+import io.simplelogin.android.utils.extension.extractWebsiteName
+import io.simplelogin.android.utils.extension.isValidEmailPrefix
+import io.simplelogin.android.utils.extension.showSelectMailboxesAlert
+import io.simplelogin.android.utils.extension.toastError
+import io.simplelogin.android.utils.extension.toastLongly
+import io.simplelogin.android.utils.extension.toastShortly
+import io.simplelogin.android.utils.extension.toastThrowable
 import io.simplelogin.android.utils.model.toSpannableString
 import java.net.URI
 import java.net.URISyntaxException
@@ -152,7 +161,7 @@ class ShareActivity : BaseAppCompatActivity() {
         }
 
         // Move cursor to the last character
-        binding.prefixEditText.setSelection(binding.prefixEditText.text.count())
+        binding.prefixEditText.setSelection(binding.prefixEditText.text?.count() ?: 0)
     }
 
     private fun setLoading(loading: Boolean) {

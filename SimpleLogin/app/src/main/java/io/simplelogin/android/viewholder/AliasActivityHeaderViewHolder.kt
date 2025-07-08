@@ -11,6 +11,7 @@ import io.simplelogin.android.R
 import io.simplelogin.android.databinding.RecyclerItemAliasActivityHeaderBinding
 import io.simplelogin.android.module.alias.activity.AliasActivityListHeaderAdapter
 import io.simplelogin.android.utils.extension.makeSubviewsClippedToBound
+import io.simplelogin.android.utils.extension.resolveColor
 import io.simplelogin.android.utils.model.Alias
 
 class AliasActivityHeaderViewHolder(private val binding: RecyclerItemAliasActivityHeaderBinding) :
@@ -92,9 +93,13 @@ class AliasActivityHeaderViewHolder(private val binding: RecyclerItemAliasActivi
         binding.blockedStat.iconImageView.setImageDrawable(
             ContextCompat.getDrawable(context, R.drawable.ic_block_58dp)
         )
-        binding.blockedStat.rootLinearLayout.setBackgroundColor(
-            ContextCompat.getColor(context, R.color.colorNegative)
-        )
+        val errorContainerColor = context.resolveColor(R.attr.colorErrorContainer)
+        val onErrorContainerColor = context.resolveColor(R.attr.colorOnErrorContainer)
+        binding.blockedStat.rootLinearLayout.setBackgroundColor(errorContainerColor)
+        binding.blockedStat.iconImageView.setColorFilter(onErrorContainerColor)
+        binding.blockedStat.numberTextView.setTextColor(onErrorContainerColor)
+        binding.blockedStat.typeTextView.setTextColor(onErrorContainerColor)
+
         binding.blockedStat.numberTextView.text = "${alias.blockCount}"
         binding.blockedStat.typeTextView.text = "Email blocked"
     }

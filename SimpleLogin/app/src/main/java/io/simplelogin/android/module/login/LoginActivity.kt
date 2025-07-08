@@ -71,10 +71,6 @@ class LoginActivity : BaseAppCompatActivity() {
             }
         })
 
-        binding.emailTextField.editText?.onDrawableEndTouch {
-            binding.emailTextField.editText?.text = null
-        }
-
         binding.passwordTextField.editText?.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) = Unit
             override fun beforeTextChanged(

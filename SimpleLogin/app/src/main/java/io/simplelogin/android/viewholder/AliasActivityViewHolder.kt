@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import io.simplelogin.android.R
 import io.simplelogin.android.databinding.RecyclerItemAliasActivityBinding
 import io.simplelogin.android.module.alias.activity.AliasActivityListAdapter
+import io.simplelogin.android.utils.extension.resolveColor
 import io.simplelogin.android.utils.extension.setTint
 import io.simplelogin.android.utils.model.Action
 
@@ -36,7 +37,7 @@ class AliasActivityViewHolder(private val binding: RecyclerItemAliasActivityBind
                         R.drawable.ic_send_28dp
                     )
                 )
-                binding.iconImageView.setTint(R.color.colorPrimary)
+                binding.iconImageView.setColorFilter(context.resolveColor(R.attr.colorPrimary))
             }
 
             Action.REPLY -> {
@@ -47,7 +48,7 @@ class AliasActivityViewHolder(private val binding: RecyclerItemAliasActivityBind
                         R.drawable.ic_reply_24dp
                     )
                 )
-                binding.iconImageView.setTint(R.color.colorPrimary)
+                binding.iconImageView.setColorFilter(context.resolveColor(R.attr.colorPrimary))
             }
 
             else -> {
@@ -58,7 +59,7 @@ class AliasActivityViewHolder(private val binding: RecyclerItemAliasActivityBind
                         R.drawable.ic_block_24dp
                     )
                 )
-                binding.iconImageView.setTint(R.color.colorNegative)
+                binding.iconImageView.setColorFilter(context.resolveColor(R.attr.colorError))
             }
         }
     }

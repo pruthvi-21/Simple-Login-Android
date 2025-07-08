@@ -5,8 +5,7 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorItemBackground">
+        android:layout_height="match_parent">
 
         <RelativeLayout
             android:id="@+id/rootRelativeLayout"
@@ -35,7 +34,6 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
                         android:text="Contacts"
-                        android:textColor="@color/colorText"
                         android:textAppearance="@style/TextAppearance.Material3.ActionBar.Title"
                         tools:ignore="HardcodedText" />
 
@@ -64,8 +62,8 @@
                 <View
                     android:id="@+id/separatorView"
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/dividerColor"
+                    android:layout_height=".5dp"
+                    android:background="?colorOutlineVariant"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/emailTextField" />
@@ -84,7 +82,6 @@
                         android:id="@+id/recyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:background="@color/colorItemBackground"
                         android:clipToPadding="false"
                         android:paddingBottom="20dp"
                         tools:listitem="@layout/recycler_item_contact"/>

@@ -26,7 +26,6 @@
                     android:layout_marginBottom="5dp"
                     android:text="Local Authentication"
                     android:textAppearance="?attr/textAppearanceSubtitle2"
-                    android:textColor="@color/colorText"
                     tools:ignore="HardcodedText" />
 
                 <TextView
@@ -37,16 +36,12 @@
 
             </LinearLayout>
 
-            <androidx.appcompat.widget.SwitchCompat
+            <com.google.android.material.materialswitch.MaterialSwitch
                 android:id="@+id/biometric_switch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:thumb="@drawable/switch_thumb"
-                app:thumbTintMode="screen"
-                app:track="@drawable/switch_track"
-                app:trackTint="@color/switch_track_color_state"/>
+                android:layout_centerVertical="true" />
         </RelativeLayout>
 
 

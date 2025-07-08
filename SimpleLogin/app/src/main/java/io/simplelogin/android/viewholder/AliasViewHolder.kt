@@ -31,7 +31,7 @@ class AliasViewHolder(val binding: RecyclerItemAliasBinding) : RecyclerView.View
         clickListener: AliasListAdapter.ClickListener
     ) {
         binding.emailTextView.text = alias.email
-        binding.countsTextView.setText(alias.getCountSpannableString(context), TextView.BufferType.SPANNABLE)
+        binding.countsTextView.setText(alias.getCountSpannableString(), TextView.BufferType.SPANNABLE)
 
         binding.enabledSwitch.isChecked = alias.enabled
         binding.rootCardView.alpha = if (alias.enabled) 1f else 0.8f

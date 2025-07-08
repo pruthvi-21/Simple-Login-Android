@@ -5,8 +5,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorItemBackground">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -44,15 +43,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Email address"
+                        app:endIconMode="clear_text"
                         tools:ignore="HardcodedText">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:drawableEnd="@drawable/ic_close_fill_21dp"
-                            app:drawableTint="@color/colorPrimary"
                             android:inputType="textEmailAddress"
-                            android:textColor="@color/colorText" />
+                            app:drawableTint="?colorPrimary" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -61,91 +59,86 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Password"
-                        app:endIconMode="password_toggle"
-                        app:endIconTint="@color/colorPrimary"
                         android:paddingTop="4dp"
+                        app:endIconMode="password_toggle"
+                        app:endIconTint="?colorPrimary"
                         tools:ignore="HardcodedText">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="textPassword"
-                            android:textColor="@color/colorText" />
+                            android:inputType="textPassword" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <androidx.appcompat.widget.AppCompatButton
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/loginButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="24dp"
-                        android:elevation="0dp"
+                        android:paddingVertical="12dp"
                         android:text="Sign in"
-                        android:background="@color/colorPrimary"
-                        android:textColor="@color/colorWhite"
-
                         tools:ignore="HardcodedText" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="or"
                         android:layout_gravity="center"
                         android:layout_marginTop="4dp"
+                        android:text="or"
                         tools:ignore="HardcodedText" />
 
-                    <androidx.appcompat.widget.AppCompatButton
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/loginWithProtonButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="8dp"
-                        android:elevation="0dp"
-                        android:text="Log in with Proton"
-                        android:textColor="@color/protonMain"
-                        android:background="@drawable/button_border_proton"
-                        android:drawableStart="@drawable/ic_proton"
+                        android:paddingVertical="12dp"
                         android:paddingStart="20dp"
                         android:paddingEnd="20dp"
-                        tools:ignore="HardcodedText"/>
+                        android:text="Log in with Proton"
+                        android:textColor="@android:color/white"
+                        app:backgroundTint="@color/protonMain"
+                        app:icon="@drawable/ic_proton_white"
+                        app:iconSize="14dp"
+                        app:iconTint="#ffffff"
+                        tools:ignore="HardcodedText" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
                         android:layout_marginTop="8dp"
+                        android:orientation="horizontal"
                         android:weightSum="2">
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/forgotPasswordButton"
-                            style="@style/Widget.Material3.Button.TextButton"
+                            style="@style/SlTextButtonStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Forgot password"
-                            android:textAppearance="?attr/textAppearanceBody2"
                             tools:ignore="HardcodedText" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/signUpButton"
-                            style="@style/Widget.Material3.Button.TextButton"
+                            style="@style/SlTextButtonStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Sign up"
-                            android:textAppearance="?attr/textAppearanceBody2"
                             tools:ignore="HardcodedText" />
                     </LinearLayout>
 
                     <View
                         android:layout_width="wrap_content"
-                        android:layout_height="1dp"
-                        android:alpha="0.1"
-                        android:background="@color/colorText" />
+                        android:layout_height=".5dp"
+                        android:background="?colorOutlineVariant" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/apiKeyButton"
-                        style="@style/Widget.Material3.Button.TextButton"
+                        style="@style/SlTextButtonStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -154,18 +147,16 @@
 
                     <View
                         android:layout_width="wrap_content"
-                        android:layout_height="1dp"
-                        android:alpha="0.1"
-                        android:background="@color/colorText" />
+                        android:layout_height=".5dp"
+                        android:background="?colorOutlineVariant" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/changeApiUrlButton"
-                        style="@style/Widget.Material3.Button.TextButton"
+                        style="@style/SlTextButtonStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="Change API URL"
-                        android:textAppearance="?attr/textAppearanceBody2"
                         tools:ignore="HardcodedText" />
                 </LinearLayout>
             </ScrollView>
@@ -186,23 +177,25 @@
                     android:id="@+id/appVersionTextView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_weight="1"
                     android:gravity="start"
                     android:textAppearance="?attr/textAppearanceBody2"
-                    android:textColor="@color/colorDarkGray"
+                    android:textColor="?android:textColorSecondary"
                     tools:text="SimpleLogin vX.X" />
 
-                <TextView
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/aboutUsTextView"
+                    style="@style/SlTextButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawablePadding="5dp"
+                    android:gravity="center"
                     android:text="About Us"
                     android:textAppearance="?attr/textAppearanceBody2"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="?colorPrimary"
                     android:textStyle="bold"
-                    app:drawableStartCompat="@drawable/ic_about_24dp"
-                    app:drawableTint="@color/colorPrimary"
+                    app:icon="@drawable/ic_about_24dp"
+                    app:iconPadding="10dp"
                     tools:ignore="HardcodedText" />
 
             </LinearLayout>

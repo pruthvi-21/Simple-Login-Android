@@ -13,7 +13,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorItemBackground"
             android:orientation="vertical">
 
             <TextView
@@ -21,8 +20,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:text="@string/random_alias"
-                android:textAppearance="?attr/textAppearanceSubtitle2"
-                android:textColor="@color/colorText" />
+                android:textAppearance="?attr/textAppearanceSubtitle2" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -35,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginBottom="18dp"
-                android:backgroundTint="@color/colorPrimary"
+                android:backgroundTint="?colorPrimary"
                 android:spinnerMode="dropdown" />
 
             <TextView
@@ -49,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginBottom="18dp"
-                android:backgroundTint="@color/colorPrimary"
+                android:backgroundTint="?colorPrimary"
                 android:spinnerMode="dropdown" />
 
         </LinearLayout>

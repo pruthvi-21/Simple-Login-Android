@@ -3,26 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-        <RelativeLayout
+    <LinearLayout
             android:id="@+id/rootCardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="5dp"
-            android:padding="@dimen/margin_4"
-            android:background="@drawable/card_shape_with_ripple">
+        android:orientation="vertical">
 
             <RelativeLayout
                 android:id="@+id/rootRelativeLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorItemBackground"
                 android:orientation="horizontal"
-                android:paddingStart="10dp"
-                android:paddingTop="10dp"
-                android:paddingEnd="10dp">
+                android:background="?selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:paddingHorizontal="22dp"
+                android:paddingTop="18dp"
+                android:paddingBottom="8dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -45,7 +42,7 @@
                             android:visibility="gone"
                             android:paddingEnd="8dp"
                             android:src="@drawable/ic_pinned_24dp"
-                            app:tint="@color/colorPrimary"
+                            app:tint="?colorPrimary"
                             android:layout_centerVertical="true"
                             android:contentDescription="Pinned alias" />
 
@@ -58,7 +55,6 @@
                             android:layout_toEndOf="@id/aliasPinnedImageView"
                             android:layout_centerVertical="true"
                             android:textAppearance="?attr/textAppearanceSubtitle2"
-                            android:textColor="@color/colorText"
                             tools:text="yautiden@gmail.com"
                             android:textSize="16sp"/>
 
@@ -134,7 +130,6 @@
                         android:maxLines="2"
                         android:paddingTop="5dp"
                         android:textAppearance="?attr/textAppearanceBody2"
-                        android:textColor="@color/colorText"
                         tools:text="Alias note"
                         android:textSize="15sp"/>
 
@@ -144,15 +139,11 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-                        <androidx.appcompat.widget.SwitchCompat
+                        <com.google.android.material.materialswitch.MaterialSwitch
                             android:id="@+id/enabledSwitch"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:checked="true"
-                            android:thumb="@drawable/switch_thumb"
-                            app:thumbTintMode="screen"
-                            app:track="@drawable/switch_track"
-                            app:trackTint="@color/switch_track_color_state" />
+                            android:checked="true" />
 
                         <Space
                             android:layout_width="wrap_content"
@@ -182,7 +173,6 @@
                             android:layout_height="wrap_content"
                             android:padding="0dp"
                             android:text="Send Email"
-                            android:textSize="14sp"
                             android:textAllCaps="false"
                             app:icon="@drawable/ic_send_28dp"
                             tools:ignore="HardcodedText" />
@@ -200,6 +190,11 @@
                     tools:ignore="ContentDescription" />
 
             </RelativeLayout>
-        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?colorOutlineVariant" />
+    </LinearLayout>
 
 </layout>

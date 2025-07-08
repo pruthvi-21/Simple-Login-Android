@@ -26,7 +26,6 @@
                 android:layout_gravity="center"
                 android:text="Create Contact"
                 android:textAppearance="@style/TextAppearance.Material3.ActionBar.Title"
-                android:textColor="@color/colorText"
                 tools:ignore="HardcodedText" />
 
         </com.google.android.material.appbar.MaterialToolbar>
@@ -36,7 +35,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/toolbar"
             android:layout_centerInParent="true"
-            android:background="@color/colorItemBackground"
             android:orientation="vertical"
             android:padding="20dp">
 
@@ -44,7 +42,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Create a contact to send email from your alias"
-                android:textColor="@color/colorText"
                 android:textAlignment="center"
                 tools:ignore="HardcodedText" />
 
@@ -55,7 +52,6 @@
                 android:paddingTop="5dp"
                 android:textAlignment="center"
                 android:textAppearance="?attr/textAppearanceSubtitle2"
-                android:textColor="@color/colorText"
                 tools:text="email@example.com" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -70,29 +66,28 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress|textNoSuggestions"
-                    android:textColor="@color/colorText" />
+                    android:inputType="textEmailAddress|textNoSuggestions" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/createButton"
-                style="@style/Widget.Material3.Button.TextButton"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginTop="10dp"
                 android:enabled="false"
-                android:text="CREATE"
-                android:textSize="15sp"
+                android:paddingVertical="15dp"
+                android:text="Create"
                 tools:ignore="HardcodedText" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/cancelButton"
-                style="@style/Widget.Material3.Button.TextButton"
-                android:layout_width="wrap_content"
+                style="@style/SlTextButtonStyle"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginTop="10dp"
                 android:text="Cancel"
-                android:textSize="16sp"
                 tools:ignore="HardcodedText" />
 
         </LinearLayout>
@@ -102,7 +97,6 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_below="@id/toolbar"
-            android:background="@color/dividerColor" />
-
+            android:background="?colorOutlineVariant" />
     </RelativeLayout>
 </layout>

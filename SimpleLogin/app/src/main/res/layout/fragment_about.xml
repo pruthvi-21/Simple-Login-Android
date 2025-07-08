@@ -13,10 +13,9 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:contentInsetStartWithNavigation="0dp"
             app:layout_constraintTop_toTopOf="parent"
-            app:navigationIcon="@drawable/ic_hamburger"
-            android:background="@color/colorItemBackground"
-            app:contentInsetStartWithNavigation="0dp">
+            app:navigationIcon="@drawable/ic_hamburger">
 
             <TextView
                 android:id="@+id/toolbarTitleText"
@@ -25,7 +24,6 @@
                 android:layout_gravity="start"
                 android:text="About SimpleLogin"
                 android:textAppearance="@style/TextAppearance.Material3.ActionBar.Title"
-                android:textColor="@color/colorText"
                 tools:ignore="HardcodedText" />
 
 
@@ -35,7 +33,6 @@
             android:id="@+id/rootNestedScrollView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="@color/colorItemBackground"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -62,7 +59,6 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/colorItemBackground"
                         android:orientation="horizontal">
 
                         <TextView
@@ -79,8 +75,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:layout_below="@id/appVersionTextView"
-                            android:background="@color/colorText"
-                            android:alpha="0.1"/>
+                            android:background="?colorOutlineVariant" />
 
                         <TextView
                             android:id="@+id/descriptionTextView"
@@ -105,7 +100,7 @@
                 </RelativeLayout>
 
                 <!--How & FAQ-->
-                <RelativeLayout
+                <LinearLayout
                     android:id="@+id/howAndSecurityCardView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -114,47 +109,36 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
                     android:background="@drawable/card_shape_with_ripple"
-                    android:padding="@dimen/margin_4">
+                    android:clipToOutline="true"
+                    android:orientation="vertical">
 
-                    <RelativeLayout
+                    <TextView
+                        android:id="@+id/howTextView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/colorItemBackground"
-                        android:orientation="horizontal">
+                        android:background="?selectableItemBackground"
+                        android:padding="@dimen/card_view_padding"
+                        android:text="How it works"
+                        android:textAppearance="?attr/textAppearanceSubtitle2"
+                        tools:ignore="HardcodedText" />
 
-                        <TextView
-                            android:id="@+id/howTextView"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="@dimen/card_view_padding"
-                            android:text="How it works"
-                            android:textAppearance="?attr/textAppearanceSubtitle2"
-                            android:textColor="@color/colorText"
-                            tools:ignore="HardcodedText" />
+                    <View
+                        android:id="@+id/secondSeparatorView"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?colorOutlineVariant" />
 
-                        <View
-                            android:id="@+id/secondSeparatorView"
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_below="@id/howTextView"
-                            android:background="@color/colorText"
-                            android:alpha="0.1"/>
+                    <TextView
+                        android:id="@+id/securityTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/card_view_padding"
+                        android:text="Security"
+                        android:textAppearance="?attr/textAppearanceSubtitle2"
+                        tools:ignore="HardcodedText" />
+                </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/securityTextView"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/secondSeparatorView"
-                            android:padding="@dimen/card_view_padding"
-                            android:text="Security"
-                            android:textAppearance="?attr/textAppearanceSubtitle2"
-                            android:textColor="@color/colorText"
-                            tools:ignore="HardcodedText" />
-
-                    </RelativeLayout>
-                </RelativeLayout>
-
-                <RelativeLayout
+                <LinearLayout
                     android:id="@+id/whatAndFaqCardView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -163,48 +147,39 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
                     android:background="@drawable/card_shape_with_ripple"
-                    android:padding="@dimen/margin_4">
+                    android:clipToOutline="true"
+                    android:orientation="vertical"
+                    tools:ignore="UnusedAttribute">
 
-                    <RelativeLayout
+                    <TextView
+                        android:id="@+id/whatTextView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/colorItemBackground"
-                        android:orientation="horizontal">
+                        android:background="?selectableItemBackground"
+                        android:padding="@dimen/card_view_padding"
+                        android:text="What you can do with aliases"
+                        android:textAppearance="?attr/textAppearanceSubtitle2"
+                        tools:ignore="HardcodedText" />
 
-                        <TextView
-                            android:id="@+id/whatTextView"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="@dimen/card_view_padding"
-                            android:text="What you can do with aliases"
-                            android:textAppearance="?attr/textAppearanceSubtitle2"
-                            android:textColor="@color/colorText"
-                            tools:ignore="HardcodedText" />
+                    <View
+                        android:id="@+id/fourthSeparatorView"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?colorOutlineVariant" />
 
-                        <View
-                            android:id="@+id/fourthSeparatorView"
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_below="@id/whatTextView"
-                            android:background="@color/colorText"
-                            android:alpha="0.1"/>
-
-                        <TextView
-                            android:id="@+id/faqTextView"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/fourthSeparatorView"
-                            android:padding="@dimen/card_view_padding"
-                            android:text="Frequently asked questions"
-                            android:textAppearance="?attr/textAppearanceSubtitle2"
-                            android:textColor="@color/colorText"
-                            tools:ignore="HardcodedText" />
-
-                    </RelativeLayout>
-                </RelativeLayout>
+                    <TextView
+                        android:id="@+id/faqTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?selectableItemBackground"
+                        android:padding="@dimen/card_view_padding"
+                        android:text="Frequently asked questions"
+                        android:textAppearance="?attr/textAppearanceSubtitle2"
+                        tools:ignore="HardcodedText" />
+                </LinearLayout>
 
                 <!--Team & Contact-->
-                <RelativeLayout
+                <LinearLayout
                     android:id="@+id/teamAndContactCardView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -213,48 +188,39 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
                     android:background="@drawable/card_shape_with_ripple"
-                    android:padding="@dimen/margin_4">
+                    android:clipToOutline="true"
+                    android:orientation="vertical"
+                    tools:ignore="UnusedAttribute">
 
-                    <RelativeLayout
+                    <TextView
+                        android:id="@+id/teamTextView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/colorItemBackground"
-                        android:orientation="horizontal">
+                        android:background="?selectableItemBackground"
+                        android:padding="@dimen/card_view_padding"
+                        android:text="Our team"
+                        android:textAppearance="?attr/textAppearanceSubtitle2"
+                        tools:ignore="HardcodedText" />
 
-                        <TextView
-                            android:id="@+id/teamTextView"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="@dimen/card_view_padding"
-                            android:text="Our team"
-                            android:textAppearance="?attr/textAppearanceSubtitle2"
-                            android:textColor="@color/colorText"
-                            tools:ignore="HardcodedText" />
+                    <View
+                        android:id="@+id/fifthSeparatorView"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?colorOutlineVariant" />
 
-                        <View
-                            android:id="@+id/fifthSeparatorView"
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_below="@id/teamTextView"
-                            android:background="@color/colorText"
-                            android:alpha="0.1"/>
-
-                        <TextView
-                            android:id="@+id/contactTextView"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/fifthSeparatorView"
-                            android:padding="@dimen/card_view_padding"
-                            android:text="Contact us"
-                            android:textAppearance="?attr/textAppearanceSubtitle2"
-                            android:textColor="@color/colorText"
-                            tools:ignore="HardcodedText" />
-
-                    </RelativeLayout>
-                </RelativeLayout>
+                    <TextView
+                        android:id="@+id/contactTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?selectableItemBackground"
+                        android:padding="@dimen/card_view_padding"
+                        android:text="Contact us"
+                        android:textAppearance="?attr/textAppearanceSubtitle2"
+                        tools:ignore="HardcodedText" />
+                </LinearLayout>
 
                 <!--Pricing & Blog-->
-                <RelativeLayout
+                <LinearLayout
                     android:id="@+id/pricingAndBlogCardView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -263,48 +229,39 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
                     android:background="@drawable/card_shape_with_ripple"
-                    android:padding="@dimen/margin_4">
+                    android:clipToOutline="true"
+                    android:orientation="vertical"
+                    tools:ignore="UnusedAttribute">
 
-                    <RelativeLayout
+                    <TextView
+                        android:id="@+id/pricingTextView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/colorItemBackground"
-                        android:orientation="horizontal">
+                        android:background="?selectableItemBackground"
+                        android:padding="@dimen/card_view_padding"
+                        android:text="Pricing"
+                        android:textAppearance="?attr/textAppearanceSubtitle2"
+                        tools:ignore="HardcodedText" />
 
-                        <TextView
-                            android:id="@+id/pricingTextView"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="@dimen/card_view_padding"
-                            android:text="Pricing"
-                            android:textAppearance="?attr/textAppearanceSubtitle2"
-                            android:textColor="@color/colorText"
-                            tools:ignore="HardcodedText" />
+                    <View
+                        android:id="@+id/sixthSeparatorView"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?colorOutlineVariant" />
 
-                        <View
-                            android:id="@+id/sixthSeparatorView"
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_below="@id/pricingTextView"
-                            android:background="@color/colorText"
-                            android:alpha="0.1"/>
-
-                        <TextView
-                            android:id="@+id/blogTextView"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/sixthSeparatorView"
-                            android:padding="@dimen/card_view_padding"
-                            android:text="Blog"
-                            android:textAppearance="?attr/textAppearanceSubtitle2"
-                            android:textColor="@color/colorText"
-                            tools:ignore="HardcodedText" />
-
-                    </RelativeLayout>
-                </RelativeLayout>
+                    <TextView
+                        android:id="@+id/blogTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?selectableItemBackground"
+                        android:padding="@dimen/card_view_padding"
+                        android:text="Blog"
+                        android:textAppearance="?attr/textAppearanceSubtitle2"
+                        tools:ignore="HardcodedText" />
+                </LinearLayout>
 
                 <!--Help & Roadmap-->
-                <RelativeLayout
+                <LinearLayout
                     android:id="@+id/helpAndRoadmapCardView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -313,48 +270,40 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
                     android:background="@drawable/card_shape_with_ripple"
-                    android:padding="@dimen/margin_4">
+                    android:clipToOutline="true"
+                    android:orientation="vertical"
+                    tools:ignore="UnusedAttribute">
 
-                    <RelativeLayout
+                    <TextView
+                        android:id="@+id/helpTextView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/colorItemBackground"
-                        android:orientation="horizontal">
+                        android:background="?selectableItemBackground"
+                        android:padding="@dimen/card_view_padding"
+                        android:text="Help"
+                        android:textAppearance="?attr/textAppearanceSubtitle2"
+                        tools:ignore="HardcodedText" />
 
-                        <TextView
-                            android:id="@+id/helpTextView"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="@dimen/card_view_padding"
-                            android:text="Help"
-                            android:textAppearance="?attr/textAppearanceSubtitle2"
-                            android:textColor="@color/colorText"
-                            tools:ignore="HardcodedText" />
+                    <View
+                        android:id="@+id/seventhSeparatorView"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?colorOutlineVariant" />
 
-                        <View
-                            android:id="@+id/seventhSeparatorView"
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_below="@id/helpTextView"
-                            android:background="@color/colorText"
-                            android:alpha="0.1"/>
+                    <TextView
+                        android:id="@+id/roadmapTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?selectableItemBackground"
+                        android:padding="@dimen/card_view_padding"
+                        android:text="Roadmap"
+                        android:textAppearance="?attr/textAppearanceSubtitle2"
+                        tools:ignore="HardcodedText" />
 
-                        <TextView
-                            android:id="@+id/roadmapTextView"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/seventhSeparatorView"
-                            android:padding="@dimen/card_view_padding"
-                            android:text="Roadmap"
-                            android:textAppearance="?attr/textAppearanceSubtitle2"
-                            android:textColor="@color/colorText"
-                            tools:ignore="HardcodedText" />
-
-                    </RelativeLayout>
-                </RelativeLayout>
+                </LinearLayout>
 
                 <!--Terms & Privacy-->
-                <RelativeLayout
+                <LinearLayout
                     android:id="@+id/termsAndPrivacyCardView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -363,57 +312,41 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
                     android:background="@drawable/card_shape_with_ripple"
-                    android:padding="@dimen/margin_4">
+                    android:clipToOutline="true"
+                    android:orientation="vertical"
+                    tools:ignore="UnusedAttribute">
 
-                    <RelativeLayout
+                    <TextView
+                        android:id="@+id/termsTextView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/colorItemBackground"
-                        android:orientation="horizontal">
+                        android:background="?selectableItemBackground"
+                        android:padding="@dimen/card_view_padding"
+                        android:text="Terms &amp; conditions"
+                        android:textAppearance="?attr/textAppearanceSubtitle2"
+                        tools:ignore="HardcodedText" />
 
-                        <TextView
-                            android:id="@+id/termsTextView"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="@dimen/card_view_padding"
-                            android:text="Terms &amp; conditions"
-                            android:textAppearance="?attr/textAppearanceSubtitle2"
-                            android:textColor="@color/colorText"
-                            tools:ignore="HardcodedText" />
+                    <View
+                        android:id="@+id/eighthSeparatorView"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?colorOutlineVariant" />
 
-                        <View
-                            android:id="@+id/eighthSeparatorView"
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_below="@id/termsTextView"
-                            android:background="@color/colorText"
-                            android:alpha="0.1"/>
+                    <TextView
+                        android:id="@+id/privacyTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?selectableItemBackground"
+                        android:padding="@dimen/card_view_padding"
+                        android:text="Privacy policy"
+                        android:textAppearance="?attr/textAppearanceSubtitle2"
+                        tools:ignore="HardcodedText" />
 
-                        <TextView
-                            android:id="@+id/privacyTextView"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/eighthSeparatorView"
-                            android:padding="@dimen/card_view_padding"
-                            android:text="Privacy policy"
-                            android:textAppearance="?attr/textAppearanceSubtitle2"
-                            android:textColor="@color/colorText"
-                            tools:ignore="HardcodedText" />
-
-                    </RelativeLayout>
-                </RelativeLayout>
+                </LinearLayout>
 
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/dividerColor"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

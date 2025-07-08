@@ -4,9 +4,12 @@ import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
 import android.util.DisplayMetrics
+import android.util.TypedValue
 import android.widget.Toast
+import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat
 import io.simplelogin.android.utils.enums.SLError
+
 
 fun Context.toastShortly(text: String): Toast {
     val toast = Toast.makeText(this, text, Toast.LENGTH_SHORT)
@@ -41,3 +44,12 @@ fun Context.pixelsToDp(px: Float): Float =
 
 fun Context.canReadContacts(): Boolean =
     ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED
+
+@ColorInt
+fun Context.resolveColor(attr: Int): Int {
+    val typedValue = TypedValue()
+    theme.resolveAttribute(attr, typedValue, true)
+    @ColorInt val color = typedValue.data
+
+    return color
+}

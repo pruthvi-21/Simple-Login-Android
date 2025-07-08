@@ -5,31 +5,28 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorItemBackground">
+        android:layout_height="match_parent">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:navigationIcon="@drawable/ic_chevron_left_24dp">
 
             <TextView
                 android:id="@+id/toolbarTitleText"
+                style="@style/TextAppearance.Material3.ActionBar.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:text="Sign Up"
-                android:textColor="@color/colorText"
-                style="@style/TextAppearance.Material3.ActionBar.Title"
                 tools:ignore="HardcodedText" />
-
         </com.google.android.material.appbar.MaterialToolbar>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/dividerColor"
+            android:background="?colorOutlineVariant"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar" />
@@ -60,16 +57,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_20"
                 android:layout_marginEnd="@dimen/margin_20"
+                android:hint="Email address"
                 android:paddingStart="@dimen/margin_15"
                 android:paddingEnd="@dimen/margin_15"
-                android:hint="Email address"
                 tools:ignore="HardcodedText">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"
-                    android:textColor="@color/colorText" />
+                    android:inputType="textEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <View
@@ -83,18 +79,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_20"
                 android:layout_marginEnd="@dimen/margin_20"
+                android:hint="Password"
                 android:paddingStart="@dimen/margin_15"
                 android:paddingEnd="@dimen/margin_15"
-                android:hint="Password"
                 app:endIconMode="password_toggle"
-                app:endIconTint="@color/colorPrimary"
+                app:endIconTint="?colorPrimary"
                 tools:ignore="HardcodedText">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:textColor="@color/colorText" />
+                    android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <View
@@ -103,25 +98,26 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/signUpButton"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:padding="12dp"
+                android:layout_marginStart="35dp"
+                android:layout_marginEnd="35dp"
+                android:paddingVertical="15dp"
                 android:text="Sign Up"
                 android:textColor="@color/btn_text_color_state"
                 tools:ignore="HardcodedText" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/cancelButton"
-                style="@style/Widget.Material3.Button.TextButton"
-                android:layout_width="wrap_content"
+                style="@style/SlTextButtonStyle"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="35dp"
                 android:layout_marginTop="@dimen/margin_4"
-                android:layout_gravity="center"
-                android:text="Cancel"
-                android:textSize="15sp"
+                android:layout_marginEnd="35dp"
+                android:paddingVertical="15dp"
+                android:text="Go back to login?"
                 tools:ignore="HardcodedText" />
-
         </LinearLayout>
 
         <ProgressBar

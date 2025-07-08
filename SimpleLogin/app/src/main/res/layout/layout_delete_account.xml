@@ -25,7 +25,6 @@
                 android:layout_marginBottom="5dp"
                 android:text="Account Deletion"
                 android:textAppearance="?attr/textAppearanceSubtitle2"
-                android:textColor="@color/colorText"
                 tools:ignore="HardcodedText" />
 
             <TextView
@@ -36,17 +35,17 @@
 
         </LinearLayout>
 
-        <TextView
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/delete_text_view"
+            style="@style/Widget.Material3.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:text="DELETE ACCOUNT"
+            android:text="Delete Account"
             android:textAppearance="?attr/textAppearanceSubtitle2"
-            android:textColor="@android:color/holo_red_light"
+            android:textColor="?colorError"
             tools:ignore="HardcodedText" />
     </RelativeLayout>
-
 
 </layout>
