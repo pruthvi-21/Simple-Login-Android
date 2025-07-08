@@ -21,7 +21,7 @@ class ContactsAccessView : RelativeLayout {
 
     init {
         background = ContextCompat.getDrawable(context, android.R.color.transparent)
-        binding.accessSwitch.setOnClickListener {
+        binding.container.setOnClickListener {
             updateSwitchState()
             val appSettingsIntent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
                 data = Uri.fromParts("package", context.packageName, null)

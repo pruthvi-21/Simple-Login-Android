@@ -1,57 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="5dp"
-        android:padding="@dimen/margin_15"
-        android:background="@drawable/card_shape_with_ripple">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="15dp">
+
+        <TextView
+            style="@style/SlSettingsItemTitle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:text="@string/random_alias" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:text="@string/random_alias"
-                android:textAppearance="?attr/textAppearanceSubtitle2" />
+        <TextView
+            style="@style/SlSettingsItemSummary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:text="@string/random_alias_explication" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/random_alias_explication" />
+        <Spinner
+            android:id="@+id/random_mode_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="18dp"
+            android:backgroundTint="?colorPrimary"
+            android:spinnerMode="dropdown" />
 
-            <Spinner
-                android:id="@+id/random_mode_spinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginBottom="18dp"
-                android:backgroundTint="?colorPrimary"
-                android:spinnerMode="dropdown" />
+        <TextView
+            style="@style/SlSettingsItemSummary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:text="@string/domain_for_random_alias" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/domain_for_random_alias" />
+        <Spinner
+            android:id="@+id/default_domain_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="18dp"
+            android:backgroundTint="?colorPrimary"
+            android:spinnerMode="dropdown" />
 
-            <Spinner
-                android:id="@+id/default_domain_spinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginBottom="18dp"
-                android:backgroundTint="?colorPrimary"
-                android:spinnerMode="dropdown" />
-
-        </LinearLayout>
-
-    </RelativeLayout>
-
+    </LinearLayout>
 </layout>

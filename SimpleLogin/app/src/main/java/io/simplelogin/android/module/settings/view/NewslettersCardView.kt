@@ -27,5 +27,8 @@ class NewslettersCardView : RelativeLayout {
 
     fun setOnSwitchChangedListener(listener: (isChecked: Boolean) -> Unit) {
         binding.newslettersSwitch.setOnCheckedChangeListener { _, isChecked -> listener(isChecked) }
+        binding.container.setOnClickListener {
+            binding.newslettersSwitch.isChecked = !binding.newslettersSwitch.isChecked
+        }
     }
 }

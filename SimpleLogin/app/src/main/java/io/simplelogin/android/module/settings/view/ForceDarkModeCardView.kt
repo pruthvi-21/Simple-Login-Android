@@ -27,5 +27,8 @@ class ForceDarkModeCardView : RelativeLayout {
 
     fun setOnSwitchChangedListener(listener: (isChecked: Boolean) -> Unit) {
         binding.forceDarkModeSwitch.setOnCheckedChangeListener { _, isChecked -> listener(isChecked) }
+        binding.container.setOnClickListener {
+            binding.forceDarkModeSwitch.isChecked = !binding.forceDarkModeSwitch.isChecked
+        }
     }
 }

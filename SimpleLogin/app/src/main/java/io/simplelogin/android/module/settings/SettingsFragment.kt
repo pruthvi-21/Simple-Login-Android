@@ -1,12 +1,9 @@
 package io.simplelogin.android.module.settings
 
-import android.Manifest
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.KeyguardManager
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -15,7 +12,8 @@ import android.os.Bundle
 import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.*
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
@@ -35,7 +33,6 @@ import io.simplelogin.android.utils.SLSharedPreferences
 import io.simplelogin.android.utils.baseclass.BaseFragment
 import io.simplelogin.android.utils.extension.runOnUiThread
 import io.simplelogin.android.utils.extension.toastError
-import io.simplelogin.android.utils.extension.toastShortly
 import io.simplelogin.android.utils.model.UserInfo
 import io.simplelogin.android.utils.model.UserSettings
 import java.io.ByteArrayOutputStream
@@ -76,10 +73,7 @@ class SettingsFragment : BaseFragment(), HomeActivity.OnBackPressed {
         }
 
         // Other options
-        binding.newslettersCardView.visibility = GONE
-        binding.randomAliasCardView.visibility = GONE
-        binding.senderAddressFormatCardView.visibility = GONE
-        binding.deleteAccountCardView.visibility = GONE
+        binding.additionalSettings.visibility = GONE
         setUpViewModel()
         viewModel.fetchUserSettingsAndDomainLites()
 
@@ -127,8 +121,9 @@ class SettingsFragment : BaseFragment(), HomeActivity.OnBackPressed {
     }
 
     private fun bind(userSettings: UserSettings) {
+        binding.additionalSettings.visibility = VISIBLE
+
         // Newsletters
-        binding.newslettersCardView.visibility = VISIBLE
         binding.newslettersCardView.bind(userSettings.notification)
         binding.newslettersCardView.setOnSwitchChangedListener { isChecked ->
             val option = UserSettings.Option.NotificationOption(isChecked)
@@ -136,7 +131,6 @@ class SettingsFragment : BaseFragment(), HomeActivity.OnBackPressed {
         }
 
         // Random mode & Default domain
-        binding.randomAliasCardView.visibility = VISIBLE
         binding.randomAliasCardView.bind(
             viewModel.userSettings.randomMode,
             viewModel.userSettings.randomAliasDefaultDomain,
@@ -158,7 +152,6 @@ class SettingsFragment : BaseFragment(), HomeActivity.OnBackPressed {
         }
 
         // Sender address format
-        binding.senderAddressFormatCardView.visibility = VISIBLE
         binding.senderAddressFormatCardView.bind(viewModel.userSettings.senderFormat)
         binding.senderAddressFormatCardView.setSenderAddressFormatSpinnerSelectionListener { selectedSenderFormat ->
             if (selectedSenderFormat != viewModel.userSettings.senderFormat) {
@@ -168,7 +161,6 @@ class SettingsFragment : BaseFragment(), HomeActivity.OnBackPressed {
         }
 
         // Delete account
-        binding.deleteAccountCardView.visibility = VISIBLE
         binding.deleteAccountCardView.setDeleteAccountClickListener {
             val baseUrl = SLSharedPreferences.getApiUrl(requireContext())
             val intent = Intent(Intent.ACTION_VIEW)
@@ -187,7 +179,7 @@ class SettingsFragment : BaseFragment(), HomeActivity.OnBackPressed {
             if (shouldForceDarkMode) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             } else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY)
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
             }
 
             val intent: Intent? = context?.packageName?.let {

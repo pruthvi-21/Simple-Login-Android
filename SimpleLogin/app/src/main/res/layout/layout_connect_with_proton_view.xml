@@ -6,12 +6,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="5dp"
-        android:background="@drawable/card_shape_with_ripple"
         android:orientation="vertical"
-        android:padding="@dimen/margin_15">
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="15dp">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/connectWithProtonButton"
@@ -43,6 +40,7 @@
 
         <TextView
             android:id="@+id/connectWithProtonInfoText"
+            style="@style/SlSettingsItemSummary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="8dp"
@@ -50,6 +48,7 @@
 
         <TextView
             android:id="@+id/accountConnectedWithProtonText"
+            style="@style/SlSettingsItemSummary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="8dp"

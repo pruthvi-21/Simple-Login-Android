@@ -3,13 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <RelativeLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="5dp"
-        android:background="@drawable/card_shape_with_ripple"
-        android:padding="@dimen/margin_15">
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="15dp">
 
         <LinearLayout
             android:id="@+id/root_linear_layout"

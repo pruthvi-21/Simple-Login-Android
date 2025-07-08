@@ -25,5 +25,8 @@ class LocalAuthenticationView : RelativeLayout {
 
     fun setOnSwitchChangedListener(listener: (isChecked: Boolean) -> Unit) {
         binding.biometricSwitch.setOnCheckedChangeListener { _, isChecked -> listener(isChecked) }
+        binding.container.setOnClickListener {
+            binding.biometricSwitch.isChecked = !binding.biometricSwitch.isChecked
+        }
     }
 }

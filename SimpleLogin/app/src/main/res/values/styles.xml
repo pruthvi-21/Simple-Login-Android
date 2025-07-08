@@ -30,4 +30,17 @@
         <item name="boxStrokeWidth">0dp</item>
         <item name="boxBackgroundColor">?colorSurfaceContainer</item>
     </style>
+
+    <style name="SlSettingsItemTitle">
+        <item name="android:textAppearance">?attr/textAppearanceListItem</item>
+        <item name="singleLine">true</item>
+        <item name="android:ellipsize">marquee</item>
+    </style>
+
+    <style name="SlSettingsItemSummary">
+        <item name="android:textAppearance">?attr/textAppearanceListItemSecondary</item>
+        <item name="android:maxLines">10</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textColor">?android:textColorSecondary</item>
+    </style>
 </resources>
