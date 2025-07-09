@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -12,26 +12,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/appbar_top_padding"
-            app:layout_constraintTop_toTopOf="parent"
             app:liftOnScroll="true">
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
                 app:navigationIcon="@drawable/ic_chevron_left_24dp"
                 app:title="It's never too late." />
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
             android:background="@mipmap/premium_bg"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/appbar">
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -56,9 +51,9 @@
                     android:text="10 aliases"
                     android:textAppearance="?attr/textAppearanceSubtitle1"
                     android:textColor="@color/colorDarkGray"
+                    app:drawableStartCompat="@drawable/ic_check_mark_16dp"
                     app:drawableTint="@color/colorDarkGray"
-                    tools:ignore="HardcodedText"
-                    app:drawableStartCompat="@drawable/ic_check_mark_16dp" />
+                    tools:ignore="HardcodedText" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -68,9 +63,9 @@
                     android:text="Unlimited bandwidth"
                     android:textAppearance="?attr/textAppearanceSubtitle1"
                     android:textColor="@color/colorDarkGray"
+                    app:drawableStartCompat="@drawable/ic_check_mark_16dp"
                     app:drawableTint="@color/colorDarkGray"
-                    tools:ignore="HardcodedText"
-                    app:drawableStartCompat="@drawable/ic_check_mark_16dp" />
+                    tools:ignore="HardcodedText" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -80,9 +75,9 @@
                     android:text="Sign in with SimpleLogin"
                     android:textAppearance="?attr/textAppearanceSubtitle1"
                     android:textColor="@color/colorDarkGray"
+                    app:drawableStartCompat="@drawable/ic_check_mark_16dp"
                     app:drawableTint="@color/colorDarkGray"
-                    tools:ignore="HardcodedText"
-                    app:drawableStartCompat="@drawable/ic_check_mark_16dp" />
+                    tools:ignore="HardcodedText" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -101,9 +96,9 @@
                     android:paddingTop="10dp"
                     android:text="Unlimited aliases"
                     android:textAppearance="?attr/textAppearanceSubtitle1"
+                    app:drawableStartCompat="@drawable/ic_check_mark_16dp"
                     app:drawableTint="?colorPrimary"
-                    tools:ignore="HardcodedText"
-                    app:drawableStartCompat="@drawable/ic_check_mark_16dp" />
+                    tools:ignore="HardcodedText" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -112,9 +107,9 @@
                     android:paddingTop="5dp"
                     android:text="Unlimited reply/send from alias"
                     android:textAppearance="?attr/textAppearanceSubtitle1"
+                    app:drawableStartCompat="@drawable/ic_check_mark_16dp"
                     app:drawableTint="?colorPrimary"
-                    tools:ignore="HardcodedText"
-                    app:drawableStartCompat="@drawable/ic_check_mark_16dp" />
+                    tools:ignore="HardcodedText" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -123,9 +118,9 @@
                     android:paddingTop="5dp"
                     android:text="Unlimited custom domains"
                     android:textAppearance="?attr/textAppearanceSubtitle1"
+                    app:drawableStartCompat="@drawable/ic_check_mark_16dp"
                     app:drawableTint="?colorPrimary"
-                    tools:ignore="HardcodedText"
-                    app:drawableStartCompat="@drawable/ic_check_mark_16dp" />
+                    tools:ignore="HardcodedText" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -135,9 +130,9 @@
                     android:text="Bring your own domain to create aliases like contact@your-domain.com"
                     android:textAppearance="?attr/textAppearanceSubtitle1"
                     android:textColor="@color/colorDarkGray"
+                    app:drawableStartCompat="@drawable/ic_check_mark_16dp"
                     app:drawableTint="@android:color/transparent"
-                    tools:ignore="HardcodedText"
-                    app:drawableStartCompat="@drawable/ic_check_mark_16dp" />
+                    tools:ignore="HardcodedText" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -146,9 +141,9 @@
                     android:paddingTop="5dp"
                     android:text="Catch-all (or wildcard) domain"
                     android:textAppearance="?attr/textAppearanceSubtitle1"
+                    app:drawableStartCompat="@drawable/ic_check_mark_16dp"
                     app:drawableTint="?colorPrimary"
-                    tools:ignore="HardcodedText"
-                    app:drawableStartCompat="@drawable/ic_check_mark_16dp" />
+                    tools:ignore="HardcodedText" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -157,9 +152,9 @@
                     android:paddingTop="5dp"
                     android:text="50 directories/usernames"
                     android:textAppearance="?attr/textAppearanceSubtitle1"
+                    app:drawableStartCompat="@drawable/ic_check_mark_16dp"
                     app:drawableTint="?colorPrimary"
-                    tools:ignore="HardcodedText"
-                    app:drawableStartCompat="@drawable/ic_check_mark_16dp" />
+                    tools:ignore="HardcodedText" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -168,9 +163,9 @@
                     android:paddingTop="5dp"
                     android:text="Unlimited mailboxes"
                     android:textAppearance="?attr/textAppearanceSubtitle1"
+                    app:drawableStartCompat="@drawable/ic_check_mark_16dp"
                     app:drawableTint="?colorPrimary"
-                    tools:ignore="HardcodedText"
-                    app:drawableStartCompat="@drawable/ic_check_mark_16dp" />
+                    tools:ignore="HardcodedText" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -179,9 +174,9 @@
                     android:paddingTop="5dp"
                     android:text="PGP Encryption"
                     android:textAppearance="?attr/textAppearanceSubtitle1"
+                    app:drawableStartCompat="@drawable/ic_check_mark_16dp"
                     app:drawableTint="?colorPrimary"
-                    tools:ignore="HardcodedText"
-                    app:drawableStartCompat="@drawable/ic_check_mark_16dp" />
+                    tools:ignore="HardcodedText" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -304,9 +299,9 @@
                     android:paddingTop="10dp"
                     android:text="Dedicated server &amp; database"
                     android:textAppearance="?attr/textAppearanceSubtitle1"
+                    app:drawableStartCompat="@drawable/ic_check_mark_16dp"
                     app:drawableTint="?colorPrimary"
-                    tools:ignore="HardcodedText"
-                    app:drawableStartCompat="@drawable/ic_check_mark_16dp" />
+                    tools:ignore="HardcodedText" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -315,9 +310,9 @@
                     android:paddingTop="5dp"
                     android:text="Dashboard to manage team accounts"
                     android:textAppearance="?attr/textAppearanceSubtitle1"
+                    app:drawableStartCompat="@drawable/ic_check_mark_16dp"
                     app:drawableTint="?colorPrimary"
-                    tools:ignore="HardcodedText"
-                    app:drawableStartCompat="@drawable/ic_check_mark_16dp" />
+                    tools:ignore="HardcodedText" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -326,9 +321,9 @@
                     android:paddingTop="5dp"
                     android:text="Single Sign-On (SAML or OAuth2)"
                     android:textAppearance="?attr/textAppearanceSubtitle1"
+                    app:drawableStartCompat="@drawable/ic_check_mark_16dp"
                     app:drawableTint="?colorPrimary"
-                    tools:ignore="HardcodedText"
-                    app:drawableStartCompat="@drawable/ic_check_mark_16dp" />
+                    tools:ignore="HardcodedText" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/contactButton"
@@ -344,13 +339,5 @@
 
         </androidx.core.widget.NestedScrollView>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:background="@drawable/shape_toolbar_drop_shadow"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/appbar" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
