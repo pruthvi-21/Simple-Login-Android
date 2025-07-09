@@ -7,14 +7,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="@dimen/appbar_top_padding"
             app:layout_constraintTop_toTopOf="parent"
-            app:menu="@menu/alias_picker_menu"
-            app:navigationIcon="@drawable/ic_close_24dp"
-            app:title="Pick An Alias" />
+            app:liftOnScroll="true">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:menu="@menu/alias_picker_menu"
+                app:navigationIcon="@drawable/ic_close_24dp"
+                app:title="Pick An Alias" />
+        </com.google.android.material.appbar.AppBarLayout>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout"
@@ -22,7 +30,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar">
+            app:layout_constraintTop_toBottomOf="@id/appbar">
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/all_tab_item"
