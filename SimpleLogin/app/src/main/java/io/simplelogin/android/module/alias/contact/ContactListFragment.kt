@@ -69,6 +69,10 @@ class ContactListFragment :
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        applyEdgeToEdgeInsets(binding.root, binding.appbar)
+    }
+
     override fun onResume() {
         super.onResume()
         // On configuration change, force trigger refresh recyclerView

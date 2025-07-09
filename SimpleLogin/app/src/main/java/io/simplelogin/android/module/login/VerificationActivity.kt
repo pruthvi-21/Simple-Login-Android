@@ -43,6 +43,8 @@ class VerificationActivity : BaseAppCompatActivity(), Window.Callback {
         binding = ActivityVerificationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        applyEdgeToEdgeInsets(binding.root, binding.appbar)
+
         binding.cancelButton.setOnClickListener {
             setResult(Activity.RESULT_CANCELED)
             finish()

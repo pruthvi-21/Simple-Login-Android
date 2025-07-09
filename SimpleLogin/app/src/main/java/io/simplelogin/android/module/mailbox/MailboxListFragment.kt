@@ -50,6 +50,10 @@ class MailboxListFragment :
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        applyEdgeToEdgeInsets(binding.root, binding.appbar)
+    }
+
     private fun setLoading(loading: Boolean) {
         binding.rootConstraintLayout.isEnabled = !loading
         binding.progressBar.visibility = if (loading) View.VISIBLE else View.GONE

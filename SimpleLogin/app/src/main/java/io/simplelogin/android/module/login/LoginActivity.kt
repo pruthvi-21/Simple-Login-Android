@@ -51,6 +51,8 @@ class LoginActivity : BaseAppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        applyEdgeToEdgeInsets(binding.root)
+
         // Login
         binding.emailTextField.editText?.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) = Unit

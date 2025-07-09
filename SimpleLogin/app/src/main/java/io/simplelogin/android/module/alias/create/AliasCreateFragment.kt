@@ -16,6 +16,7 @@ import io.simplelogin.android.module.home.HomeActivity
 import io.simplelogin.android.utils.SLApiService
 import io.simplelogin.android.utils.SLSharedPreferences
 import io.simplelogin.android.utils.baseclass.BaseFragment
+import io.simplelogin.android.utils.extension.applyEdgeToEdgeInsets
 import io.simplelogin.android.utils.extension.dismissKeyboard
 import io.simplelogin.android.utils.extension.isValidEmailPrefix
 import io.simplelogin.android.utils.extension.showSelectMailboxesAlert
@@ -109,6 +110,10 @@ class AliasCreateFragment : BaseFragment(), HomeActivity.OnBackPressed {
         }
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        applyEdgeToEdgeInsets(binding.root, binding.appbar)
     }
 
     private fun dismissKeyboardAndNavigateUp() {

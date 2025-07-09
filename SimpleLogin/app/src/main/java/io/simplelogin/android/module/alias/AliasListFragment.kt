@@ -11,7 +11,11 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.*
+import androidx.recyclerview.widget.ConcatAdapter
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSmoothScroller
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.tabs.TabLayout
 import io.simplelogin.android.R
@@ -25,7 +29,13 @@ import io.simplelogin.android.utils.baseclass.BaseFragment
 import io.simplelogin.android.utils.enums.AliasFilterMode
 import io.simplelogin.android.utils.enums.RandomMode
 import io.simplelogin.android.utils.enums.SLError
-import io.simplelogin.android.utils.extension.*
+import io.simplelogin.android.utils.extension.alertReversableOptions
+import io.simplelogin.android.utils.extension.applyEdgeToEdgeInsets
+import io.simplelogin.android.utils.extension.copyToClipboard
+import io.simplelogin.android.utils.extension.toastError
+import io.simplelogin.android.utils.extension.toastShortly
+import io.simplelogin.android.utils.extension.toastThrowable
+import io.simplelogin.android.utils.extension.toastUpToDate
 import io.simplelogin.android.utils.model.Alias
 
 class AliasListFragment :
@@ -70,6 +80,10 @@ class AliasListFragment :
         activity?.intent?.let { viewModel.getMailToEmail(it) }
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        applyEdgeToEdgeInsets(binding.root, binding.appbar)
     }
 
     override fun onStop() {

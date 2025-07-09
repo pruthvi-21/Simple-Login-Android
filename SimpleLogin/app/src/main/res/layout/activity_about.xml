@@ -3,12 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.drawerlayout.widget.DrawerLayout
-        android:id="@+id/main_drawer"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:context=".MainActivity">
+        tools:context=".module.login.AboutActivity">
 
         <fragment
             android:id="@+id/aboutNavHostFragment"
@@ -16,15 +15,5 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:defaultNavHost="true" />
-
-        <com.google.android.material.navigation.NavigationView
-            android:id="@+id/navigation_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            app:headerLayout="@layout/menu_header"
-            app:itemIconTint="?colorPrimary"
-            app:itemTextColor="?attr/colorControlNormal" />
-
-    </androidx.drawerlayout.widget.DrawerLayout>
+    </FrameLayout>
 </layout>

@@ -58,6 +58,10 @@ class AliasSearchFragment : BaseFragment(), HomeActivity.OnBackPressed {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        applyEdgeToEdgeInsets(binding.root)
+    }
+
     override fun onResume() {
         // Animate slide search bar
         super.onResume()

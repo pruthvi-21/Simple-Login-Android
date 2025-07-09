@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -24,7 +23,13 @@ import io.simplelogin.android.module.home.HomeActivity
 import io.simplelogin.android.utils.LoadingFooterAdapter
 import io.simplelogin.android.utils.SLApiService
 import io.simplelogin.android.utils.baseclass.BaseFragment
-import io.simplelogin.android.utils.extension.*
+import io.simplelogin.android.utils.extension.alertReversableOptions
+import io.simplelogin.android.utils.extension.applyEdgeToEdgeInsets
+import io.simplelogin.android.utils.extension.showSelectMailboxesAlert
+import io.simplelogin.android.utils.extension.toastError
+import io.simplelogin.android.utils.extension.toastShortly
+import io.simplelogin.android.utils.extension.toastThrowable
+import io.simplelogin.android.utils.extension.toastUpToDate
 import io.simplelogin.android.utils.model.AliasActivity
 
 class AliasActivityListFragment : BaseFragment(), HomeActivity.OnBackPressed {
@@ -62,6 +67,10 @@ class AliasActivityListFragment : BaseFragment(), HomeActivity.OnBackPressed {
         setLoading(false)
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        applyEdgeToEdgeInsets(binding.root, binding.appbar)
     }
 
     private fun setLoading(loading: Boolean) {

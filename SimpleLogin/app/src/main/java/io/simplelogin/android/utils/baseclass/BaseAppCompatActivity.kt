@@ -2,8 +2,10 @@ package io.simplelogin.android.utils.baseclass
 
 import android.annotation.SuppressLint
 import android.content.res.Configuration
+import android.os.Build
 import android.os.Bundle
 import android.view.View
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import io.simplelogin.android.utils.SLApiService
@@ -13,6 +15,10 @@ import io.simplelogin.android.utils.SLSharedPreferences
 open class BaseAppCompatActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            window.isNavigationBarContrastEnforced = false
+        }
         SLApiService.setUpBaseUrl(this)
         applyDarkModeIfApplicable()
     }

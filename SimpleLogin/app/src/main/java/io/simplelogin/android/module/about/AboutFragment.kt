@@ -10,6 +10,7 @@ import io.simplelogin.android.R
 import io.simplelogin.android.databinding.FragmentAboutBinding
 import io.simplelogin.android.module.home.HomeActivity
 import io.simplelogin.android.utils.baseclass.BaseFragment
+import io.simplelogin.android.utils.extension.applyEdgeToEdgeInsets
 import io.simplelogin.android.utils.extension.getVersionName
 import io.simplelogin.android.utils.extension.openUrlInBrowser
 import io.simplelogin.android.utils.extension.startSendEmailIntent
@@ -107,6 +108,10 @@ class AboutFragment : BaseFragment(), HomeActivity.OnBackPressed {
         }
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        applyEdgeToEdgeInsets(binding.root, binding.appbar)
     }
 
     private fun finishOrNavigateUp() {

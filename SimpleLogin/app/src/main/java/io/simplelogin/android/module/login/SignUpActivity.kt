@@ -8,6 +8,7 @@ import android.text.TextWatcher
 import io.simplelogin.android.R
 import io.simplelogin.android.databinding.ActivitySignUpBinding
 import io.simplelogin.android.utils.baseclass.BaseAppCompatActivity
+import io.simplelogin.android.utils.extension.applyEdgeToEdgeInsets
 import io.simplelogin.android.utils.extension.dismissKeyboard
 import io.simplelogin.android.utils.extension.isValidEmail
 
@@ -22,6 +23,8 @@ class SignUpActivity : BaseAppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        applyEdgeToEdgeInsets(binding.root, binding.appbar)
 
         binding.cancelButton.setOnClickListener { finish() }
 
@@ -48,8 +51,6 @@ class SignUpActivity : BaseAppCompatActivity() {
 
         binding.emailTextField.editText?.addTextChangedListener(textWatcher)
         binding.passwordTextField.editText?.addTextChangedListener(textWatcher)
-
-        binding.root.setOnClickListener { dismissKeyboard() }
     }
 
     override fun onPause() {

@@ -20,6 +20,8 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts.PickVisualMedia
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -32,6 +34,7 @@ import io.simplelogin.android.module.home.HomeViewModel
 import io.simplelogin.android.utils.LoginWithProtonUtils
 import io.simplelogin.android.utils.SLSharedPreferences
 import io.simplelogin.android.utils.baseclass.BaseFragment
+import io.simplelogin.android.utils.extension.applyEdgeToEdgeInsets
 import io.simplelogin.android.utils.extension.runOnUiThread
 import io.simplelogin.android.utils.extension.toastError
 import io.simplelogin.android.utils.model.UserInfo
@@ -81,6 +84,10 @@ class SettingsFragment : BaseFragment(), HomeActivity.OnBackPressed {
         viewModel.fetchUserSettingsAndDomainLites()
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        applyEdgeToEdgeInsets(binding.root, binding.appbar)
     }
 
     override fun onResume() {
@@ -149,7 +156,8 @@ class SettingsFragment : BaseFragment(), HomeActivity.OnBackPressed {
 
         binding.randomAliasCardView.setDefaultDomainSpinnerSelectionListener { selectedDomainLite ->
             if (selectedDomainLite.name != viewModel.userSettings.randomAliasDefaultDomain) {
-                val option = UserSettings.Option.RandomAliasDefaultDomainOption(selectedDomainLite.name)
+                val option =
+                    UserSettings.Option.RandomAliasDefaultDomainOption(selectedDomainLite.name)
                 viewModel.updateUserSettings(option)
             }
         }
@@ -177,7 +185,12 @@ class SettingsFragment : BaseFragment(), HomeActivity.OnBackPressed {
         val isChecked = SLSharedPreferences.getShouldForceDarkMode(requireContext())
         binding.forceDarkModeCardView.bind(isChecked)
         binding.forceDarkModeCardView.setOnSwitchChangedListener { shouldForceDarkMode ->
-            this.context?.let { SLSharedPreferences.setShouldForceDarkMode(it, shouldForceDarkMode) }
+            this.context?.let {
+                SLSharedPreferences.setShouldForceDarkMode(
+                    it,
+                    shouldForceDarkMode
+                )
+            }
 
             if (shouldForceDarkMode) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
@@ -228,7 +241,11 @@ class SettingsFragment : BaseFragment(), HomeActivity.OnBackPressed {
 
         viewModel.eventProtonAccountUnlinked.observe(viewLifecycleOwner) { updated ->
             if (updated) {
-                Toast.makeText(requireContext(), R.string.your_proton_account_has_been_unlinked, Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    R.string.your_proton_account_has_been_unlinked,
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }

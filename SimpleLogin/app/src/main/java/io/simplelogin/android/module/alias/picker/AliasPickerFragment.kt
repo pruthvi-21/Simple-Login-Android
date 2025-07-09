@@ -20,6 +20,7 @@ import io.simplelogin.android.module.home.HomeActivity
 import io.simplelogin.android.utils.LoadingFooterAdapter
 import io.simplelogin.android.utils.baseclass.BaseFragment
 import io.simplelogin.android.utils.enums.AliasFilterMode
+import io.simplelogin.android.utils.extension.applyEdgeToEdgeInsets
 import io.simplelogin.android.utils.extension.toastError
 import io.simplelogin.android.utils.extension.toastUpToDate
 import io.simplelogin.android.utils.model.Alias
@@ -42,6 +43,10 @@ class AliasPickerFragment : BaseFragment(), TabLayout.OnTabSelectedListener, Too
         setUpViewModel()
         setUpRecyclerView()
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        applyEdgeToEdgeInsets(binding.root, binding.appbar)
     }
 
     override fun onResume() {

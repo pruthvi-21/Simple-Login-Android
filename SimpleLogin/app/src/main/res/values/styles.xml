@@ -4,8 +4,6 @@
     <style name="AppTheme" parent="Theme.Material3.DynamicColors.DayNight">
         <!-- Customize your theme here. -->
         <item name="windowNoTitle">true</item>
-        <item name="android:statusBarColor">?colorSurface</item>
-        <item name="android:navigationBarColor">?colorSurface</item>
 
         <item name="buttonStyle">@style/SlButtonStyle</item>
         <item name="materialButtonStyle">@style/SlButtonStyle</item>
