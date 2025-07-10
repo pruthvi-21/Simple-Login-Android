@@ -69,24 +69,6 @@ data class Alias(
         get() = blockCount + forwardCount + replyCount
 
     @IgnoredOnParcel
-    private var _countSpannableString: Spannable? = null
-    fun getCountSpannableString(): Spannable {
-        if (_countSpannableString == null) {
-            val spannableString = SpannableStringBuilder()
-                .append("$forwardCount ")
-                .append(if (forwardCount > 1) "forwards," else "forwards,")
-                .append(" $blockCount ")
-                .append(if (blockCount > 1) "blocks," else "blocks,")
-                .append(" $replyCount ")
-                .append(if (replyCount > 1) "replies," else "reply")
-
-            _countSpannableString = spannableString
-        }
-
-        return _countSpannableString!!
-    }
-
-    @IgnoredOnParcel
     private var _mailboxesString: Spannable? = null
     fun getMailboxesString(context: Context): Spannable {
         if (_mailboxesString == null) {
