@@ -9,4 +9,9 @@
     <color name="protonMain">#6D4AFF</color>
 
     <color name="md_theme_outlineVariant">#DDDDDD</color>
+
+    <color name="email_handled">#FF9800</color>
+    <color name="email_forwarded">#4289FD</color>
+    <color name="email_replied">#00B5AF</color>
+    <color name="email_blocked">#FD5843</color>
 </resources>

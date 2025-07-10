@@ -128,7 +128,7 @@
                         layout="@layout/alias_activity_stat"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
+                        android:layout_marginHorizontal="5dp"
                         android:layout_weight="1" />
 
                     <include
@@ -136,24 +136,15 @@
                         layout="@layout/alias_activity_stat"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
+                        android:layout_marginHorizontal="5dp"
                         android:layout_weight="1" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:baselineAligned="false"
-                    android:orientation="horizontal">
 
                     <include
                         android:id="@+id/repliedStat"
                         layout="@layout/alias_activity_stat"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
+                        android:layout_marginHorizontal="5dp"
                         android:layout_weight="1" />
 
                     <include
@@ -161,7 +152,7 @@
                         layout="@layout/alias_activity_stat"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
+                        android:layout_marginHorizontal="5dp"
                         android:layout_weight="1" />
 
                 </LinearLayout>

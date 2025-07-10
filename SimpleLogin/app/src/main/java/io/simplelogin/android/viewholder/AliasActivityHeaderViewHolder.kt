@@ -11,7 +11,7 @@ import io.simplelogin.android.R
 import io.simplelogin.android.databinding.RecyclerItemAliasActivityHeaderBinding
 import io.simplelogin.android.module.alias.activity.AliasActivityListHeaderAdapter
 import io.simplelogin.android.utils.extension.makeSubviewsClippedToBound
-import io.simplelogin.android.utils.extension.resolveColor
+import io.simplelogin.android.utils.extension.setTint
 import io.simplelogin.android.utils.model.Alias
 
 class AliasActivityHeaderViewHolder(private val binding: RecyclerItemAliasActivityHeaderBinding) :
@@ -66,41 +66,38 @@ class AliasActivityHeaderViewHolder(private val binding: RecyclerItemAliasActivi
     private fun setUpStats(alias: Alias) {
         // Handled
         binding.handledStat.root.makeSubviewsClippedToBound()
+        binding.handledStat.iconImageView.setTint(R.color.email_handled)
         binding.handledStat.iconImageView.setImageDrawable(
             ContextCompat.getDrawable(context, R.drawable.ic_at_58dp)
         )
         binding.handledStat.numberTextView.text = "${alias.handleCount}"
-        binding.handledStat.typeTextView.text = "Email handled"
+        binding.handledStat.typeTextView.text = "Handled"
 
         // Forwarded
         binding.forwardedStat.root.makeSubviewsClippedToBound()
+        binding.forwardedStat.iconImageView.setTint(R.color.email_forwarded)
         binding.forwardedStat.iconImageView.setImageDrawable(
             ContextCompat.getDrawable(context, R.drawable.ic_send_48dp)
         )
         binding.forwardedStat.numberTextView.text = "${alias.forwardCount}"
-        binding.forwardedStat.typeTextView.text = "Email forwarded"
+        binding.forwardedStat.typeTextView.text = "Forwarded"
 
         // Reply
         binding.repliedStat.root.makeSubviewsClippedToBound()
+        binding.repliedStat.iconImageView.setTint(R.color.email_replied)
         binding.repliedStat.iconImageView.setImageDrawable(
             ContextCompat.getDrawable(context, R.drawable.ic_reply_58dp)
         )
         binding.repliedStat.numberTextView.text = "${alias.replyCount}"
-        binding.repliedStat.typeTextView.text = "Email replied"
+        binding.repliedStat.typeTextView.text = "Replied"
 
         // Block
         binding.blockedStat.root.makeSubviewsClippedToBound()
+        binding.blockedStat.iconImageView.setTint(R.color.email_blocked)
         binding.blockedStat.iconImageView.setImageDrawable(
             ContextCompat.getDrawable(context, R.drawable.ic_block_58dp)
         )
-        val errorContainerColor = context.resolveColor(R.attr.colorErrorContainer)
-        val onErrorContainerColor = context.resolveColor(R.attr.colorOnErrorContainer)
-        binding.blockedStat.rootLinearLayout.setBackgroundColor(errorContainerColor)
-        binding.blockedStat.iconImageView.setColorFilter(onErrorContainerColor)
-        binding.blockedStat.numberTextView.setTextColor(onErrorContainerColor)
-        binding.blockedStat.typeTextView.setTextColor(onErrorContainerColor)
-
         binding.blockedStat.numberTextView.text = "${alias.blockCount}"
-        binding.blockedStat.typeTextView.text = "Email blocked"
+        binding.blockedStat.typeTextView.text = "Blocked"
     }
 }

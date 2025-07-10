@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <RelativeLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/shape_cornered_all_four_corners">
@@ -12,49 +12,48 @@
             android:id="@+id/rootLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?colorPrimary"
-            android:orientation="horizontal"
+            android:background="?colorSurfaceContainer"
+            android:orientation="vertical"
             android:padding="10dp">
 
-            <ImageView
-                android:id="@+id/iconImageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:alpha="0.2"
-                app:tint="?colorOnPrimary"
-                tools:ignore="ContentDescription"
-                tools:src="@drawable/ic_send_48dp" />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center|end"
-                android:orientation="vertical">
+                <ImageView
+                    android:id="@+id/iconImageView"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:alpha="0.3"
+                    app:tint="?colorOnSurface"
+                    tools:ignore="ContentDescription"
+                    tools:src="@drawable/ic_send_48dp" />
 
                 <TextView
                     android:id="@+id/numberTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:textAppearance="?attr/textAppearanceHeadline6"
-                    android:textColor="?colorOnPrimary"
+                    android:textColor="?colorOnSurface"
+                    android:textSize="28sp"
                     tools:text="50" />
+            </FrameLayout>
 
-                <TextView
-                    android:id="@+id/typeTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    app:autoSizeTextType="uniform"
-                    app:autoSizeMinTextSize="12sp"
-                    app:autoSizeStepGranularity="2sp"
-                    android:paddingTop="10dp"
-                    android:textAppearance="?attr/textAppearanceBody2"
-                    android:textColor="?colorOnPrimary"
-                    tools:text="Email handled" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/typeTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:maxLines="1"
+                android:textAppearance="?attr/textAppearanceBody2"
+                android:textColor="?colorOnSurface"
+                app:autoSizeMinTextSize="12sp"
+                app:autoSizeStepGranularity="2sp"
+                app:autoSizeTextType="uniform"
+                tools:text="Email handled" />
         </LinearLayout>
-    </RelativeLayout>
+    </FrameLayout>
 
 </layout>
