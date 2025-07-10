@@ -7,4 +7,6 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorPremium">#8DB600</color>
     <color name="protonMain">#6D4AFF</color>
+
+    <color name="md_theme_outlineVariant">#DDDDDD</color>
 </resources>

@@ -3,6 +3,8 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.Material3.DynamicColors.DayNight">
         <!-- Customize your theme here. -->
+        <item name="colorOutlineVariant">@color/md_theme_outlineVariant</item>
+
         <item name="windowNoTitle">true</item>
 
         <item name="buttonStyle">@style/SlButtonStyle</item>
