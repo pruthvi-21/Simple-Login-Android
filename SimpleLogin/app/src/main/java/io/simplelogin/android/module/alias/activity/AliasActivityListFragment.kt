@@ -162,7 +162,7 @@ class AliasActivityListFragment : BaseFragment(), HomeActivity.OnBackPressed {
                         .setTitle(title)
                         .setMessage(viewModel.alias.email)
                         .setView(dialogTextViewBinding.root)
-                        .setNeutralButton("Cancel", null)
+                        .setNegativeButton("Cancel", null)
                         .setPositiveButton("Save") { _, _ ->
                             viewModel.updateName(dialogTextViewBinding.editText.text.toString())
                         }
@@ -183,7 +183,7 @@ class AliasActivityListFragment : BaseFragment(), HomeActivity.OnBackPressed {
                         .setTitle(title)
                         .setMessage(viewModel.alias.email)
                         .setView(dialogTextViewBinding.root)
-                        .setNeutralButton("Cancel", null)
+                        .setNegativeButton("Cancel", null)
                         .setPositiveButton("Save") { _, _ ->
                             viewModel.updateNote(dialogTextViewBinding.editText.text.toString())
                         }

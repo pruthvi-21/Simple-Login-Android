@@ -426,7 +426,7 @@ class LoginActivity : BaseAppCompatActivity() {
                             MaterialAlertDialogBuilder(this)
                                 .setTitle("WebAuthn currently not supported")
                                 .setMessage("Please log in using API key while we are working on supporting WebAuthn on mobile.")
-                                .setNeutralButton("Cancel", null)
+                                .setNegativeButton("Cancel", null)
                                 .setPositiveButton("Enter API key") { _, _ ->
                                     apiKeyBottomSheetBehavior.expand()
                                 }

@@ -287,11 +287,11 @@ class AliasListFragment :
                                 MaterialAlertDialogBuilder(requireContext())
                                     .setTitle("Delete \"${alias.email}\"?")
                                     .setMessage(R.string.warning_before_deleting_alias)
+                                    .setPositiveButton("Cancel", null)
                                     .setNegativeButton("Delete") { _, _ ->
                                         setLoading(true)
                                         viewModel.deleteAlias(alias)
                                     }
-                                    .setNeutralButton("Cancel", null)
                                     .show()
                             }
                         }

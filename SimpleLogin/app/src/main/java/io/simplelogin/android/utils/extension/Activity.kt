@@ -155,7 +155,7 @@ fun Activity.showSelectMailboxesAlert(
 
             save(aliasMailboxes)
         }
-        .setNeutralButton("Cancel", null)
+        .setNegativeButton("Cancel", null)
         .show()
 }
 

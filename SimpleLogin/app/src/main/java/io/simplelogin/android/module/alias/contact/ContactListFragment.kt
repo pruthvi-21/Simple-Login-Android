@@ -340,7 +340,7 @@ class ContactListFragment :
                                 MaterialAlertDialogBuilder(requireContext())
                                     .setTitle("Delete \"${contact.email}\"?")
                                     .setMessage("\uD83D\uDED1 This operation is irreversible. Please confirm.")
-                                    .setNeutralButton("Cancel", null)
+                                    .setPositiveButton("Cancel", null)
                                     .setNegativeButton("Delete") { _, _ ->
                                         setLoading(true)
                                         viewModel.delete(contact)

@@ -168,7 +168,7 @@ class ShareActivity : BaseAppCompatActivity() {
         MaterialAlertDialogBuilder(this)
             .setTitle("SimpleLogin sign-in required")
             .setMessage("To create alias through share, you must be signed in.")
-            .setNeutralButton("Close") { _, _ ->
+            .setNegativeButton("Close") { _, _ ->
                 finish()
             }
             .setPositiveButton("Sign me in") { _, _ ->

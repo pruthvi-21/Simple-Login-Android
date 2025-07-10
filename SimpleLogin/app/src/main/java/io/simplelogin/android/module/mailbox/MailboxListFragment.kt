@@ -195,7 +195,7 @@ class MailboxListFragment :
                 setLoading(true)
                 viewModel.deleteMailbox(mailbox)
             }
-            .setNeutralButton("Cancel", null)
+            .setPositiveButton("Cancel", null)
             .show()
     }
 
@@ -208,7 +208,7 @@ class MailboxListFragment :
                 setLoading(true)
                 viewModel.makeDefault(mailbox)
             }
-            .setNeutralButton("Cancel", null)
+            .setNegativeButton("Cancel", null)
             .show()
     }
 
@@ -230,7 +230,7 @@ class MailboxListFragment :
                     .setTitle("New mailbox")
                     .setMessage("A verification email will be sent to this email address")
                     .setView(dialogTextViewBinding.root)
-                    .setNeutralButton("Cancel", null)
+                    .setNegativeButton("Cancel", null)
                     .setPositiveButton("Create") { _, _ ->
                         setLoading(true)
                         viewModel.create(dialogTextViewBinding.editText.text.toString())

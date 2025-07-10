@@ -189,7 +189,7 @@ class HomeActivity : BaseAppCompatActivity(), NavigationView.OnNavigationItemSel
                 MaterialAlertDialogBuilder(this)
                     .setTitle("You will be signed out")
                     .setMessage("Please confirm")
-                    .setNeutralButton("Cancel", null)
+                    .setNegativeButton("Cancel", null)
                     .setPositiveButton("Yes, sign me out") { _, _ -> resetSettingsAndRestartApp() }
                     .show()
             }

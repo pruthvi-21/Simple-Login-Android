@@ -307,7 +307,7 @@ class SettingsFragment : BaseFragment(), HomeActivity.OnBackPressed {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle("Enter new display name")
             .setView(dialogTextViewBinding.root)
-            .setNeutralButton("Cancel", null)
+            .setNegativeButton("Cancel", null)
             .setPositiveButton("Save") { _, _ ->
                 setLoading(true)
                 val text = dialogTextViewBinding.editText.text
