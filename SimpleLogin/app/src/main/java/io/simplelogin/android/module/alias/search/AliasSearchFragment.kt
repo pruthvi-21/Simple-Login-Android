@@ -6,6 +6,7 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -17,17 +18,21 @@ import io.simplelogin.android.R
 import io.simplelogin.android.databinding.FragmentAliasSearchBinding
 import io.simplelogin.android.module.alias.AliasListAdapter
 import io.simplelogin.android.module.alias.AliasListViewModel
-import io.simplelogin.android.module.home.HomeActivity
 import io.simplelogin.android.utils.SwipeHelper
 import io.simplelogin.android.utils.baseclass.BaseFragment
-import io.simplelogin.android.utils.extension.*
+import io.simplelogin.android.utils.extension.applyEdgeToEdgeInsets
+import io.simplelogin.android.utils.extension.copyToClipboard
+import io.simplelogin.android.utils.extension.dismissKeyboard
+import io.simplelogin.android.utils.extension.showKeyboard
+import io.simplelogin.android.utils.extension.toastError
+import io.simplelogin.android.utils.extension.toastShortly
 import io.simplelogin.android.utils.model.Alias
 
 enum class AliasSearchMode {
     DEFAULT, CONTACT_CREATION
 }
 
-class AliasSearchFragment : BaseFragment(), HomeActivity.OnBackPressed {
+class AliasSearchFragment : BaseFragment() {
     private lateinit var binding: FragmentAliasSearchBinding
     private val aliasListViewModel: AliasListViewModel by activityViewModels()
     private lateinit var viewModel: AliasSearchViewModel
@@ -60,6 +65,14 @@ class AliasSearchFragment : BaseFragment(), HomeActivity.OnBackPressed {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         applyEdgeToEdgeInsets(binding.root)
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            aliasListViewModel.updateToggledAndDeletedAliases(
+                viewModel.toggledAliases,
+                viewModel.deletedAliasIds
+            )
+            findNavController().navigateUp()
+        }
     }
 
     override fun onResume() {
@@ -245,18 +258,5 @@ class AliasSearchFragment : BaseFragment(), HomeActivity.OnBackPressed {
         } else {
             binding.progressBar.visibility = View.GONE
         }
-    }
-
-    private fun updateAliasListViewModelAndNavigateUp() {
-        aliasListViewModel.updateToggledAndDeletedAliases(
-            viewModel.toggledAliases,
-            viewModel.deletedAliasIds
-        )
-        findNavController().navigateUp()
-    }
-
-    // HomeActivity.OnBackPressed
-    override fun onBackPressed() {
-        updateAliasListViewModelAndNavigateUp()
     }
 }

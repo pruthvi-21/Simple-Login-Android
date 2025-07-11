@@ -6,12 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import io.simplelogin.android.databinding.FragmentPremiumBinding
-import io.simplelogin.android.module.home.HomeActivity
 import io.simplelogin.android.utils.baseclass.BaseFragment
 import io.simplelogin.android.utils.extension.openUrlInBrowser
 import io.simplelogin.android.utils.extension.startSendEmailIntent
 
-class PremiumFragment : BaseFragment(), HomeActivity.OnBackPressed {
+class PremiumFragment : BaseFragment() {
     private lateinit var binding: FragmentPremiumBinding
 
     override fun onCreateView(
@@ -47,10 +46,5 @@ class PremiumFragment : BaseFragment(), HomeActivity.OnBackPressed {
         }
 
         return binding.root
-    }
-
-    // HomeActivity.OnBackPressed
-    override fun onBackPressed() {
-        findNavController().navigateUp()
     }
 }

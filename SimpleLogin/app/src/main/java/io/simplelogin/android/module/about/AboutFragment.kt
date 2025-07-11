@@ -8,14 +8,13 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import io.simplelogin.android.R
 import io.simplelogin.android.databinding.FragmentAboutBinding
-import io.simplelogin.android.module.home.HomeActivity
 import io.simplelogin.android.utils.baseclass.BaseFragment
 import io.simplelogin.android.utils.extension.applyEdgeToEdgeInsets
 import io.simplelogin.android.utils.extension.getVersionName
 import io.simplelogin.android.utils.extension.openUrlInBrowser
 import io.simplelogin.android.utils.extension.startSendEmailIntent
 
-class AboutFragment : BaseFragment(), HomeActivity.OnBackPressed {
+class AboutFragment : BaseFragment() {
     companion object {
         const val OPEN_FROM_LOGIN_ACTIVITY = "openFromLoginActivity"
     }
@@ -121,7 +120,4 @@ class AboutFragment : BaseFragment(), HomeActivity.OnBackPressed {
             navController.navigateUp()
         }
     }
-
-    // HomeActivity.OnBackPressed
-    override fun onBackPressed() {}
 }

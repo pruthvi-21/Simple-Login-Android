@@ -1,7 +1,6 @@
 package io.simplelogin.android.module.home
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
@@ -11,6 +10,8 @@ import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
@@ -34,10 +35,6 @@ import io.simplelogin.android.utils.extension.getVersionName
 import io.simplelogin.android.utils.model.UserInfo
 
 class HomeActivity : BaseAppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-    interface OnBackPressed {
-        fun onBackPressed()
-    }
-
     enum class NavigationGraph {
         ALIAS, MAILBOX, SETTINGS, ABOUT
     }
@@ -65,6 +62,18 @@ class HomeActivity : BaseAppCompatActivity(), NavigationView.OnNavigationItemSel
         if (savedInstanceState == null) {
             setNavigationGraph(viewModel.navigationGraph)
         }
+
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (binding.mainDrawer.isDrawerOpen(binding.navigationView)) {
+                    binding.mainDrawer.closeDrawer(binding.navigationView)
+                } else {
+                    isEnabled = false
+                    onBackPressedDispatcher.onBackPressed()
+                    isEnabled = true
+                }
+            }
+        })
     }
 
     private fun setUpViewModel() {
@@ -90,26 +99,6 @@ class HomeActivity : BaseAppCompatActivity(), NavigationView.OnNavigationItemSel
         if (settingsFragment != null) {
             val casted = settingsFragment as SettingsFragment
             casted.onNewIntent(intent)
-        }
-    }
-
-    @Deprecated("Deprecated in Java")
-    override fun onBackPressed() {
-        super.onBackPressed()
-        if (binding.mainDrawer.isDrawerOpen(binding.navigationView)) {
-            // When navigationView is already open and user press back
-            // finish this activity with RESULT_CANCELED so that StartupActivity can finish itself to exit app
-            setResult(Activity.RESULT_CANCELED)
-            finish()
-        }
-
-        if (supportFragmentManager.fragments.size == 0) return
-        val navHostFragment = supportFragmentManager.fragments[0] as? NavHostFragment ?: return
-
-        for (fragment in navHostFragment.childFragmentManager.fragments) {
-            if (fragment is OnBackPressed) {
-                (fragment as OnBackPressed).onBackPressed()
-            }
         }
     }
 

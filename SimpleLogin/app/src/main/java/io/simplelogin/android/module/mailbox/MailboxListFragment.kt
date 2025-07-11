@@ -6,21 +6,21 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import io.simplelogin.android.R
 import io.simplelogin.android.databinding.DialogViewEditTextBinding
 import io.simplelogin.android.databinding.FragmentMailboxListBinding
-import io.simplelogin.android.module.home.HomeActivity
 import io.simplelogin.android.utils.SwipeHelper
 import io.simplelogin.android.utils.baseclass.BaseFragment
-import io.simplelogin.android.utils.extension.*
+import io.simplelogin.android.utils.extension.applyEdgeToEdgeInsets
+import io.simplelogin.android.utils.extension.toastError
+import io.simplelogin.android.utils.extension.toastLongly
+import io.simplelogin.android.utils.extension.toastUpToDate
 
 class MailboxListFragment :
     BaseFragment(),
-    HomeActivity.OnBackPressed,
     Toolbar.OnMenuItemClickListener {
 
     private lateinit var binding: FragmentMailboxListBinding
@@ -171,13 +171,6 @@ class MailboxListFragment :
             }
             .setNegativeButton("Cancel", null)
             .show()
-    }
-
-    // HomeActivity.OnBackPressed
-    override fun onBackPressed() {
-        when {
-            else -> findNavController().navigateUp()
-        }
     }
 
     // Toolbar.OnMenuItemClickListener

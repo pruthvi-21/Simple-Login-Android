@@ -6,11 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import io.simplelogin.android.databinding.FragmentWhatYouCanDoBinding
-import io.simplelogin.android.module.home.HomeActivity
 import io.simplelogin.android.utils.baseclass.BaseFragment
 import io.simplelogin.android.utils.extension.applyEdgeToEdgeInsets
 
-class WhatYouCanDoFragment : BaseFragment(), HomeActivity.OnBackPressed {
+class WhatYouCanDoFragment : BaseFragment() {
     private lateinit var binding: FragmentWhatYouCanDoBinding
 
     override fun onCreateView(
@@ -25,9 +24,5 @@ class WhatYouCanDoFragment : BaseFragment(), HomeActivity.OnBackPressed {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         applyEdgeToEdgeInsets(binding.root, binding.appbar)
-    }
-
-    override fun onBackPressed() {
-        findNavController().navigateUp()
     }
 }

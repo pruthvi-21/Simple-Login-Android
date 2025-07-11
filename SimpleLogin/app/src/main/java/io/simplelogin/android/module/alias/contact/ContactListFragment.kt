@@ -44,8 +44,8 @@ import io.simplelogin.android.utils.model.PickedEmail
 
 class ContactListFragment :
     BaseFragment(),
-    HomeActivity.OnBackPressed,
     Toolbar.OnMenuItemClickListener {
+
     companion object {
         private const val RC_CONTACTS_ACCESS = 1000
     }
@@ -253,10 +253,6 @@ class ContactListFragment :
         binding.swipeRefreshLayout.setOnRefreshListener {
             viewModel.refreshContacts()
         }
-    }
-
-    // HomeActivity.OnBackPressed
-    override fun onBackPressed() {
     }
 
     // Toolbar.OnMenuItemClickListener

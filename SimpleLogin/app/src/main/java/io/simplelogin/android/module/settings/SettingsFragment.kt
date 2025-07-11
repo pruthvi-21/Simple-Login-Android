@@ -20,8 +20,6 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts.PickVisualMedia
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -29,7 +27,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import io.simplelogin.android.R
 import io.simplelogin.android.databinding.DialogViewEditTextBinding
 import io.simplelogin.android.databinding.FragmentSettingsBinding
-import io.simplelogin.android.module.home.HomeActivity
 import io.simplelogin.android.module.home.HomeViewModel
 import io.simplelogin.android.utils.LoginWithProtonUtils
 import io.simplelogin.android.utils.SLSharedPreferences
@@ -41,7 +38,7 @@ import io.simplelogin.android.utils.model.UserInfo
 import io.simplelogin.android.utils.model.UserSettings
 import java.io.ByteArrayOutputStream
 
-class SettingsFragment : BaseFragment(), HomeActivity.OnBackPressed {
+class SettingsFragment : BaseFragment() {
 
     private lateinit var binding: FragmentSettingsBinding
     private lateinit var viewModel: SettingsViewModel
@@ -320,10 +317,6 @@ class SettingsFragment : BaseFragment(), HomeActivity.OnBackPressed {
     private fun setLoading(loading: Boolean) {
         binding.rootConstraintLayout.isEnabled = !loading
         binding.progressBar.visibility = if (loading) VISIBLE else GONE
-    }
-
-    // HomeActivity.OnBackPressed
-    override fun onBackPressed() {
     }
 
     // Registers a photo picker activity launcher in single-select mode.

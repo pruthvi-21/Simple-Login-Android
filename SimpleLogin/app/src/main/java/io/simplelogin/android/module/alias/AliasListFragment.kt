@@ -21,7 +21,6 @@ import com.google.android.material.tabs.TabLayout
 import io.simplelogin.android.R
 import io.simplelogin.android.databinding.FragmentAliasListBinding
 import io.simplelogin.android.module.alias.search.AliasSearchMode
-import io.simplelogin.android.module.home.HomeActivity
 import io.simplelogin.android.utils.LoadingFooterAdapter
 import io.simplelogin.android.utils.SLApiService
 import io.simplelogin.android.utils.SwipeHelper
@@ -41,8 +40,7 @@ import io.simplelogin.android.utils.model.Alias
 class AliasListFragment :
     BaseFragment(),
     Toolbar.OnMenuItemClickListener,
-    TabLayout.OnTabSelectedListener,
-    HomeActivity.OnBackPressed {
+    TabLayout.OnTabSelectedListener {
     private lateinit var binding: FragmentAliasListBinding
     private val viewModel: AliasListViewModel by activityViewModels()
     private lateinit var aliasListAdapter: AliasListAdapter
@@ -395,8 +393,4 @@ class AliasListFragment :
         }
     }
 
-    // HomeActivity.OnBackPressed
-    override fun onBackPressed() {
-//        showLeftMenu()
-    }
 }

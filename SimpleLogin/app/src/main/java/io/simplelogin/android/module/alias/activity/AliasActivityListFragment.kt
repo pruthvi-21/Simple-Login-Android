@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -19,7 +20,6 @@ import io.simplelogin.android.R
 import io.simplelogin.android.databinding.DialogViewEditTextBinding
 import io.simplelogin.android.databinding.FragmentAliasActivityBinding
 import io.simplelogin.android.module.alias.AliasListViewModel
-import io.simplelogin.android.module.home.HomeActivity
 import io.simplelogin.android.utils.LoadingFooterAdapter
 import io.simplelogin.android.utils.SLApiService
 import io.simplelogin.android.utils.baseclass.BaseFragment
@@ -32,7 +32,7 @@ import io.simplelogin.android.utils.extension.toastThrowable
 import io.simplelogin.android.utils.extension.toastUpToDate
 import io.simplelogin.android.utils.model.AliasActivity
 
-class AliasActivityListFragment : BaseFragment(), HomeActivity.OnBackPressed {
+class AliasActivityListFragment : BaseFragment() {
     private lateinit var binding: FragmentAliasActivityBinding
     private val aliasListViewModel: AliasListViewModel by activityViewModels()
     private lateinit var viewModel: AliasActivityListViewModel
@@ -51,7 +51,7 @@ class AliasActivityListFragment : BaseFragment(), HomeActivity.OnBackPressed {
 
         setUpViewModel()
 
-        binding.toolbar.setNavigationOnClickListener { updateAliasListViewModelAndNavigateUp() }
+        binding.toolbar.setNavigationOnClickListener { navigateUp() }
         binding.toolbar.setOnMenuItemClickListener { onMenuItemClicked(it) }
         binding.toolbarTitleText.text = viewModel.alias.email
         binding.toolbarTitleText.isSelected = true // to trigger marquee animation
@@ -71,6 +71,15 @@ class AliasActivityListFragment : BaseFragment(), HomeActivity.OnBackPressed {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         applyEdgeToEdgeInsets(binding.root, binding.appbar)
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            navigateUp()
+        }
+    }
+
+    private fun navigateUp() {
+        aliasListViewModel.updateAlias(viewModel.alias)
+        findNavController().navigateUp()
     }
 
     private fun setLoading(loading: Boolean) {
@@ -265,16 +274,6 @@ class AliasActivityListFragment : BaseFragment(), HomeActivity.OnBackPressed {
                 result.onFailure(requireContext()::toastThrowable)
             }
         }
-    }
-
-    private fun updateAliasListViewModelAndNavigateUp() {
-        aliasListViewModel.updateAlias(viewModel.alias)
-        findNavController().navigateUp()
-    }
-
-    // HomeActivity.OnBackPressed
-    override fun onBackPressed() {
-        updateAliasListViewModelAndNavigateUp()
     }
 
     // Pinning

@@ -16,7 +16,6 @@ import io.simplelogin.android.R
 import io.simplelogin.android.databinding.FragmentAliasPickerBinding
 import io.simplelogin.android.module.alias.AliasListViewModel
 import io.simplelogin.android.module.alias.search.AliasSearchMode
-import io.simplelogin.android.module.home.HomeActivity
 import io.simplelogin.android.utils.LoadingFooterAdapter
 import io.simplelogin.android.utils.baseclass.BaseFragment
 import io.simplelogin.android.utils.enums.AliasFilterMode
@@ -25,7 +24,7 @@ import io.simplelogin.android.utils.extension.toastError
 import io.simplelogin.android.utils.extension.toastUpToDate
 import io.simplelogin.android.utils.model.Alias
 
-class AliasPickerFragment : BaseFragment(), TabLayout.OnTabSelectedListener, Toolbar.OnMenuItemClickListener, HomeActivity.OnBackPressed {
+class AliasPickerFragment : BaseFragment(), TabLayout.OnTabSelectedListener, Toolbar.OnMenuItemClickListener {
     private val viewModel: AliasListViewModel by activityViewModels()
     private lateinit var binding: FragmentAliasPickerBinding
     private lateinit var aliasListAdapter: AliasPickerAdapter
@@ -140,9 +139,5 @@ class AliasPickerFragment : BaseFragment(), TabLayout.OnTabSelectedListener, Too
             1 -> viewModel.filterAliases(AliasFilterMode.ACTIVE)
             2 -> viewModel.filterAliases(AliasFilterMode.INACTIVE)
         }
-    }
-
-    override fun onBackPressed() {
-        findNavController().navigateUp()
     }
 }

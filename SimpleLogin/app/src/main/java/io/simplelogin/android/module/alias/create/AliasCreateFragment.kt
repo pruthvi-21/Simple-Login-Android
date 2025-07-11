@@ -12,7 +12,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import io.simplelogin.android.R
 import io.simplelogin.android.databinding.FragmentAliasCreateBinding
 import io.simplelogin.android.module.alias.AliasListViewModel
-import io.simplelogin.android.module.home.HomeActivity
 import io.simplelogin.android.utils.SLApiService
 import io.simplelogin.android.utils.SLSharedPreferences
 import io.simplelogin.android.utils.baseclass.BaseFragment
@@ -26,7 +25,7 @@ import io.simplelogin.android.utils.extension.toastThrowable
 import io.simplelogin.android.utils.model.Alias
 import io.simplelogin.android.utils.model.toSpannableString
 
-class AliasCreateFragment : BaseFragment(), HomeActivity.OnBackPressed {
+class AliasCreateFragment : BaseFragment() {
     private lateinit var binding: FragmentAliasCreateBinding
     private val aliasListViewModel: AliasListViewModel by activityViewModels()
     private var selectedSuffix: String? = null
@@ -38,7 +37,7 @@ class AliasCreateFragment : BaseFragment(), HomeActivity.OnBackPressed {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentAliasCreateBinding.inflate(inflater)
-        binding.toolbar.setNavigationOnClickListener { dismissKeyboardAndNavigateUp() }
+        binding.toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
 
         // Enable/disable createButton
         binding.prefixEditText.doOnTextChanged { text, _, _, _ ->
@@ -116,11 +115,6 @@ class AliasCreateFragment : BaseFragment(), HomeActivity.OnBackPressed {
         applyEdgeToEdgeInsets(binding.root, binding.appbar)
     }
 
-    private fun dismissKeyboardAndNavigateUp() {
-        activity?.dismissKeyboard()
-        findNavController().navigateUp()
-    }
-
     private fun updateAliasListViewModelAndNavigateUp(alias: Alias) {
         if (AliasCreateFragmentArgs.fromBundle(requireArguments()).isMailFromAlias) {
             aliasListViewModel.setMailFromAlias(alias)
@@ -128,7 +122,7 @@ class AliasCreateFragment : BaseFragment(), HomeActivity.OnBackPressed {
             context?.toastShortly("Created \"${alias.email}\"")
         }
         aliasListViewModel.addAlias(alias)
-        dismissKeyboardAndNavigateUp()
+        findNavController().navigateUp()
     }
 
     private fun setUpSuffixesSpinner(suffixes: List<String>) {
@@ -183,10 +177,5 @@ class AliasCreateFragment : BaseFragment(), HomeActivity.OnBackPressed {
                 viewModel.setSelectedMailboxes(checkedMailboxes)
             }
         }
-    }
-
-    // HomeActivity.OnBackPressed
-    override fun onBackPressed() {
-        dismissKeyboardAndNavigateUp()
     }
 }

@@ -8,11 +8,10 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.navigation.fragment.findNavController
 import io.simplelogin.android.databinding.FragmentWebviewBinding
-import io.simplelogin.android.module.home.HomeActivity
 import io.simplelogin.android.utils.baseclass.BaseFragment
 import io.simplelogin.android.utils.extension.applyEdgeToEdgeInsets
 
-class WebViewFragment : BaseFragment(), HomeActivity.OnBackPressed {
+class WebViewFragment : BaseFragment() {
     private lateinit var binding: FragmentWebviewBinding
 
     override fun onCreateView(
@@ -36,9 +35,5 @@ class WebViewFragment : BaseFragment(), HomeActivity.OnBackPressed {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         applyEdgeToEdgeInsets(binding.root, binding.appbar)
-    }
-
-    override fun onBackPressed() {
-        findNavController().navigateUp()
     }
 }
