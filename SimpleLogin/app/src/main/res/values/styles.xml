@@ -11,6 +11,7 @@
         <item name="materialButtonStyle">@style/SlButtonStyle</item>
         <item name="textInputStyle">@style/SlTextInputOutlinedStyle</item>
         <item name="toolbarStyle">@style/SlToolbar</item>
+        <item name="navigationViewStyle">@style/SlNavigationView</item>
     </style>
 
     <style name="HomeActivityTheme" parent="AppTheme">
@@ -53,5 +54,17 @@
         <item name="android:maxLines">10</item>
         <item name="android:ellipsize">end</item>
         <item name="android:textColor">?android:textColorSecondary</item>
+    </style>
+
+    <style name="SlNavigationView" parent="Widget.Material3.NavigationView">
+        <item name="materialThemeOverlay">@style/SlNavigationViewOverlay</item>
+        <item name="android:background">?colorSurface</item>
+        <item name="dividerInsetStart">0dp</item>
+        <item name="dividerInsetEnd">0dp</item>
+        <item name="drawerLayoutCornerSize">0dp</item>
+    </style>
+
+    <style name="SlNavigationViewOverlay" parent="">
+        <item name="android:listDivider">?attr/colorOutlineVariant</item>
     </style>
 </resources>

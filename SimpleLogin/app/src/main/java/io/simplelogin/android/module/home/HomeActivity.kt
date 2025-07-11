@@ -3,20 +3,20 @@ package io.simplelogin.android.module.home
 import android.annotation.SuppressLint
 import android.content.ActivityNotFoundException
 import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
-import androidx.activity.addCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -142,7 +142,7 @@ class HomeActivity : BaseAppCompatActivity(), NavigationView.OnNavigationItemSel
             }
         }
         viewModel.navigationGraph = navigationGraph
-        binding.mainDrawer.closeDrawer(Gravity.LEFT)
+        binding.mainDrawer.closeDrawer(GravityCompat.START)
     }
 
     @SuppressLint("RtlHardcoded")
@@ -154,7 +154,7 @@ class HomeActivity : BaseAppCompatActivity(), NavigationView.OnNavigationItemSel
             R.id.aboutMenuItem -> setNavigationGraph(NavigationGraph.ABOUT)
 
             R.id.rateUsMenuItem -> {
-                val uri = Uri.parse("market://details?id=$packageName")
+                val uri = "market://details?id=$packageName".toUri()
                 val goToMarketIntent = Intent(Intent.ACTION_VIEW, uri)
 
                 @Suppress("MaxLineLength")
@@ -167,7 +167,7 @@ class HomeActivity : BaseAppCompatActivity(), NavigationView.OnNavigationItemSel
                 } catch (_: ActivityNotFoundException) {
                     val intent = Intent(
                         Intent.ACTION_VIEW,
-                        Uri.parse("http://play.google.com/store/apps/details?id=$packageName")
+                        "http://play.google.com/store/apps/details?id=$packageName".toUri()
                     )
                     startActivity(intent)
                 }
@@ -213,7 +213,6 @@ class HomeActivity : BaseAppCompatActivity(), NavigationView.OnNavigationItemSel
 
         hideRateUsMenuItemIfApplicable()
 
-        // Add listener to properly hide "Rate us" menu item
         binding.mainDrawer.addDrawerListener(object : DrawerLayout.DrawerListener {
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) = Unit
             override fun onDrawerOpened(drawerView: View) = Unit
@@ -232,37 +231,12 @@ class HomeActivity : BaseAppCompatActivity(), NavigationView.OnNavigationItemSel
     @SuppressLint("SetTextI18n")
     private fun updateHeaderView() {
         val headerView = binding.navigationView.getHeaderView(0)
-        val avatarView = headerView.findViewById<AvatarView>(R.id.avatar_view)
-        avatarView.setAvatar(viewModel.userInfo.profilePhotoUrl)
 
-        val usernameTextView = headerView.findViewById<TextView>(R.id.usernameTextView)
-        usernameTextView.text = viewModel.userInfo.name
-
-        val emailTextView = headerView.findViewById<TextView>(R.id.emailTextView)
-        emailTextView.text = viewModel.userInfo.email
-
-        val membershipTextView = headerView.findViewById<TextView>(R.id.membershipTextView)
-
-        when {
-            viewModel.userInfo.inTrial -> {
-                membershipTextView.text = "Premium trial"
-                membershipTextView.setTextColor(
-                    ContextCompat.getColor(
-                        this,
-                        android.R.color.holo_blue_light
-                    )
-                )
-            }
-
-            viewModel.userInfo.isPremium -> {
-                membershipTextView.text = "Premium"
-                membershipTextView.setTextColor(ContextCompat.getColor(this, R.color.colorPremium))
-            }
-
-            else -> {
-                membershipTextView.text = "Free plan"
-                membershipTextView.setTextColor(ContextCompat.getColor(this, R.color.colorWhite))
-            }
+        ViewCompat.setOnApplyWindowInsetsListener(headerView) { _, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            val container = headerView.findViewById<View>(R.id.container)
+            container.updatePadding(top = systemBars.top)
+            insets
         }
     }
 }

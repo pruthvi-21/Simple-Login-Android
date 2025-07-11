@@ -8,19 +8,20 @@
         android:layout_width="54dp"
         android:layout_height="54dp"
         android:layout_gravity="center"
-        android:foreground="@drawable/shape_oval_outline_primary_color"
         app:cardBackgroundColor="@android:color/transparent"
-        app:cardCornerRadius="26dp">
+        app:cardCornerRadius="26dp"
+        app:cardElevation="0dp">
 
         <ImageView
             android:id="@+id/image_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
+            android:background="#0000"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_user_48dp"
             tools:ignore="ContentDescription" />
 
-        </androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
 </layout>

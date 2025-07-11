@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.RelativeLayout
 import androidx.core.content.ContextCompat
-import io.simplelogin.android.R
 import io.simplelogin.android.databinding.LayoutProfileInfoCardViewBinding
 import io.simplelogin.android.utils.model.UserInfo
 
@@ -30,29 +29,24 @@ class ProfileInfoCardView : RelativeLayout {
         binding.avatarView.setAvatar(userInfo.profilePhotoUrl)
 
         val subscriptionStatus: String
-        val subscriptionStatusColorResId: Int
         when {
             userInfo.inTrial -> {
                 subscriptionStatus = "Premium trial membership"
-                subscriptionStatusColorResId = android.R.color.holo_blue_light
                 binding.upgradeTextView.visibility = View.VISIBLE
             }
 
             userInfo.isPremium -> {
                 subscriptionStatus = "Premium membership"
-                subscriptionStatusColorResId = R.color.colorPremium
                 binding.upgradeTextView.visibility = View.GONE
             }
 
             else -> {
                 subscriptionStatus = "Free membership"
-                subscriptionStatusColorResId = R.color.colorDarkGray
                 binding.upgradeTextView.visibility = View.VISIBLE
             }
         }
 
         binding.membershipTextView.text = subscriptionStatus
-        binding.membershipTextView.setTextColor(ContextCompat.getColor(context, subscriptionStatusColorResId))
     }
 
     fun setOnUpgradeClickListener(listener: () -> Unit) {

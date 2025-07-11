@@ -2,11 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <group android:id="@+id/firstGroup">
+    <group
+        android:id="@+id/firstGroup"
+        android:checkableBehavior="single">
         <item
             android:id="@+id/aliasMenuItem"
             android:icon="@drawable/ic_home_24dp"
             android:title="Aliases"
+            android:checked="true"
             tools:ignore="HardcodedText"/>
         <item
             android:id="@+id/mailboxMenuItem"
