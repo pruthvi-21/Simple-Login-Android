@@ -39,7 +39,6 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/emailTextField"
-                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Email address"
@@ -55,13 +54,11 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/passwordTextField"
-                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Password"
                         android:paddingTop="4dp"
                         app:endIconMode="password_toggle"
-                        app:endIconTint="?colorPrimary"
                         tools:ignore="HardcodedText">
 
                         <com.google.android.material.textfield.TextInputEditText
