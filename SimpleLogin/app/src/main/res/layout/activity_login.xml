@@ -216,27 +216,6 @@
             android:background="@color/colorDarkGray"
             android:visibility="gone" />
 
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <include
-                android:id="@+id/forgotPasswordBottomSheet"
-                layout="@layout/bottom_sheet_forgot_password"
-                tools:visibility="gone" />
-
-            <include
-                android:id="@+id/apiKeyBottomSheet"
-                layout="@layout/bottom_sheet_enter_api_key"
-                tools:visibility="gone" />
-
-            <include
-                android:id="@+id/changeApiUrlBottomSheet"
-                layout="@layout/bottom_sheet_change_api_url"
-                tools:visibility="gone" />
-
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
     </RelativeLayout>
 
 </layout>

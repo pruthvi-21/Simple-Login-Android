@@ -9,7 +9,6 @@ import androidx.appcompat.widget.Toolbar
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import io.simplelogin.android.R
 import io.simplelogin.android.databinding.DialogViewEditTextBinding
@@ -23,16 +22,11 @@ class MailboxListFragment :
     BaseFragment(),
     HomeActivity.OnBackPressed,
     Toolbar.OnMenuItemClickListener {
-    companion object {
-        private const val BOTTOM_SHEET_HEIGHT_PERCENTAGE_TO_SCREEN_HEIGHT = 90.0f / 100
-        private const val DIM_VIEW_ALPHA_PERCENTAGE_TO_SLIDE_OFFSET = 60.0f / 100
-    }
 
     private lateinit var binding: FragmentMailboxListBinding
     private lateinit var viewModel: MailboxListViewModel
     private var itemTouchHelper: ItemTouchHelper? = null
     private lateinit var adapter: MailboxListAdapter
-    private lateinit var howToUseMailboxBehavior: BottomSheetBehavior<View>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,7 +34,6 @@ class MailboxListFragment :
         savedInstanceState: Bundle?
     ): View {
         setUpBinding()
-        setUpHowToUseMailboxBottomSheet()
         setUpViewModel()
         setUpRecyclerView()
 
@@ -63,38 +56,6 @@ class MailboxListFragment :
         binding = FragmentMailboxListBinding.inflate(layoutInflater)
         binding.toolbar.setNavigationOnClickListener { showLeftMenu() }
         binding.toolbar.setOnMenuItemClickListener(this)
-    }
-
-    private fun setUpHowToUseMailboxBottomSheet() {
-        binding.howToUseMailboxBottomSheet.root.layoutParams.height =
-            (requireActivity().getScreenHeight() * BOTTOM_SHEET_HEIGHT_PERCENTAGE_TO_SCREEN_HEIGHT).toInt()
-
-        howToUseMailboxBehavior =
-            BottomSheetBehavior.from(binding.howToUseMailboxBottomSheet.root)
-        howToUseMailboxBehavior.hide()
-        binding.howToUseMailboxBottomSheet.closeButton.setOnClickListener { howToUseMailboxBehavior.hide() }
-
-        howToUseMailboxBehavior.addBottomSheetCallback(object :
-            BottomSheetBehavior.BottomSheetCallback() {
-            override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                binding.dimView.alpha = slideOffset * DIM_VIEW_ALPHA_PERCENTAGE_TO_SLIDE_OFFSET
-            }
-
-            override fun onStateChanged(bottomSheet: View, newState: Int) {
-                when (newState) {
-                    BottomSheetBehavior.STATE_HIDDEN -> binding.dimView.visibility = View.GONE
-
-                    else -> {
-                        binding.dimView.visibility = View.VISIBLE
-                        binding.dimView.setOnTouchListener { _, _ ->
-                            // Must return true here to intercept touch event
-                            // if not the event is passed to next listener which cause the whole root is clickable
-                            true
-                        }
-                    }
-                }
-            }
-        })
     }
 
     private fun setUpViewModel() {
@@ -215,7 +176,6 @@ class MailboxListFragment :
     // HomeActivity.OnBackPressed
     override fun onBackPressed() {
         when {
-            howToUseMailboxBehavior.isExpanded() -> howToUseMailboxBehavior.hide()
             else -> findNavController().navigateUp()
         }
     }
@@ -238,7 +198,13 @@ class MailboxListFragment :
                     .show()
             }
 
-            R.id.howToMenuItem -> howToUseMailboxBehavior.expand()
+            R.id.howToMenuItem -> {
+                MaterialAlertDialogBuilder(requireContext())
+                    .setTitle("How to use Mailboxes")
+                    .setMessage(R.string.how_to_use_mailbox)
+                    .setPositiveButton("Done", null)
+                    .show()
+            }
         }
 
         return true

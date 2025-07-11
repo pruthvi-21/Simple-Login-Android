@@ -9,17 +9,31 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.KeyEvent
 import android.view.View
-import com.google.android.material.bottomsheet.BottomSheetBehavior
+import androidx.appcompat.app.AlertDialog
+import androidx.core.widget.addTextChangedListener
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import io.simplelogin.android.R
 import io.simplelogin.android.databinding.ActivityLoginBinding
+import io.simplelogin.android.databinding.DialogViewEditTextBinding
 import io.simplelogin.android.module.home.HomeActivity
 import io.simplelogin.android.utils.LoginWithProtonUtils
 import io.simplelogin.android.utils.SLApiService
 import io.simplelogin.android.utils.SLSharedPreferences
 import io.simplelogin.android.utils.baseclass.BaseAppCompatActivity
-import io.simplelogin.android.utils.enums.*
-import io.simplelogin.android.utils.extension.*
+import io.simplelogin.android.utils.enums.Email
+import io.simplelogin.android.utils.enums.MfaKey
+import io.simplelogin.android.utils.enums.Password
+import io.simplelogin.android.utils.enums.SLError
+import io.simplelogin.android.utils.enums.VerificationMode
+import io.simplelogin.android.utils.extension.applyEdgeToEdgeInsets
+import io.simplelogin.android.utils.extension.customSetEnabled
+import io.simplelogin.android.utils.extension.dismissKeyboard
+import io.simplelogin.android.utils.extension.getVersionName
+import io.simplelogin.android.utils.extension.isValidEmail
+import io.simplelogin.android.utils.extension.resolveColor
+import io.simplelogin.android.utils.extension.toastLongly
+import io.simplelogin.android.utils.extension.toastShortly
+import io.simplelogin.android.utils.extension.toastThrowable
 import io.simplelogin.android.utils.model.UserInfo
 import io.simplelogin.android.utils.model.UserLogin
 
@@ -29,20 +43,9 @@ class LoginActivity : BaseAppCompatActivity() {
         private const val RC_MFA_VERIFICATION = 0
         private const val RC_EMAIL_VERIFICATION = 1
         private const val RC_SIGN_UP = 2
-        private const val BOTTOM_SHEET_HEIGHT_PERCENTAGE_TO_SCREEN_HEIGHT = 90.0f / 100
-        private const val DIM_VIEW_ALPHA_PERCENTAGE_TO_SLIDE_OFFSET = 60.0f / 100
     }
 
     private lateinit var binding: ActivityLoginBinding
-
-    // Forgot password
-    private lateinit var forgotPasswordBottomSheetBehavior: BottomSheetBehavior<View>
-
-    // API key
-    private lateinit var apiKeyBottomSheetBehavior: BottomSheetBehavior<View>
-
-    // Change API URL
-    private lateinit var changeApiUrlBottomSheetBehavior: BottomSheetBehavior<View>
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -120,17 +123,9 @@ class LoginActivity : BaseAppCompatActivity() {
             overridePendingTransition(R.anim.screen_enter_anim, R.anim.screen_exit_anim)
         }
 
-        // Forgot password
-        binding.forgotPasswordButton.setOnClickListener { forgotPasswordBottomSheetBehavior.expand() }
-        setUpForgotPasswordBottomSheet()
-
-        // API key
-        binding.apiKeyButton.setOnClickListener { apiKeyBottomSheetBehavior.expand() }
-        setUpApiKeyBottomSheet()
-
-        // Change API URL
-        binding.changeApiUrlButton.setOnClickListener { changeApiUrlBottomSheetBehavior.expand() }
-        setUpChangeApiUrlBottomSheet()
+        binding.forgotPasswordButton.setOnClickListener { showForgotPasswordDialog() }
+        binding.apiKeyButton.setOnClickListener { showApiKeyDialog() }
+        binding.changeApiUrlButton.setOnClickListener { showChangeApiUrlDialog() }
 
         // App version & About us
         binding.appVersionTextView.text = "SimpleLogin v${getVersionName()}"
@@ -141,21 +136,6 @@ class LoginActivity : BaseAppCompatActivity() {
         }
 
         binding.root.setOnClickListener { dismissKeyboard() }
-    }
-
-    @Deprecated("Deprecated in Java")
-    override fun onBackPressed() {
-        super.onBackPressed()
-        forgotPasswordBottomSheetBehavior.hide()
-        apiKeyBottomSheetBehavior.hide()
-        changeApiUrlBottomSheetBehavior.hide()
-        if (forgotPasswordBottomSheetBehavior.isHidden() &&
-            apiKeyBottomSheetBehavior.isHidden() &&
-            changeApiUrlBottomSheetBehavior.isHidden()
-        ) {
-            setResult(Activity.RESULT_CANCELED)
-            finish()
-        }
     }
 
     /**
@@ -171,193 +151,123 @@ class LoginActivity : BaseAppCompatActivity() {
         apiKey?.let { onApiKey(it) }
     }
 
-    private fun setUpForgotPasswordBottomSheet() {
-        binding.forgotPasswordBottomSheet.root.layoutParams.height =
-            (getScreenHeight() * BOTTOM_SHEET_HEIGHT_PERCENTAGE_TO_SCREEN_HEIGHT).toInt()
+    private fun showForgotPasswordDialog() {
+        val dialogTextViewBinding = DialogViewEditTextBinding.inflate(layoutInflater)
+        dialogTextViewBinding.editText.hint = "Email address"
 
-        forgotPasswordBottomSheetBehavior =
-            BottomSheetBehavior.from(binding.forgotPasswordBottomSheet.root)
-        forgotPasswordBottomSheetBehavior.hide()
-        binding.forgotPasswordBottomSheet.cancelButton.setOnClickListener { forgotPasswordBottomSheetBehavior.hide() }
+        dialogTextViewBinding.message.setTextColor(resolveColor(R.attr.colorError))
+        dialogTextViewBinding.message.setText(R.string.forgot_password_message)
 
-        forgotPasswordBottomSheetBehavior.addBottomSheetCallback(object :
-            BottomSheetBehavior.BottomSheetCallback() {
-            override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                binding.dimView.alpha = slideOffset * DIM_VIEW_ALPHA_PERCENTAGE_TO_SLIDE_OFFSET
-            }
+        val dialog = MaterialAlertDialogBuilder(this)
+            .setTitle("Forgot password")
+            .setView(dialogTextViewBinding.root)
+            .setPositiveButton("Reset password") { _, _ ->
+                val email = dialogTextViewBinding.editText.text.toString()
+                if (!email.isValidEmail()) {
+                    dialogTextViewBinding.editText.error = "Invalid email address"
+                    return@setPositiveButton
+                }
 
-            override fun onStateChanged(bottomSheet: View, newState: Int) {
-                when (newState) {
-                    BottomSheetBehavior.STATE_HIDDEN -> {
-                        binding.dimView.visibility = View.GONE
-                        dismissKeyboard()
-                    }
-
-                    else -> {
-                        binding.forgotPasswordBottomSheet.emailTextField.editText?.text = null
-                        binding.forgotPasswordBottomSheet.emailTextField.error = null
-                        binding.forgotPasswordBottomSheet.emailTextField.requestFocus()
-                        showKeyboard()
-                        binding.dimView.visibility = View.VISIBLE
-                        binding.dimView.setOnTouchListener { _, _ ->
-                            // Must return true here to intercept touch event
-                            // if not the event is passed to next listener which cause the whole root is clickable
-                            true
-                        }
+                dismissKeyboard()
+                setLoading(true)
+                SLApiService.forgotPassword(email) {
+                    runOnUiThread {
+                        setLoading(false)
+                        toastLongly("We've sent reset password email to \"$email\"")
                     }
                 }
             }
-        })
+            .setNegativeButton("Cancel", null)
+            .create()
 
-        binding.forgotPasswordBottomSheet.emailTextField.editText?.addTextChangedListener(object :
-            TextWatcher {
-            override fun afterTextChanged(s: Editable?) = Unit
-            override fun beforeTextChanged(
-                s: CharSequence?,
-                start: Int,
-                count: Int,
-                after: Int
-            ) = Unit
+        dialog.setOnShowListener {
+            val resetButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+            resetButton?.isEnabled = false
 
-            override fun onTextChanged(
-                s: CharSequence?,
-                start: Int,
-                before: Int,
-                count: Int
-            ) {
-                if (s.toString().isValidEmail()) {
-                    binding.forgotPasswordBottomSheet.resetButton.isEnabled = true
-                    binding.forgotPasswordBottomSheet.emailTextField.error = null
-                } else {
-                    binding.forgotPasswordBottomSheet.resetButton.isEnabled = false
-                    binding.forgotPasswordBottomSheet.emailTextField.error = "Invalid email address"
-                }
-            }
-        })
-
-        binding.forgotPasswordBottomSheet.resetButton.setOnClickListener {
-            val email = binding.forgotPasswordBottomSheet.emailTextField.editText?.text.toString()
-            if (!email.isValidEmail()) return@setOnClickListener
-
-            forgotPasswordBottomSheetBehavior.hide()
-            dismissKeyboard()
-            setLoading(true)
-            SLApiService.forgotPassword(email) {
-                runOnUiThread {
-                    setLoading(false)
-                    toastLongly("We've sent reset password email to \"$email\"")
-                }
+            dialogTextViewBinding.editText.addTextChangedListener {
+                resetButton?.isEnabled = it.toString().isNotEmpty()
+                dialogTextViewBinding.editText.error = null
             }
         }
+
+        dialog.show()
     }
 
-    private fun setUpApiKeyBottomSheet() {
-        binding.apiKeyBottomSheet.root.layoutParams.height =
-            (getScreenHeight() * BOTTOM_SHEET_HEIGHT_PERCENTAGE_TO_SCREEN_HEIGHT).toInt()
+    private fun showApiKeyDialog() {
+        val editTextBinding = DialogViewEditTextBinding.inflate(layoutInflater)
+        editTextBinding.editText.hint = "API key"
 
-        apiKeyBottomSheetBehavior = BottomSheetBehavior.from(binding.apiKeyBottomSheet.root)
-        apiKeyBottomSheetBehavior.hide()
-        binding.apiKeyBottomSheet.cancelButton.setOnClickListener {
-            apiKeyBottomSheetBehavior.hide()
-        }
-        apiKeyBottomSheetBehavior.addBottomSheetCallback(object :
-            BottomSheetBehavior.BottomSheetCallback() {
-            override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                binding.dimView.alpha = slideOffset * DIM_VIEW_ALPHA_PERCENTAGE_TO_SLIDE_OFFSET
-            }
+        editTextBinding.message.setText(R.string.api_key_explanation)
 
-            override fun onStateChanged(bottomSheet: View, newState: Int) {
-                when (newState) {
-                    BottomSheetBehavior.STATE_HIDDEN -> {
-                        binding.dimView.visibility = View.GONE
-                        dismissKeyboard()
-                    }
-
-                    else -> {
-                        binding.apiKeyBottomSheet.apiKeyEditText.text = null
-                        binding.apiKeyBottomSheet.apiKeyEditText.requestFocus()
-                        showKeyboard()
-                        binding.dimView.visibility = View.VISIBLE
-                        binding.dimView.setOnTouchListener { _, _ ->
-                            // Must return true here to intercept touch event
-                            // if not the event is passed to next listener which cause the whole root is clickable
-                            true
-                        }
+        val dialog = MaterialAlertDialogBuilder(this)
+            .setTitle("Enter API key")
+            .setView(editTextBinding.root)
+            .setPositiveButton("Set API key") { _, _ ->
+                val enteredApiKey = editTextBinding.editText.text.toString()
+                setLoading(true)
+                SLApiService.fetchUserInfo(enteredApiKey) { result ->
+                    runOnUiThread {
+                        setLoading(false)
+                        SLSharedPreferences.setApiKey(this, enteredApiKey)
+                        result.onSuccess { finalizeLogin(it) }
+                        result.onFailure(::toastThrowable)
                     }
                 }
             }
-        })
+            .setNegativeButton("Cancel", null)
+            .create()
 
-        binding.apiKeyBottomSheet.setButton.setOnClickListener {
-            val enteredApiKey = binding.apiKeyBottomSheet.apiKeyEditText.text.toString()
-            setLoading(true)
-            apiKeyBottomSheetBehavior.hide()
-            SLApiService.fetchUserInfo(enteredApiKey) { result ->
-                runOnUiThread {
-                    setLoading(false)
-                    SLSharedPreferences.setApiKey(this, enteredApiKey)
-                    result.onSuccess { finalizeLogin(it) }
-                    result.onFailure(::toastThrowable)
-                }
+        dialog.setOnShowListener {
+            val setButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+            setButton?.isEnabled = false
+
+            editTextBinding.editText.addTextChangedListener {
+                setButton?.isEnabled = it.toString().isNotEmpty()
             }
         }
+
+        dialog.show()
     }
 
-    private fun setUpChangeApiUrlBottomSheet() {
-        binding.changeApiUrlBottomSheet.root.layoutParams.height =
-            (getScreenHeight() * BOTTOM_SHEET_HEIGHT_PERCENTAGE_TO_SCREEN_HEIGHT).toInt()
+    private fun showChangeApiUrlDialog() {
+        val editTextBinding = DialogViewEditTextBinding.inflate(layoutInflater)
+        editTextBinding.editText.hint = "Current API URL"
 
-        changeApiUrlBottomSheetBehavior =
-            BottomSheetBehavior.from(binding.changeApiUrlBottomSheet.root)
-        changeApiUrlBottomSheetBehavior.hide()
-        binding.changeApiUrlBottomSheet.cancelButton.setOnClickListener {
-            changeApiUrlBottomSheetBehavior.hide()
-        }
-        changeApiUrlBottomSheetBehavior.addBottomSheetCallback(object :
-            BottomSheetBehavior.BottomSheetCallback() {
-            override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                binding.dimView.alpha = slideOffset * DIM_VIEW_ALPHA_PERCENTAGE_TO_SLIDE_OFFSET
+        editTextBinding.message.setTextColor(resolveColor(R.attr.colorError))
+        editTextBinding.message.setText(R.string.do_not_change_api_url)
+
+        val apiUrl = SLSharedPreferences.getApiUrl(this@LoginActivity)
+        editTextBinding.editText.setText(apiUrl)
+
+        val dialog = MaterialAlertDialogBuilder(this)
+            .setTitle("Change API URL")
+            .setView(editTextBinding.root)
+            .setPositiveButton("Apply") { _, _ ->
+                val enteredApiUrl = editTextBinding.editText.text.toString()
+                setLoading(true)
+
+                SLSharedPreferences.setApiUrl(this, enteredApiUrl)
+                toastShortly("Changed API URL to: $enteredApiUrl")
+                SLApiService.setUpBaseUrl(this)
             }
-
-            override fun onStateChanged(bottomSheet: View, newState: Int) {
-                when (newState) {
-                    BottomSheetBehavior.STATE_HIDDEN -> {
-                        binding.dimView.visibility = View.GONE
-                        dismissKeyboard()
-                    }
-
-                    else -> {
-                        val apiUrl = SLSharedPreferences.getApiUrl(this@LoginActivity)
-                        binding.changeApiUrlBottomSheet.apiUrlTextField.editText?.setText(apiUrl)
-                        binding.changeApiUrlBottomSheet.apiUrlTextField.editText?.placeCursorToEnd()
-                        binding.changeApiUrlBottomSheet.apiUrlTextField.editText?.requestFocus()
-                        showKeyboard()
-                        binding.dimView.visibility = View.VISIBLE
-                        binding.dimView.setOnTouchListener { _, _ ->
-                            // Must return true here to intercept touch event
-                            // if not the event is passed to next listener which cause the whole root is clickable
-                            true
-                        }
-                    }
-                }
+            .setNegativeButton("Cancel", null)
+            .setNeutralButton("Reset") { _, _ ->
+                SLSharedPreferences.resetApiUrl(this)
+                toastShortly("Reset API URL to: ${SLSharedPreferences.getApiUrl(this)}")
+                SLApiService.setUpBaseUrl(this)
             }
-        })
+            .create()
 
-        binding.changeApiUrlBottomSheet.setButton.setOnClickListener {
-            val enteredApiUrl =
-                binding.changeApiUrlBottomSheet.apiUrlTextField.editText?.text.toString()
-            SLSharedPreferences.setApiUrl(this, enteredApiUrl)
-            changeApiUrlBottomSheetBehavior.hide()
-            toastShortly("Changed API URL to: $enteredApiUrl")
-            SLApiService.setUpBaseUrl(this)
+        dialog.setOnShowListener {
+            val applyButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+            applyButton?.isEnabled = false
+
+            editTextBinding.editText.addTextChangedListener {
+                applyButton?.isEnabled = it.toString().isNotEmpty()
+            }
         }
 
-        binding.changeApiUrlBottomSheet.resetButton.setOnClickListener {
-            SLSharedPreferences.resetApiUrl(this)
-            changeApiUrlBottomSheetBehavior.hide()
-            toastShortly("Reset API URL to: ${SLSharedPreferences.getApiUrl(this)}")
-            SLApiService.setUpBaseUrl(this)
-        }
+        dialog.show()
     }
 
     @Deprecated("Deprecated in Java")
@@ -428,7 +338,7 @@ class LoginActivity : BaseAppCompatActivity() {
                                 .setMessage("Please log in using API key while we are working on supporting WebAuthn on mobile.")
                                 .setNegativeButton("Cancel", null)
                                 .setPositiveButton("Enter API key") { _, _ ->
-                                    apiKeyBottomSheetBehavior.expand()
+                                    showApiKeyDialog()
                                 }
                                 .show()
                         } else {

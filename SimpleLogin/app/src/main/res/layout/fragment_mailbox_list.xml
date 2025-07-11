@@ -79,10 +79,6 @@
             android:layout_height="match_parent"
             android:background="@color/colorDarkGray"
             android:visibility="gone" />
-
-        <include
-            android:id="@+id/howToUseMailboxBottomSheet"
-            layout="@layout/bottom_sheet_how_to_use_mailbox" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>

@@ -1,42 +1,52 @@
 package io.simplelogin.android.module.alias.contact
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.provider.ContactsContract
-import android.text.Editable
-import android.text.TextWatcher
+import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
+import androidx.core.text.color
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import io.simplelogin.android.R
+import io.simplelogin.android.databinding.DialogViewEditTextBinding
 import io.simplelogin.android.databinding.FragmentContactListBinding
 import io.simplelogin.android.module.home.HomeActivity
 import io.simplelogin.android.utils.LoadingFooterAdapter
 import io.simplelogin.android.utils.SwipeHelper
 import io.simplelogin.android.utils.baseclass.BaseFragment
-import io.simplelogin.android.utils.extension.*
+import io.simplelogin.android.utils.extension.applyEdgeToEdgeInsets
+import io.simplelogin.android.utils.extension.canReadContacts
+import io.simplelogin.android.utils.extension.copyToClipboard
+import io.simplelogin.android.utils.extension.isValidEmail
+import io.simplelogin.android.utils.extension.resolveColor
+import io.simplelogin.android.utils.extension.startSendEmailIntent
+import io.simplelogin.android.utils.extension.toastError
+import io.simplelogin.android.utils.extension.toastShortly
+import io.simplelogin.android.utils.extension.toastUpToDate
 import io.simplelogin.android.utils.model.Alias
 import io.simplelogin.android.utils.model.Contact
 import io.simplelogin.android.utils.model.PickedEmail
+
 
 class ContactListFragment :
     BaseFragment(),
     HomeActivity.OnBackPressed,
     Toolbar.OnMenuItemClickListener {
     companion object {
-        private const val BOTTOM_SHEET_HEIGHT_PERCENTAGE_TO_SCREEN_HEIGHT = 90.0f / 100
-        private const val DIM_VIEW_ALPHA_PERCENTAGE_TO_SLIDE_OFFSET = 60.0f / 100
         private const val RC_CONTACTS_ACCESS = 1000
     }
 
@@ -44,14 +54,12 @@ class ContactListFragment :
     private lateinit var alias: Alias
     private lateinit var viewModel: ContactListViewModel
     private lateinit var contactListAdapter: ContactListAdapter
-    private lateinit var howToBottomSheetBehavior: BottomSheetBehavior<View>
-    private lateinit var createContactBottomSheetBehavior: BottomSheetBehavior<View>
     private val footerAdapter = LoadingFooterAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         // Binding
         binding = FragmentContactListBinding.inflate(layoutInflater)
@@ -62,8 +70,6 @@ class ContactListFragment :
         binding.emailTextField.text = alias.email
         binding.emailTextField.isSelected = true // to trigger marquee animation
 
-        setUpHowToBottomSheet()
-        setUpCreateContactBottomSheet()
         setUpViewModel()
         setUpRecyclerView()
         return binding.root
@@ -104,117 +110,6 @@ class ContactListFragment :
             binding.recyclerView.visibility = View.VISIBLE
             binding.icebergImageView.visibility = View.GONE
             binding.instructionTextView.visibility = View.GONE
-        }
-    }
-
-    private fun setUpHowToBottomSheet() {
-        binding.howToBottomSheet.root.layoutParams.height =
-            (requireActivity().getScreenHeight() * BOTTOM_SHEET_HEIGHT_PERCENTAGE_TO_SCREEN_HEIGHT).toInt()
-
-        howToBottomSheetBehavior = BottomSheetBehavior.from(binding.howToBottomSheet.root)
-        howToBottomSheetBehavior.hide()
-        binding.howToBottomSheet.closeButton.setOnClickListener {
-            howToBottomSheetBehavior.hide()
-        }
-        howToBottomSheetBehavior.addBottomSheetCallback(object :
-            BottomSheetBehavior.BottomSheetCallback() {
-            override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                binding.dimView.alpha = slideOffset * DIM_VIEW_ALPHA_PERCENTAGE_TO_SLIDE_OFFSET
-            }
-
-            override fun onStateChanged(bottomSheet: View, newState: Int) {
-                when (newState) {
-                    BottomSheetBehavior.STATE_HIDDEN -> binding.dimView.visibility = View.GONE
-
-                    else -> {
-                        binding.dimView.visibility = View.VISIBLE
-                        binding.dimView.setOnTouchListener { _, _ ->
-                            // Must return true here to intercept touch event
-                            // if not the event is passed to next listener which cause the whole root is clickable
-                            true
-                        }
-                    }
-                }
-            }
-        })
-    }
-
-    private fun setUpCreateContactBottomSheet() {
-        binding.createContactBottomSheet.root.layoutParams.height =
-            (requireActivity().getScreenHeight() * BOTTOM_SHEET_HEIGHT_PERCENTAGE_TO_SCREEN_HEIGHT).toInt()
-        binding.createContactBottomSheet.aliasTextView.text = alias.email
-
-        createContactBottomSheetBehavior =
-            BottomSheetBehavior.from(binding.createContactBottomSheet.root)
-        createContactBottomSheetBehavior.hide()
-        binding.createContactBottomSheet.cancelButton.setOnClickListener {
-            createContactBottomSheetBehavior.hide()
-        }
-
-        createContactBottomSheetBehavior.addBottomSheetCallback(object :
-            BottomSheetBehavior.BottomSheetCallback() {
-            override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                binding.dimView.alpha = slideOffset * DIM_VIEW_ALPHA_PERCENTAGE_TO_SLIDE_OFFSET
-            }
-
-            override fun onStateChanged(bottomSheet: View, newState: Int) {
-                when (newState) {
-                    BottomSheetBehavior.STATE_HIDDEN -> {
-                        binding.dimView.visibility = View.GONE
-                        activity?.dismissKeyboard()
-                    }
-
-                    BottomSheetBehavior.STATE_EXPANDED -> {
-                        binding.createContactBottomSheet.contactEmailTextField.editText?.requestFocus()
-                        activity?.showKeyboard()
-                    }
-
-                    else -> {
-                        binding.dimView.visibility = View.VISIBLE
-                        binding.dimView.setOnTouchListener { _, _ ->
-                            // Must return true here to intercept touch event
-                            // if not the event is passed to next listener which cause the whole root is clickable
-                            true
-                        }
-                    }
-                }
-            }
-        })
-
-        binding.createContactBottomSheet.contactEmailTextField.editText?.addTextChangedListener(object :
-            TextWatcher {
-            override fun afterTextChanged(s: Editable?) = Unit
-            override fun beforeTextChanged(
-                s: CharSequence?,
-                start: Int,
-                count: Int,
-                after: Int
-            ) = Unit
-
-            override fun onTextChanged(
-                s: CharSequence?,
-                start: Int,
-                before: Int,
-                count: Int
-            ) {
-                if (s.toString().isValidEmail()) {
-                    binding.createContactBottomSheet.createButton.isEnabled = true
-                    binding.createContactBottomSheet.contactEmailTextField.error = null
-                } else {
-                    binding.createContactBottomSheet.createButton.isEnabled = false
-                    binding.createContactBottomSheet.contactEmailTextField.error = "Invalid email address"
-                }
-            }
-        })
-
-        binding.createContactBottomSheet.createButton.setOnClickListener {
-            val email = binding.createContactBottomSheet.contactEmailTextField.editText?.text.toString()
-            if (!email.isValidEmail()) return@setOnClickListener
-
-            createContactBottomSheetBehavior.hide()
-            activity?.dismissKeyboard()
-            setLoading(true)
-            viewModel.create(email)
         }
     }
 
@@ -314,7 +209,7 @@ class ContactListFragment :
             override fun onScrolled(
                 recyclerView: RecyclerView,
                 dx: Int,
-                dy: Int
+                dy: Int,
             ) {
                 val isPenultimateItem =
                     linearLayoutManager.findLastCompletelyVisibleItemPosition() == viewModel.contacts.size - 1
@@ -362,11 +257,6 @@ class ContactListFragment :
 
     // HomeActivity.OnBackPressed
     override fun onBackPressed() {
-        when {
-            howToBottomSheetBehavior.isExpanded() -> howToBottomSheetBehavior.hide()
-            createContactBottomSheetBehavior.isExpanded() -> createContactBottomSheetBehavior.hide()
-            else -> findNavController().navigateUp()
-        }
     }
 
     // Toolbar.OnMenuItemClickListener
@@ -376,10 +266,24 @@ class ContactListFragment :
                 if (context?.canReadContacts() == true) {
                     alertCreationOptions()
                 } else {
-                    showCreateContactBottomSheet()
+                    showCreateContactDialog()
                 }
             }
-            R.id.howToMenuItem -> howToBottomSheetBehavior.expand()
+
+            R.id.howToMenuItem -> {
+                val message = SpannableStringBuilder()
+                    .append(getString(R.string.how_to_use_contacts))
+                    .append("\n\n")
+                    .color(requireContext().resolveColor(R.attr.colorError)) {
+                        append(getString(R.string.how_to_use_contacts_warning))
+                    }
+
+                MaterialAlertDialogBuilder(requireContext())
+                    .setTitle("How to send email from an alias")
+                    .setMessage(message)
+                    .setPositiveButton("Done", null)
+                    .show()
+            }
         }
         return true
     }
@@ -392,7 +296,7 @@ class ContactListFragment :
             ) { _, itemIndex ->
                 when (itemIndex) {
                     0 -> openPhoneContacts()
-                    1 -> showCreateContactBottomSheet()
+                    1 -> showCreateContactDialog()
                 }
             }
             .show()
@@ -403,12 +307,43 @@ class ContactListFragment :
         startActivityForResult(contactsIntent, RC_CONTACTS_ACCESS)
     }
 
-    private fun showCreateContactBottomSheet() {
-        // Clear text and error state before showing the sheet
-        binding.createContactBottomSheet.contactEmailTextField.editText?.text = null
-        binding.createContactBottomSheet.contactEmailTextField.error = null
-        binding.createContactBottomSheet.createButton.isEnabled = false
-        createContactBottomSheetBehavior.expand()
+    @SuppressLint("SetTextI18n")
+    private fun showCreateContactDialog() {
+        val editViewBinding = DialogViewEditTextBinding.inflate(LayoutInflater.from(context))
+        editViewBinding.editText.hint = "Email address"
+        editViewBinding.message.text =
+            "Enter the email address you want to send messages to. A reverse-alias will be created so you can send emails from your alias."
+
+        val dialog = MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Create New Contact")
+            .setView(editViewBinding.root)
+            .setNegativeButton("Cancel", null)
+            .setPositiveButton("Create") { _, _ ->
+                val email = editViewBinding.editText.text.toString()
+                if (!email.isValidEmail()) return@setPositiveButton
+
+                setLoading(true)
+                viewModel.create(email)
+            }
+            .create()
+
+        editViewBinding.editText.addTextChangedListener {
+            val input = it.toString()
+            val isValid = input.isValidEmail()
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE)?.isEnabled = isValid
+            editViewBinding.editText.error =
+                if (!isValid && input.isNotEmpty()) "Invalid email address" else null
+        }
+
+        dialog.setOnShowListener {
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE)?.isEnabled = false
+
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE)?.setOnClickListener {
+
+            }
+        }
+
+        dialog.show()
     }
 
     private fun showPickedEmailAddresses(contactName: String, emails: List<PickedEmail>) {
@@ -458,7 +393,7 @@ class ContactListFragment :
     override fun onActivityResult(
         requestCode: Int,
         resultCode: Int,
-        data: Intent?
+        data: Intent?,
     ) {
         if (resultCode == Activity.RESULT_OK && requestCode == RC_CONTACTS_ACCESS) {
             val contactData = data?.data ?: return
