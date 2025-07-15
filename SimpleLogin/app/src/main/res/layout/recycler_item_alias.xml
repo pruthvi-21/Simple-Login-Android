@@ -135,6 +135,7 @@
                         android:ellipsize="end"
                         android:maxLines="2"
                         android:paddingTop="5dp"
+                        android:textColor="?colorControlNormal"
                         android:textAppearance="?attr/textAppearanceBody2"
                         android:textSize="15sp"
                         tools:text="Alias note" />
