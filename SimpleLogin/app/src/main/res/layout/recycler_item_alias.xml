@@ -3,178 +3,201 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
-        android:id="@+id/rootCardView"
+    <com.apachat.swipereveallayout.core.SwipeLayout
+        android:id="@+id/optionsLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        app:dragEdge="right"
+        app:mode="same_level">
 
-        <RelativeLayout
-            android:id="@+id/rootRelativeLayout"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|end"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/deleteButton"
+                style="@style/SlErrorButton"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:text="Delete"
+                tools:ignore="HardcodedText" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/rootCardView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true"
-            android:orientation="horizontal"
-            android:paddingHorizontal="22dp"
-            android:paddingTop="18dp"
-            android:paddingBottom="8dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <RelativeLayout
+                android:id="@+id/rootRelativeLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignStart="@id/arrowImageView"
-                android:layout_alignParentStart="true"
-                android:layout_gravity="center_vertical|start"
-                android:layout_marginEnd="5dp"
-                android:layout_toStartOf="@+id/arrowImageView"
-                android:orientation="vertical">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:id="@+id/aliasPinnedImageView"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_centerVertical="true"
-                        android:contentDescription="Pinned alias"
-                        android:paddingEnd="8dp"
-                        android:src="@drawable/ic_pinned_24dp"
-                        android:visibility="gone"
-                        app:tint="?colorPrimary"
-                        tools:ignore="HardcodedText,RtlSymmetry" />
-
-
-                    <TextView
-                        android:id="@+id/emailTextView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginBottom="@dimen/margin_4"
-                        android:layout_toEndOf="@id/aliasPinnedImageView"
-                        android:textAppearance="?attr/textAppearanceSubtitle2"
-                        android:textSize="16sp"
-                        tools:text="yautiden@gmail.com" />
-
-                </RelativeLayout>
-
-                <TextView
-                    android:id="@+id/creationDateTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="5dp"
-                    android:ellipsize="middle"
-                    android:gravity="center_vertical"
-                    android:paddingTop="5dp"
-                    android:singleLine="true"
-                    android:textAppearance="?attr/textAppearanceCaption"
-                    android:textColor="?attr/colorControlNormal"
-                    android:textSize="14sp"
-                    app:drawableStartCompat="@drawable/ic_clock_16dp"
-                    app:drawableTint="?attr/colorControlNormal"
-                    tools:text="No recent activity" />
-
-                <TextView
-                    android:id="@+id/mailboxesTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="5dp"
-                    android:gravity="center_vertical"
-                    android:maxLines="3"
-                    android:paddingTop="5dp"
-                    android:textAppearance="?attr/textAppearanceCaption"
-                    android:textColor="?attr/colorControlNormal"
-                    android:textSize="14sp"
-                    app:drawableStartCompat="@drawable/ic_tray_16dp"
-                    app:drawableTint="?attr/colorControlNormal"
-                    tools:text="email@example.com" />
-
-                <TextView
-                    android:id="@+id/nameTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="5dp"
-                    android:gravity="center_vertical"
-                    android:paddingTop="5dp"
-                    android:textAppearance="?attr/textAppearanceCaption"
-                    android:textColor="?attr/colorControlNormal"
-                    android:textSize="14sp"
-                    app:drawableStartCompat="@drawable/ic_name_16dp"
-                    app:drawableTint="?attr/colorControlNormal"
-                    tools:text="John Doe" />
-
-                <TextView
-                    android:id="@+id/noteTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLines="2"
-                    android:paddingTop="5dp"
-                    android:textAppearance="?attr/textAppearanceBody2"
-                    android:textSize="15sp"
-                    tools:text="Alias note" />
+                android:background="?selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="horizontal"
+                android:paddingHorizontal="22dp"
+                android:paddingTop="18dp"
+                android:paddingBottom="8dp">
 
                 <LinearLayout
-                    android:id="@+id/actionsLinearLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_alignStart="@id/arrowImageView"
+                    android:layout_alignParentStart="true"
+                    android:layout_gravity="center_vertical|start"
+                    android:layout_marginEnd="5dp"
+                    android:layout_toStartOf="@+id/arrowImageView"
+                    android:orientation="vertical">
 
-                    <com.google.android.material.materialswitch.MaterialSwitch
-                        android:id="@+id/enabledSwitch"
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/aliasPinnedImageView"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_centerVertical="true"
+                            android:contentDescription="Pinned alias"
+                            android:paddingEnd="8dp"
+                            android:src="@drawable/ic_pinned_24dp"
+                            android:visibility="gone"
+                            app:tint="?colorPrimary"
+                            tools:ignore="HardcodedText,RtlSymmetry" />
+
+
+                        <TextView
+                            android:id="@+id/emailTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginBottom="@dimen/margin_4"
+                            android:layout_toEndOf="@id/aliasPinnedImageView"
+                            android:textAppearance="?attr/textAppearanceSubtitle2"
+                            android:textSize="16sp"
+                            tools:text="yautiden@gmail.com" />
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/creationDateTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:checked="true" />
+                        android:drawablePadding="5dp"
+                        android:ellipsize="middle"
+                        android:gravity="center_vertical"
+                        android:paddingTop="5dp"
+                        android:singleLine="true"
+                        android:textAppearance="?attr/textAppearanceCaption"
+                        android:textColor="?attr/colorControlNormal"
+                        android:textSize="14sp"
+                        app:drawableStartCompat="@drawable/ic_clock_16dp"
+                        app:drawableTint="?attr/colorControlNormal"
+                        tools:text="No recent activity" />
 
-                    <Space
+                    <TextView
+                        android:id="@+id/mailboxesTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="5dp"
+                        android:gravity="center_vertical"
+                        android:maxLines="3"
+                        android:paddingTop="5dp"
+                        android:textAppearance="?attr/textAppearanceCaption"
+                        android:textColor="?attr/colorControlNormal"
+                        android:textSize="14sp"
+                        app:drawableStartCompat="@drawable/ic_tray_16dp"
+                        app:drawableTint="?attr/colorControlNormal"
+                        tools:text="email@example.com" />
+
+                    <TextView
+                        android:id="@+id/nameTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1" />
+                        android:drawablePadding="5dp"
+                        android:gravity="center_vertical"
+                        android:paddingTop="5dp"
+                        android:textAppearance="?attr/textAppearanceCaption"
+                        android:textColor="?attr/colorControlNormal"
+                        android:textSize="14sp"
+                        app:drawableStartCompat="@drawable/ic_name_16dp"
+                        app:drawableTint="?attr/colorControlNormal"
+                        tools:text="John Doe" />
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/copyButton"
-                        style="@style/SlTextButtonStyle"
-                        android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/noteTextView"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Copy"
-                        app:icon="@drawable/ic_copy_24dp"
-                        tools:ignore="HardcodedText" />
+                        android:ellipsize="end"
+                        android:maxLines="2"
+                        android:paddingTop="5dp"
+                        android:textAppearance="?attr/textAppearanceBody2"
+                        android:textSize="15sp"
+                        tools:text="Alias note" />
 
-                    <Space
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:id="@+id/actionsLinearLayout"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1" />
+                        android:orientation="horizontal">
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/sendEmailButton"
-                        style="@style/SlTextButtonStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Send email"
-                        app:icon="@drawable/ic_send_28dp"
-                        tools:ignore="HardcodedText" />
+                        <com.google.android.material.materialswitch.MaterialSwitch
+                            android:id="@+id/enabledSwitch"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true" />
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/copyButton"
+                            style="@style/SlTextButtonStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Copy"
+                            app:icon="@drawable/ic_copy_24dp"
+                            tools:ignore="HardcodedText" />
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/sendEmailButton"
+                            style="@style/SlTextButtonStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Send email"
+                            app:icon="@drawable/ic_send_28dp"
+                            tools:ignore="HardcodedText" />
+                    </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
 
-            <ImageView
-                android:id="@+id/arrowImageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/ic_next_16dp"
-                app:tint="?attr/colorControlNormal"
-                tools:ignore="ContentDescription" />
+                <ImageView
+                    android:id="@+id/arrowImageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_next_16dp"
+                    app:tint="?attr/colorControlNormal"
+                    tools:ignore="ContentDescription" />
 
-        </RelativeLayout>
+            </RelativeLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="?colorOutlineVariant" />
-    </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?colorOutlineVariant" />
+        </LinearLayout>
+    </com.apachat.swipereveallayout.core.SwipeLayout>
 
 </layout>

@@ -6,9 +6,14 @@ import io.simplelogin.android.utils.diffutil.MailboxDiffCallback
 import io.simplelogin.android.utils.model.Mailbox
 import io.simplelogin.android.viewholder.MailboxViewHolder
 
-class MailboxListAdapter : ListAdapter<Mailbox, MailboxViewHolder>(MailboxDiffCallback()) {
+class MailboxListAdapter(private val listener: ClickListener) :
+    ListAdapter<Mailbox, MailboxViewHolder>(MailboxDiffCallback()) {
+    interface ClickListener {
+        fun onSetAsDefault(mailbox: Mailbox, onActionDone: () -> Unit)
+        fun onDelete(mailbox: Mailbox, onActionDone: () -> Unit)
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MailboxViewHolder =
         MailboxViewHolder.from(parent)
 
-    override fun onBindViewHolder(holder: MailboxViewHolder, position: Int) = holder.bind(getItem(position))
+    override fun onBindViewHolder(holder: MailboxViewHolder, position: Int) = holder.bind(getItem(position), listener)
 }

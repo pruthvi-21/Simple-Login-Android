@@ -6,18 +6,17 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import io.simplelogin.android.R
 import io.simplelogin.android.databinding.DialogViewEditTextBinding
 import io.simplelogin.android.databinding.FragmentMailboxListBinding
-import io.simplelogin.android.utils.SwipeHelper
 import io.simplelogin.android.utils.baseclass.BaseFragment
 import io.simplelogin.android.utils.extension.applyEdgeToEdgeInsets
 import io.simplelogin.android.utils.extension.toastError
 import io.simplelogin.android.utils.extension.toastLongly
 import io.simplelogin.android.utils.extension.toastUpToDate
+import io.simplelogin.android.utils.model.Mailbox
 
 class MailboxListFragment :
     BaseFragment(),
@@ -25,7 +24,6 @@ class MailboxListFragment :
 
     private lateinit var binding: FragmentMailboxListBinding
     private lateinit var viewModel: MailboxListViewModel
-    private var itemTouchHelper: ItemTouchHelper? = null
     private lateinit var adapter: MailboxListAdapter
 
     override fun onCreateView(
@@ -77,7 +75,6 @@ class MailboxListFragment :
                 if (haveNewMailboxes) {
                     // toMutableList() is required. Refer to AliasListFragment viewModel
                     adapter.submitList(viewModel.mailboxes.toMutableList())
-                    setUpItemTouchHelper()
                     viewModel.onHandleUpdateMailboxesComplete()
                 }
 
@@ -100,77 +97,40 @@ class MailboxListFragment :
     }
 
     private fun setUpRecyclerView() {
-        adapter = MailboxListAdapter()
+        adapter = MailboxListAdapter(object : MailboxListAdapter.ClickListener {
+            override fun onSetAsDefault(mailbox: Mailbox, onActionDone: () -> Unit) {
+                MaterialAlertDialogBuilder(requireContext())
+                    .setTitle("Please confirm")
+                    .setMessage("Make \"${mailbox.email}\" default mailbox?")
+                    .setPositiveButton("Confirm") { _, _ ->
+                        setLoading(true)
+                        viewModel.makeDefault(mailbox)
+                        onActionDone()
+                    }
+                    .setNegativeButton("Cancel") { _, _ ->
+                        onActionDone()
+                    }
+                    .show()
+            }
+
+            override fun onDelete(mailbox: Mailbox, onActionDone: () -> Unit) {
+                MaterialAlertDialogBuilder(requireContext())
+                    .setTitle("Delete \"${mailbox.email}\"")
+                    .setMessage(R.string.warning_before_deleting_mailbox)
+                    .setNegativeButton("Delete") { _, _ ->
+                        setLoading(true)
+                        viewModel.deleteMailbox(mailbox)
+                        onActionDone()
+                    }
+                    .setPositiveButton("Cancel") { _, _ ->
+                        onActionDone()
+                    }
+                    .show()
+            }
+        })
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         binding.swipeRefreshLayout.setOnRefreshListener { viewModel.fetchMailboxes() }
-    }
-
-    private fun setUpItemTouchHelper() {
-        itemTouchHelper?.attachToRecyclerView(null)
-
-        itemTouchHelper = ItemTouchHelper(object : SwipeHelper(binding.recyclerView) {
-            override fun instantiateUnderlayButton(position: Int): List<UnderlayButton> {
-                when (viewModel.mailboxes[position].isDefault) {
-                    true -> return emptyList()
-                    false -> {
-                        val deleteButton = UnderlayButton(
-                            requireContext(),
-                            "Delete",
-                            UnderlayButton.DEFAULT_TEXT_SIZE,
-                            android.R.color.holo_red_light,
-                            object : UnderlayButtonClickListener {
-                                override fun onClick() {
-                                    confirmDelete(position)
-                                }
-                            }
-                        )
-
-                        val setAsDefaultButton = UnderlayButton(
-                            requireContext(),
-                            "Set as default",
-                            UnderlayButton.DEFAULT_TEXT_SIZE,
-                            android.R.color.holo_blue_light,
-                            object : UnderlayButtonClickListener {
-                                override fun onClick() {
-                                    confirmSetAsDefault(position)
-                                }
-                            }
-                        )
-
-                        return listOf(deleteButton, setAsDefaultButton)
-                    }
-                }
-            }
-        })
-
-        itemTouchHelper?.attachToRecyclerView(binding.recyclerView)
-    }
-
-    private fun confirmDelete(position: Int) {
-        val mailbox = viewModel.mailboxes[position]
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Delete \"${mailbox.email}\"")
-            .setMessage(R.string.warning_before_deleting_mailbox)
-            .setNegativeButton("Delete") { _, _ ->
-                setLoading(true)
-                viewModel.deleteMailbox(mailbox)
-            }
-            .setPositiveButton("Cancel", null)
-            .show()
-    }
-
-    private fun confirmSetAsDefault(position: Int) {
-        val mailbox = viewModel.mailboxes[position]
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Please confirm")
-            .setMessage("Make \"${mailbox.email}\" default mailbox?")
-            .setPositiveButton("Confirm") { _, _ ->
-                setLoading(true)
-                viewModel.makeDefault(mailbox)
-            }
-            .setNegativeButton("Cancel", null)
-            .show()
     }
 
     // Toolbar.OnMenuItemClickListener

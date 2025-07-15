@@ -12,7 +12,6 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ConcatAdapter
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
@@ -23,7 +22,6 @@ import io.simplelogin.android.databinding.FragmentAliasListBinding
 import io.simplelogin.android.module.alias.search.AliasSearchMode
 import io.simplelogin.android.utils.LoadingFooterAdapter
 import io.simplelogin.android.utils.SLApiService
-import io.simplelogin.android.utils.SwipeHelper
 import io.simplelogin.android.utils.baseclass.BaseFragment
 import io.simplelogin.android.utils.enums.AliasFilterMode
 import io.simplelogin.android.utils.enums.RandomMode
@@ -244,6 +242,21 @@ class AliasListFragment :
                     )
                 )
             }
+
+            override fun onDelete(alias: Alias, onActionDone: () -> Unit) {
+                MaterialAlertDialogBuilder(requireContext())
+                    .setTitle("Delete \"${alias.email}\"?")
+                    .setMessage(R.string.warning_before_deleting_alias)
+                    .setPositiveButton("Cancel") { _, _ ->
+                        onActionDone()
+                    }
+                    .setNegativeButton("Delete") { _, _ ->
+                        setLoading(true)
+                        viewModel.deleteAlias(alias)
+                        onActionDone()
+                    }
+                    .show()
+            }
         })
         binding.recyclerView.adapter = ConcatAdapter(aliasListAdapter, footerAdapter)
         linearLayoutManager = LinearLayoutManager(context)
@@ -269,36 +282,6 @@ class AliasListFragment :
                 }
             }
         })
-
-        // Add swipe recognizer to recyclerView
-        val itemTouchHelper = ItemTouchHelper(object : SwipeHelper(binding.recyclerView) {
-            override fun instantiateUnderlayButton(position: Int): List<UnderlayButton> {
-                return listOf(
-                    UnderlayButton(
-                        requireContext(),
-                        "Delete",
-                        UnderlayButton.DEFAULT_TEXT_SIZE,
-                        android.R.color.holo_red_light,
-                        object : UnderlayButtonClickListener {
-                            override fun onClick() {
-                                val alias = viewModel.filteredAliases[position]
-                                MaterialAlertDialogBuilder(requireContext())
-                                    .setTitle("Delete \"${alias.email}\"?")
-                                    .setMessage(R.string.warning_before_deleting_alias)
-                                    .setPositiveButton("Cancel", null)
-                                    .setNegativeButton("Delete") { _, _ ->
-                                        setLoading(true)
-                                        viewModel.deleteAlias(alias)
-                                    }
-                                    .show()
-                            }
-                        }
-                    )
-                )
-            }
-        })
-
-        itemTouchHelper.attachToRecyclerView(binding.recyclerView)
 
         // Refresh capacity
         binding.swipeRefreshLayout.setOnRefreshListener { viewModel.refreshAliases() }

@@ -10,6 +10,7 @@ class ContactListAdapter(private val clickListener: ClickListener) :
     ListAdapter<Contact, ContactViewHolder>(ContactDiffCallback()) {
     interface ClickListener {
         fun onClick(contact: Contact)
+        fun onDelete(contact: Contact, onActionDone: () -> Unit)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactViewHolder =

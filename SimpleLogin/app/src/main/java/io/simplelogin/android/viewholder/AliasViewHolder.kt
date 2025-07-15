@@ -70,7 +70,14 @@ class AliasViewHolder(val binding: RecyclerItemAliasBinding) : RecyclerView.View
         binding.enabledSwitch.setOnClickListener { clickListener.onSwitch(alias, bindingAdapterPosition) }
         binding.copyButton.setOnClickListener { clickListener.onCopy(alias) }
         binding.sendEmailButton.setOnClickListener { clickListener.onSendEmail(alias) }
+        binding.deleteButton.setOnClickListener {
+            clickListener.onDelete(alias) {
+                binding.optionsLayout.close(true)
+            }
+        }
 
         binding.actionsLinearLayout.visibility = if (searchMode == AliasSearchMode.DEFAULT) View.VISIBLE else View.GONE
+
+        binding.optionsLayout.close(false)
     }
 }

@@ -67,4 +67,13 @@
     <style name="SlNavigationViewOverlay" parent="">
         <item name="android:listDivider">?attr/colorOutlineVariant</item>
     </style>
+
+    <style name="SlErrorButton" parent="Widget.Material3.Button.ElevatedButton">
+        <item name="backgroundTint">?colorErrorContainer</item>
+        <item name="android:textColor">?colorOnErrorContainer</item>
+        <item name="cornerRadius">0dp</item>
+        <item name="rippleColor">?colorControlHighlight</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+    </style>
 </resources>

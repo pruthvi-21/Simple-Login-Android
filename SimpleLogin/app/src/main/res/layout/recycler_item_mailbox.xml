@@ -3,6 +3,38 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <com.apachat.swipereveallayout.core.SwipeLayout
+        android:id="@+id/optionsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:dragEdge="right"
+        app:mode="same_level">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|end"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/defaultActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:text="Set as default"
+                app:cornerRadius="0dp"
+                tools:ignore="HardcodedText" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/deleteActionButton"
+                style="@style/SlErrorButton"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Delete"
+                tools:ignore="HardcodedText" />
+        </LinearLayout>
+
         <LinearLayout
             android:id="@+id/rootCardView"
             android:layout_width="match_parent"
@@ -14,8 +46,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|start"
                 android:orientation="vertical"
-                android:paddingVertical="15dp"
-                android:paddingHorizontal="20dp">
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="15dp">
 
                 <TextView
                     android:id="@+id/emailTextView"
@@ -23,8 +55,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/margin_4"
                     android:textAppearance="?attr/textAppearanceSubtitle2"
-                    tools:text="yautiden@gmail.com"
-                    android:textSize="15.5sp"/>
+                    android:textSize="15.5sp"
+                    tools:text="yautiden@gmail.com" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -77,13 +109,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    app:drawableStartCompat="@drawable/ic_wave_16dp"
                     android:drawablePadding="5dp"
                     android:paddingStart="5dp"
                     android:paddingTop="5dp"
                     android:paddingEnd="5dp"
                     android:textAppearance="?attr/textAppearanceCaption"
                     android:textColor="?attr/colorControlNormal"
+                    app:drawableStartCompat="@drawable/ic_wave_16dp"
                     app:drawableTint="?attr/colorControlNormal"
                     tools:text="123 aliases" />
 
@@ -94,5 +126,6 @@
                 android:layout_height="1dp"
                 android:background="?colorOutlineVariant" />
         </LinearLayout>
+    </com.apachat.swipereveallayout.core.SwipeLayout>
 
 </layout>

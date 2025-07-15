@@ -14,6 +14,7 @@ class AliasListAdapter(private val clickListener: ClickListener) :
         fun onSwitch(alias: Alias, position: Int)
         fun onCopy(alias: Alias)
         fun onSendEmail(alias: Alias)
+        fun onDelete(alias: Alias, onActionDone: () -> Unit)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AliasViewHolder = AliasViewHolder.from(parent)

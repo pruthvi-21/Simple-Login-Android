@@ -17,16 +17,13 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ConcatAdapter
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import io.simplelogin.android.R
 import io.simplelogin.android.databinding.DialogViewEditTextBinding
 import io.simplelogin.android.databinding.FragmentContactListBinding
-import io.simplelogin.android.module.home.HomeActivity
 import io.simplelogin.android.utils.LoadingFooterAdapter
-import io.simplelogin.android.utils.SwipeHelper
 import io.simplelogin.android.utils.baseclass.BaseFragment
 import io.simplelogin.android.utils.extension.applyEdgeToEdgeInsets
 import io.simplelogin.android.utils.extension.canReadContacts
@@ -200,6 +197,19 @@ class ContactListFragment :
             override fun onClick(contact: Contact) {
                 alertContactOptions(contact)
             }
+
+            override fun onDelete(contact: Contact, onActionDone: () -> Unit) {
+                MaterialAlertDialogBuilder(requireContext())
+                    .setTitle("Delete \"${contact.email}\"?")
+                    .setMessage("\uD83D\uDED1 This operation is irreversible. Please confirm.")
+                    .setPositiveButton("Cancel") { _, _ -> onActionDone() }
+                    .setNegativeButton("Delete") { _, _ ->
+                        setLoading(true)
+                        viewModel.delete(contact)
+                        onActionDone()
+                    }
+                    .show()
+            }
         })
         binding.recyclerView.adapter = ConcatAdapter(contactListAdapter, footerAdapter)
         val linearLayoutManager = LinearLayoutManager(context)
@@ -219,36 +229,6 @@ class ContactListFragment :
                 }
             }
         })
-
-        // Add swipe recognizer to recyclerView
-        val itemTouchHelper = ItemTouchHelper(object : SwipeHelper(binding.recyclerView) {
-            override fun instantiateUnderlayButton(position: Int): List<UnderlayButton> {
-                return listOf(
-                    UnderlayButton(
-                        requireContext(),
-                        "Delete",
-                        UnderlayButton.DEFAULT_TEXT_SIZE,
-                        android.R.color.holo_red_light,
-                        object : UnderlayButtonClickListener {
-                            override fun onClick() {
-                                val contact = viewModel.contacts[position]
-                                MaterialAlertDialogBuilder(requireContext())
-                                    .setTitle("Delete \"${contact.email}\"?")
-                                    .setMessage("\uD83D\uDED1 This operation is irreversible. Please confirm.")
-                                    .setPositiveButton("Cancel", null)
-                                    .setNegativeButton("Delete") { _, _ ->
-                                        setLoading(true)
-                                        viewModel.delete(contact)
-                                    }
-                                    .show()
-                            }
-                        }
-                    )
-                )
-            }
-        })
-
-        itemTouchHelper.attachToRecyclerView(binding.recyclerView)
 
         binding.swipeRefreshLayout.setOnRefreshListener {
             viewModel.refreshContacts()

@@ -14,64 +14,88 @@
         android:background="@drawable/card_shape_with_ripple"
         android:padding="@dimen/margin_4">
 
-        <LinearLayout
+        <com.apachat.swipereveallayout.core.SwipeLayout
+            android:id="@+id/optionsLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/margin_10">
+            app:dragEdge="right"
+            app:mode="same_level">
 
             <LinearLayout
-                android:id="@+id/informationLinearLayout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|start"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/emailTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin_4"
-                    android:textAppearance="?attr/textAppearanceSubtitle2"
-                    android:textSize="15.5sp"
-                    tools:text="yautiden@gmail.com" />
-
-                <TextView
-                    android:id="@+id/creationDateTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:drawablePadding="5dp"
-                    android:paddingTop="5dp"
-                    android:textAppearance="?attr/textAppearanceCaption"
-                    android:textColor="?attr/colorControlNormal"
-                    app:drawableStartCompat="@drawable/ic_clock_16dp"
-                    app:drawableTint="?attr/colorControlNormal"
-                    tools:text="Created on 6 Feb 2020 at 18:05 (1 month ago)" />
-
-                <TextView
-                    android:id="@+id/lastEmailSentTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:drawablePadding="5dp"
-                    android:paddingTop="5dp"
-                    android:textAppearance="?attr/textAppearanceCaption"
-                    android:textColor="?attr/colorControlNormal"
-                    app:drawableStartCompat="@drawable/ic_send_16dp"
-                    app:drawableTint="?attr/colorControlNormal"
-                    tools:text="Last sent on 6 Feb 2020 at 18:05 (1 month ago)" />
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/blockedEmailTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:text="⛔" />
+                android:gravity="center_vertical|end"
+                android:orientation="horizontal">
 
-        </LinearLayout>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/deleteButton"
+                    style="@style/SlErrorButton"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:text="Delete"
+                    tools:ignore="HardcodedText" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/mainContentView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/margin_10">
+
+                <LinearLayout
+                    android:id="@+id/informationLinearLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|start"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/emailTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin_4"
+                        android:textAppearance="?attr/textAppearanceSubtitle2"
+                        android:textSize="15.5sp"
+                        tools:text="yautiden@gmail.com" />
+
+                    <TextView
+                        android:id="@+id/creationDateTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:drawablePadding="5dp"
+                        android:paddingTop="5dp"
+                        android:textAppearance="?attr/textAppearanceCaption"
+                        android:textColor="?attr/colorControlNormal"
+                        app:drawableStartCompat="@drawable/ic_clock_16dp"
+                        app:drawableTint="?attr/colorControlNormal"
+                        tools:text="Created on 6 Feb 2020 at 18:05 (1 month ago)" />
+
+                    <TextView
+                        android:id="@+id/lastEmailSentTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:drawablePadding="5dp"
+                        android:paddingTop="5dp"
+                        android:textAppearance="?attr/textAppearanceCaption"
+                        android:textColor="?attr/colorControlNormal"
+                        app:drawableStartCompat="@drawable/ic_send_16dp"
+                        app:drawableTint="?attr/colorControlNormal"
+                        tools:text="Last sent on 6 Feb 2020 at 18:05 (1 month ago)" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/blockedEmailTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="⛔" />
+
+            </LinearLayout>
+        </com.apachat.swipereveallayout.core.SwipeLayout>
 
     </RelativeLayout>
 

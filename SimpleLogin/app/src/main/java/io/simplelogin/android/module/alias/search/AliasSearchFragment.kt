@@ -10,7 +10,6 @@ import androidx.activity.addCallback
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -18,7 +17,6 @@ import io.simplelogin.android.R
 import io.simplelogin.android.databinding.FragmentAliasSearchBinding
 import io.simplelogin.android.module.alias.AliasListAdapter
 import io.simplelogin.android.module.alias.AliasListViewModel
-import io.simplelogin.android.utils.SwipeHelper
 import io.simplelogin.android.utils.baseclass.BaseFragment
 import io.simplelogin.android.utils.extension.applyEdgeToEdgeInsets
 import io.simplelogin.android.utils.extension.copyToClipboard
@@ -44,7 +42,7 @@ class AliasSearchFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         binding = FragmentAliasSearchBinding.inflate(inflater)
         binding.toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
@@ -174,6 +172,7 @@ class AliasSearchFragment : BaseFragment() {
                                     alias
                                 )
                             )
+
                         AliasSearchMode.CONTACT_CREATION -> {
                             aliasListViewModel.setMailFromAlias(alias)
                             findNavController().popBackStack(R.id.aliasListFragment, false)
@@ -199,6 +198,19 @@ class AliasSearchFragment : BaseFragment() {
                         )
                     )
                 }
+
+                override fun onDelete(alias: Alias, onActionDone: () -> Unit) {
+                    MaterialAlertDialogBuilder(requireContext())
+                        .setTitle("Delete \"${alias.email}\"?")
+                        .setMessage(R.string.warning_before_deleting_alias)
+                        .setPositiveButton("Cancel") { _, _ -> onActionDone() }
+                        .setNegativeButton("Delete") { _, _ ->
+                            setLoading(true)
+                            viewModel.deleteAlias(alias)
+                            onActionDone()
+                        }
+                        .show()
+                }
             }
         )
 
@@ -210,7 +222,7 @@ class AliasSearchFragment : BaseFragment() {
             override fun onScrolled(
                 recyclerView: RecyclerView,
                 dx: Int,
-                dy: Int
+                dy: Int,
             ) {
                 activity?.dismissKeyboard()
                 val isPenultimateItem =
@@ -220,36 +232,6 @@ class AliasSearchFragment : BaseFragment() {
                 }
             }
         })
-
-        // Add swipe recognizer to recyclerView
-        val itemTouchHelper = ItemTouchHelper(object : SwipeHelper(binding.recyclerView) {
-            override fun instantiateUnderlayButton(position: Int): List<UnderlayButton> {
-                return listOf(
-                    UnderlayButton(
-                        requireContext(),
-                        "Delete",
-                        UnderlayButton.DEFAULT_TEXT_SIZE,
-                        android.R.color.holo_red_light,
-                        object : UnderlayButtonClickListener {
-                            override fun onClick() {
-                                val alias = viewModel.aliases[position]
-                                MaterialAlertDialogBuilder(requireContext())
-                                    .setTitle("Delete \"${alias.email}\"?")
-                                    .setMessage(R.string.warning_before_deleting_alias)
-                                    .setPositiveButton("Cancel", null)
-                                    .setNegativeButton("Delete") { _, _ ->
-                                        setLoading(true)
-                                        viewModel.deleteAlias(alias)
-                                    }
-                                    .show()
-                            }
-                        }
-                    )
-                )
-            }
-        })
-
-        itemTouchHelper.attachToRecyclerView(binding.recyclerView)
     }
 
     private fun setLoading(loading: Boolean) {
