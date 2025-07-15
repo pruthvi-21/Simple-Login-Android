@@ -91,9 +91,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|end"
                     android:layout_margin="24dp"
-                    android:backgroundTint="?colorPrimary"
                     app:srcCompat="@drawable/ic_arrow_upward_24dp"
-                    app:tint="@color/colorWhite"
                     tools:ignore="ContentDescription" />
 
             </androidx.coordinatorlayout.widget.CoordinatorLayout>
